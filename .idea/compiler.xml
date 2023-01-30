@@ -9,5 +9,9 @@
         <module name="MealsApp" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="G.E.3" target="17" />
+      <module name="MealsApp" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

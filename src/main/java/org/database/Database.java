@@ -1,10 +1,10 @@
-package org.example;
+package org.database;
 
 import java.sql.*;
-public class Main {
-    public static void main(String[] args) {
+public class Database {
+    public void maladies() {
         //createTable();
-        //insMeal(1,"fakes","ospria","athina","malakies");
+        //insMeal(1,"fakes","ospria","athina","maladies");
         //insMeal(2,"fakes","ospria","athina","malakies");
         //insMeal(3,"fakes","ospria","athina","malakies");
         selectAll();

@@ -1,12 +1,12 @@
 ----------------------------------------------------------------
-Mon Jan 30 21:18:24 EET 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0186-041d-c293-0000057799a0 
-on database directory C:\Users\moutp\Desktop\java\Project\MealsApp\mealsdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@1d44bcfa 
-Loaded from file:/C:/Users/moutp/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
+Mon Jan 30 22:31:48 EET 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0186-0460-f30c-00000e8a7008 
+on database directory C:\Users\glaro\Documents\Inteliij Projects\G.E.3\mealsdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@4d7e1886 
+Loaded from file:/C:/Users/glaro/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
-java.runtime.version=17.0.4.1+1-LTS-2
-user.dir=C:\Users\moutp\Desktop\java\Project\MealsApp
-os.name=Windows 10
+java.runtime.version=19.0.1+10-21
+user.dir=C:\Users\glaro\Documents\Inteliij Projects\G.E.3
+os.name=Windows 11
 os.arch=amd64
 os.version=10.0
 derby.system.home=null
