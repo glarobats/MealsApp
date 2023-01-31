@@ -5,7 +5,7 @@ public class Main {
         mealAppApi mealAppApi = new mealAppApi();
         start.JFrameMain();
         Database db = new Database();
-        db.maladies();
+        db.malakies();
         
         //mealAppApi.getCategoryMeal();
         //mealAppApi.searchByName("Chicken");

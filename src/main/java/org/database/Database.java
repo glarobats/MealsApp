@@ -2,7 +2,7 @@ package org.database;
 
 import java.sql.*;
 public class Database {
-    public void maladies() {
+    public void malakies() {
         //createTable();
         //insMeal(1,"fakes","ospria","athina","maladies");
         //insMeal(2,"fakes","ospria","athina","malakies");
@@ -10,7 +10,7 @@ public class Database {
         selectAll();
     }
 
-    private static Connection connenct(){
+    private static Connection connect(){
         String connectionString = "jdbc:derby:mealsdb;create=true";
         Connection connection = null;
         try{
@@ -22,14 +22,14 @@ public class Database {
     }
     private static void createTable(){
         try{
-            Connection connection = connenct();
+            Connection connection = connect();
             Statement statement = connection.createStatement();
             String createSQL = "CREATE TABLE CENTRAL" +
                     "(ID INTEGER NOT NULL PRIMARY KEY," +
-                    "STRNAME VARCHAR(20)," +
-                    "STRCATEGORY VARCHAR(20)," +
-                    "STRAREA VARCHAR(20)," +
-                    "STRINSTRUCTION VARCHAR(250))";
+                    "Όνομα VARCHAR(20)," +
+                    "Κατηγορία VARCHAR(20)," +
+                    "Περιοχή VARCHAR(20)," +
+                    "Οδηγίες VARCHAR(250))";
             statement.executeUpdate(createSQL);
             statement.close();
             connection.close();
@@ -39,12 +39,12 @@ public class Database {
     }
     private static void selectAll(){
         try{
-            Connection connection = connenct();
-            Statement statement = connenct().createStatement();
+            Connection connection = connect();
+            Statement statement = connect().createStatement();
             String selectSQL = "Select * from CENTRAL";
             ResultSet rs = statement.executeQuery(selectSQL);
             while(rs.next()){
-                System.out.println(rs.getInt("ID")+","+rs.getString("STRNAME")+","+rs.getString("STRCATEGORY")+","+rs.getString("STRAREA")+","+rs.getString("STRINSTRUCTION"));
+                System.out.println(rs.getInt("ID")+","+rs.getString("Όνομα")+","+rs.getString("Κατηγορία")+","+rs.getString("Περιοχή")+","+rs.getString("Οδηγίες"));
             }
             statement.close();
             connection.close();
@@ -56,7 +56,7 @@ public class Database {
 
     private static void insMeal(int id,String name, String category,String area, String instruction){
         try{
-            Connection connection = connenct();
+            Connection connection = connect();
             String insSQL = "Insert into CENTRAL values(?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insSQL);
             preparedStatement.setInt(1, id);
@@ -73,6 +73,19 @@ public class Database {
             preparedStatement.close();
             connection.close();
         }catch (SQLException throwables){
+            System.out.println(throwables.getLocalizedMessage());
+        }
+    }
+
+    private static void deleteRow(int id) {
+        try {
+            Connection connection = connect();
+            Statement statement = connection.createStatement();
+            String deleteSQL = "DELETE FROM CENTRAL WHERE ID = " + id;
+            statement.executeUpdate(deleteSQL);
+            statement.close();
+            connection.close();
+        } catch (SQLException throwables) {
             System.out.println(throwables.getLocalizedMessage());
         }
     }
