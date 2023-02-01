@@ -3,11 +3,12 @@ package org.database;
 import java.sql.*;
 public class Database {
     public void malakies() {
-        //createTable();
+        createTable();
         //insMeal(1,"fakes","ospria","athina","maladies");
         //insMeal(2,"fakes","ospria","athina","malakies");
         //insMeal(3,"fakes","ospria","athina","malakies");
-        selectAll();
+        //selectAll();
+        //deleteTable();
     }
 
     private static Connection connect(){
@@ -37,6 +38,20 @@ public class Database {
             System.out.println(throwables.getLocalizedMessage());
         }
     }
+
+    private static void deleteTable(){
+        try{
+            Connection connection = connect();
+            Statement statement = connection.createStatement();
+            String deleteSQL = "DROP TABLE CENTRAL";
+            statement.executeUpdate(deleteSQL);
+            statement.close();
+            connection.close();
+        } catch (SQLException throwables){
+            System.out.println(throwables.getLocalizedMessage());
+        }
+    }
+
     private static void selectAll(){
         try{
             Connection connection = connect();
