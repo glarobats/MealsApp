@@ -3,12 +3,12 @@ package org.database;
 import java.sql.*;
 public class Database {
     public void malakies() {
-        createTable();
-        //insMeal(1,"fakes","ospria","athina","maladies");
+        createTables();
+        //insMeal(1,"fakes",1,"athina","maladies");
         //insMeal(2,"fakes","ospria","athina","malakies");
         //insMeal(3,"fakes","ospria","athina","malakies");
         //selectAll();
-        //deleteTable();
+        //deleteTables();
     }
 
     private static Connection connect(){
@@ -21,17 +21,29 @@ public class Database {
         }
         return connection;
     }
-    private static void createTable(){
+    private static void createTables(){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
+            //Δημιουργία κεντρικού πίνακα
             String createSQL = "CREATE TABLE CENTRAL" +
                     "(ID INTEGER NOT NULL PRIMARY KEY," +
                     "Όνομα VARCHAR(20)," +
-                    "Κατηγορία VARCHAR(20)," +
+                    "Κατηγορία INTEGER NOT NULL," +
                     "Περιοχή VARCHAR(20)," +
                     "Οδηγίες VARCHAR(250))";
             statement.executeUpdate(createSQL);
+
+            //Δημιουργία του πίνακα κατηγορία
+            String createCategorySQL = "CREATE TABLE CATEGORY" +
+                    "(IDCATEGORY INTEGER NOT NULL PRIMARY KEY," +
+                    "Κατηγορία VARCHAR(20))";
+            statement.executeUpdate(createCategorySQL);
+
+            //σύνδεση κλειδιού πίνακα κατηγορία με τον κεντρικό πίνακα
+            String addForeignKeySQL = "ALTER TABLE CENTRAL" +
+                    "ADD FOREIGN KEY (Κατηγορία) REFERENCES CATEGORY(IDCATEGORY)";
+            statement.executeUpdate(addForeignKeySQL);
             statement.close();
             connection.close();
         }catch (SQLException throwables){
@@ -39,12 +51,15 @@ public class Database {
         }
     }
 
-    private static void deleteTable(){
+    private static void deleteTables(){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
-            String deleteSQL = "DROP TABLE CENTRAL";
+            String deleteSQL = "DROP TABLE CENTRAL" ;
+            String deleteCategorySQL = "DROP TABLE CATEGORY";
             statement.executeUpdate(deleteSQL);
+            statement.executeUpdate(deleteCategorySQL);
+            System.out.println("Οι πίνακες διαγράφηκαν με επιτυχία!");
             statement.close();
             connection.close();
         } catch (SQLException throwables){
@@ -69,14 +84,14 @@ public class Database {
         }
     }
 
-    private static void insMeal(int id,String name, String category,String area, String instruction){
+    private static void insMeal(int id,String name, int category,String area, String instruction){
         try{
             Connection connection = connect();
-            String insSQL = "Insert into CENTRAL values(?,?,?,?,?)";
+            String insSQL = "Insert into CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) values (?,?,(SELECT Κατηγορία FROM CATEGORY WHERE IDCATEGORY = ?),?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insSQL);
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2,name);
-            preparedStatement.setString(3,category);
+            preparedStatement.setInt(3,category);
             preparedStatement.setString(4,area);
             preparedStatement.setString(5, instruction);
             int count = preparedStatement.executeUpdate();

@@ -65,7 +65,6 @@ public class mealAppApi {
                             JSONObject meal = mealsArray.getJSONObject(i);
                             String strCategory = meal.getString("strCategory");
                             System.out.println("- " + strCategory);
-
                         }
                         System.out.println("\n");
                     } catch (JSONException e) {
