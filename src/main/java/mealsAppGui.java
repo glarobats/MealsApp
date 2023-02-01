@@ -27,7 +27,7 @@ public class mealsAppGui {
             public void actionPerformed(ActionEvent e) {
                 mealAppApi meal = new mealAppApi();
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
-                meal.searchByName(searchTerm);
+                meal.searchByName(searchTerm, centerTextfield);
             }
         });
         button2.addActionListener(new ActionListener() {
