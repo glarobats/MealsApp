@@ -106,7 +106,7 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="1347" class="javax.swing.JTextField" binding="centerTextfield">
+          <component id="63c90" class="javax.swing.JTextArea" binding="centerTextfield">
             <constraints border-constraint="Center"/>
             <properties/>
           </component>

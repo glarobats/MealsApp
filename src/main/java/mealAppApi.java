@@ -4,13 +4,13 @@ import com.github.tsohr.JSONObject;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-
+import javax.swing.*;
 
 import java.io.IOException;
 
 public class mealAppApi {
 
-    public void searchByName(String name, JTextField centerTextfield) {
+    public void searchByName(String name, JTextArea centerTextfield) {
         Call call = mealClient.get(name);
         call.enqueue(new Callback() {
 

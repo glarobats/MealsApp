@@ -12,12 +12,12 @@ public class mealsAppGui {
     private JButton EDITButton;
     private JButton DELETEButton;
     private JButton SEARCHButton;
-    private JTextField centerTextfield;
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JPanel leftPanel;
     private JPanel rightPanel;
     private JPanel centerPanel;
+    private JTextArea centerTextfield;
 
 
     public mealsAppGui() {
