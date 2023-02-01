@@ -7,8 +7,8 @@ public class Main {
         db.malakies();
 
 
-        //mealAppApi mealAppApi = new mealAppApi();
-        //mealAppApi.getCategoryMeal();
+        mealAppApi mealAppApi = new mealAppApi();
+        mealAppApi.getCategoryMeal();
         //mealAppApi.searchByName("Chicken");
         //mealAppApi.getMealsByCategory("Seafood");
         
