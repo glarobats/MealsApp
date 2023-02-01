@@ -25,7 +25,9 @@ public class mealsAppGui {
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                mealAppApi meal = new mealAppApi();
+                String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
+                meal.searchByName(searchTerm);
             }
         });
         button2.addActionListener(new ActionListener() {
@@ -64,9 +66,7 @@ public class mealsAppGui {
         SEARCHButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mealAppApi meal = new mealAppApi();
-                String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
-                meal.searchByName(searchTerm);
+
             }
         });
 
