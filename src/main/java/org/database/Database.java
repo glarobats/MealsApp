@@ -87,7 +87,7 @@ public class Database {
     private static void insMeal(int id,String name, int category,String area, String instruction){
         try{
             Connection connection = connect();
-            String insSQL = "Insert into CENTRAL values(?,?,?,?,?)";
+            String insSQL = "Insert into CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) values (?,?,(SELECT Κατηγορία FROM CATEGORY WHERE ID = ?),?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insSQL);
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2,name);
@@ -101,18 +101,6 @@ public class Database {
                 System.out.println("Ανεπιτυχείς ενημέρωση δεδομένων");
             }
             preparedStatement.close();
-
-            // επιλογή κατηγορίας
-            String selectSQL = "SELECT Κατηγορία FROM CENTRAL WHERE ID = ?";
-            preparedStatement = connection.prepareStatement(selectSQL);
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                System.out.println("Κατηγορία: " + resultSet.getString("Κατηγορία"));
-            } else {
-                System.out.println("Δεν υπάρχει διαθέσιμη τέτοια κατηγορία " + id);
-            }
-            resultSet.close();
             connection.close();
         }catch (SQLException throwables){
             System.out.println(throwables.getLocalizedMessage());
