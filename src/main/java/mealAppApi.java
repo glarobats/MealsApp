@@ -10,7 +10,7 @@ import java.io.IOException;
 
 public class mealAppApi {
 
-    public void searchByName(String name) {
+    public void searchByName(String name, JTextField centerTextfield) {
         Call call = mealClient.get(name);
         call.enqueue(new Callback() {
 
@@ -23,7 +23,7 @@ public class mealAppApi {
             public void onResponse(Call call, Response response) throws IOException {
                 String responseString = response.body().string();
                 if (responseString == null || responseString.equals("{\"meals\":null}")) {
-                    System.out.println("Meal not available\n");
+                    centerTextfield.setText("Meal not available\n");
                 } else {
                     try {
                         JSONObject json = new JSONObject(responseString);
@@ -34,8 +34,9 @@ public class mealAppApi {
                         String area = meal.getString("strArea");
                         String instructions = meal.getString("strInstructions");
 
-                        System.out.println("Name: " + name + "\nCategory: " + category + "\nArea: " + area + "\nInstructions: " + instructions);
-                        System.out.println("\n");
+                        String result = "Name: " + name + "\nCategory: " + category + "\nArea: " + area + "\nInstructions: " + instructions;
+                        centerTextfield.setText(result);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
