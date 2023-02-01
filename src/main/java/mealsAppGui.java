@@ -92,5 +92,8 @@ public class mealsAppGui {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
+        frame.setTitle("MealsApp");
+        ImageIcon image = new ImageIcon("logo.png");
+        frame.setIconImage(image.getImage());
     }
 }
