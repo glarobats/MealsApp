@@ -12,7 +12,7 @@ public class mealsAppGui {
     private JButton EDITButton;
     private JButton DELETEButton;
     private JButton SEARCHButton;
-    private JTextField textField1;
+    private JTextField centerTextfield;
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JPanel leftPanel;
@@ -60,12 +60,16 @@ public class mealsAppGui {
 
             }
         });
+       
         SEARCHButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                mealAppApi meal = new mealAppApi();
+                String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
+                meal.searchByName(searchTerm);
             }
         });
+
         DELETEButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
