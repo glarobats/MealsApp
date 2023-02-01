@@ -108,7 +108,10 @@
         <children>
           <component id="63c90" class="javax.swing.JTextArea" binding="centerTextfield">
             <constraints border-constraint="Center"/>
-            <properties/>
+            <properties>
+              <font name="Consolas" size="16" style="0"/>
+              <wrapStyleWord value="false"/>
+            </properties>
           </component>
         </children>
       </grid>
