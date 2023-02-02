@@ -8,18 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import java.io.IOException;
 import java.util.*;
 public class popUpListTree extends JFrame {
-
-
-    //singleton pattern for popUp window
-    private static popUpListTree instance;
-    public static popUpListTree getInstance() {
-        if (instance == null) {
-            instance = new popUpListTree();
-        }
-        return instance;
-    }
-
-    public void popUpWindow() {
+    private popUpListTree() {
         final String API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?f=";
         final Gson GSON = new Gson();
 
@@ -39,13 +28,13 @@ public class popUpListTree extends JFrame {
                 // store the meals by category
                 if (mealResponse.getMeals() != null && !mealResponse.getMeals().isEmpty()) {
 
-                for (Meal meal : mealResponse.getMeals()) {
-                    String category = meal.getStrCategory();
-                    List<Meal> meals = categories.getOrDefault(category, new ArrayList<>());
-                    meals.add(meal);
-                    categories.put(category, meals);
-                    System.out.println();
-                }
+                    for (Meal meal : mealResponse.getMeals()) {
+                        String category = meal.getStrCategory();
+                        List<Meal> meals = categories.getOrDefault(category, new ArrayList<>());
+                        meals.add(meal);
+                        categories.put(category, meals);
+                        System.out.println();
+                    }
                 }
             } catch (IOException e) {
                 System.out.println("Error making API request: " + e.getMessage());
@@ -75,7 +64,22 @@ public class popUpListTree extends JFrame {
 
     }
 
+    //singleton pattern for popUp window and double locked idiom
+    private static volatile popUpListTree instance;
+    public static popUpListTree getInstance() {
+        popUpListTree result = instance;
+        if (instance == null) {
+            synchronized (popUpListTree.class) {
+                result = instance;
+                if (instance == null) {
+                    instance = new popUpListTree();
+                }
+            }
+        }
+        return instance;
+    }
 
+    public void popUpWindow() {}
 }
 
 class MealResponse {
@@ -109,9 +113,3 @@ class Meal {
         this.strCategory = strCategory;
     }
 }
-/*JTree tree = new JTree(roots.toArray(new DefaultMutableTreeNode[0]));
-                add(tree);
-                setSize(250, 600);
-                setLocation(1155,108);
-                setVisible(true);
-                tree.setShowsRootHandles(true);*/
