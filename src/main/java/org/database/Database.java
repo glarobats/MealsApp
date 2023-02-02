@@ -3,10 +3,10 @@ package org.database;
 import java.sql.*;
 public class Database {
     public void malakies() {
-        createTables();
-        insMeal(1,"fakes","ospria","athina","maladies");
-        insMeal(2,"fakes","ospria","athina","malakies");
-        insMeal(3,"fakes","ospria","athina","malakies");
+        //createTables();
+        //insMeal(1,"fakes","ospria","athina","maladies");
+        //insMeal(2,"fakes","ospria","athina","malakies");
+        //insMeal(3,"fakes","ospria","athina","malakies");
         //selectAll();
         //deleteTables();
         //deleteRow(1);
@@ -68,7 +68,7 @@ public class Database {
         }
     }
 
-    private static void selectAll(){
+    public static void selectAll(){
         try{
             Connection connection = connect();
             Statement statement = connect().createStatement();
@@ -85,7 +85,24 @@ public class Database {
         }
     }
 
-    private static void insMeal(int id,String name, String category,String area, String instruction){
+    public static void selectByName(String name){
+        try{
+            Connection connection = connect();
+            Statement statement = connect().createStatement();
+            String selectSQL = "Select * from CENTRAL WHERE Όνομα='" + name + "'";
+            ResultSet rs = statement.executeQuery(selectSQL);
+            while(rs.next()){
+                System.out.println(rs.getInt("ID")+","+rs.getString("Όνομα")+","+rs.getString("Κατηγορία")+","+rs.getString("Περιοχή")+","+rs.getString("Οδηγίες"));
+            }
+            statement.close();
+            connection.close();
+            System.out.println("Done");
+        }catch (SQLException throwables){
+            System.out.println(throwables.getLocalizedMessage());
+        }
+    }
+
+    public static void insMeal(int id,String name, String category,String area, String instruction){
         try{
             Connection connection = connect();
             String insSQL = "Insert into CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) values (?,?,?,?,?)";
