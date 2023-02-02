@@ -34,8 +34,10 @@ public class mealAppApi {
                         String area = meal.getString("strArea");
                         String instructions = meal.getString("strInstructions");
 
-                        String result = "Name: " + name + "\n\nCategory: " + category + "\n\nArea: " + area + "\n\nInstructions: " + instructions;
+                        String result = "Name: " + name + "\n\nCategory: " + category + "\n\nArea: " + area + "\n\n\nInstructions: \n\n" + instructions;
                         centerTextfield.setText(result);
+                        centerTextfield.setLineWrap(true);
+                        centerTextfield.setWrapStyleWord(true);
 
                     } catch (JSONException e) {
                         e.printStackTrace();
