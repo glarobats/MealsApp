@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class mealsAppGui {
     private JPanel mainPanel;
@@ -41,6 +42,7 @@ public class mealsAppGui {
             public void actionPerformed(ActionEvent e) {
                 popUpListTree popUp = popUpListTree.getInstance();
                 popUp.popUpWindow();
+
             }
         });
         button3.addActionListener(new ActionListener() {
