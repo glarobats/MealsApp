@@ -18,6 +18,7 @@ public class mealsAppGui {
     private JPanel rightPanel;
     private JPanel centerPanel;
     private JTextArea centerTextfield;
+    private JButton EXITButton;
 
 
     public mealsAppGui() {
@@ -30,10 +31,13 @@ public class mealsAppGui {
                 meal.searchByName(searchTerm, centerTextfield);
             }
         });
+
+
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                popUpListTree popUp = popUpListTree.getInstance();
+                popUp.popUpWindow();
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -43,17 +47,7 @@ public class mealsAppGui {
             }
         });
 
-        button4.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (e.getSource() == button4) {
-                    int result = JOptionPane.showConfirmDialog(null,
-                            "Είσαι σίγουρος οτι θέλεις να κάνεις έξοδο?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-                    if (result == JOptionPane.YES_NO_OPTION)
-                        System.exit(0);
-                }
-            }
-        });
+
 
         //bottom buttons listeners
         SAVEButton.addActionListener(new ActionListener() {
@@ -82,11 +76,22 @@ public class mealsAppGui {
 
             }
         });
+        EXITButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (e.getSource() == EXITButton) {
+                    int result = JOptionPane.showConfirmDialog(null,
+                            "Είσαι σίγουρος οτι θέλεις να κάνεις έξοδο?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+                    if (result == JOptionPane.YES_NO_OPTION)
+                        System.exit(0);
+                }
+            }
+        });
     }
 
     public void JFrameMain (){
         JFrame frame = new JFrame("MainGui");
-        frame.setSize(1280,800);
+        frame.setSize(800,600);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(new mealsAppGui().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
