@@ -3,12 +3,13 @@ package org.database;
 import java.sql.*;
 public class Database {
     public void malakies() {
-        createTables();
-        //insMeal(1,"fakes",1,"athina","maladies");
+        //createTables();
+        //insMeal(1,"fakes","ospria","athina","maladies");
         //insMeal(2,"fakes","ospria","athina","malakies");
         //insMeal(3,"fakes","ospria","athina","malakies");
         //selectAll();
         //deleteTables();
+        //deleteRow(1);
     }
 
     private static Connection connect(){
@@ -29,11 +30,11 @@ public class Database {
             String createSQL = "CREATE TABLE CENTRAL" +
                     "(ID INTEGER NOT NULL PRIMARY KEY," +
                     "Όνομα VARCHAR(20)," +
-                    "Κατηγορία INTEGER NOT NULL," +
+                    "Κατηγορία VARCHAR(20)," +
                     "Περιοχή VARCHAR(20)," +
-                    "Οδηγίες VARCHAR(250))";
+                    "Οδηγίες VARCHAR(1000))";
             statement.executeUpdate(createSQL);
-
+            /*
             //Δημιουργία του πίνακα κατηγορία
             String createCategorySQL = "CREATE TABLE CATEGORY" +
                     "(IDCATEGORY INTEGER NOT NULL PRIMARY KEY," +
@@ -43,7 +44,7 @@ public class Database {
             //σύνδεση κλειδιού πίνακα κατηγορία με τον κεντρικό πίνακα
             String addForeignKeySQL = "ALTER TABLE CENTRAL" +
                     "ADD FOREIGN KEY (Κατηγορία) REFERENCES CATEGORY(IDCATEGORY)";
-            statement.executeUpdate(addForeignKeySQL);
+            statement.executeUpdate(addForeignKeySQL); */
             statement.close();
             connection.close();
         }catch (SQLException throwables){
@@ -56,9 +57,9 @@ public class Database {
             Connection connection = connect();
             Statement statement = connection.createStatement();
             String deleteSQL = "DROP TABLE CENTRAL" ;
-            String deleteCategorySQL = "DROP TABLE CATEGORY";
+            //String deleteCategorySQL = "DROP TABLE CATEGORY";
             statement.executeUpdate(deleteSQL);
-            statement.executeUpdate(deleteCategorySQL);
+            //statement.executeUpdate(deleteCategorySQL);
             System.out.println("Οι πίνακες διαγράφηκαν με επιτυχία!");
             statement.close();
             connection.close();
@@ -67,7 +68,7 @@ public class Database {
         }
     }
 
-    private static void selectAll(){
+    public static void selectAll(){
         try{
             Connection connection = connect();
             Statement statement = connect().createStatement();
@@ -84,14 +85,31 @@ public class Database {
         }
     }
 
-    private static void insMeal(int id,String name, int category,String area, String instruction){
+    public static void selectByName(String name){
         try{
             Connection connection = connect();
-            String insSQL = "Insert into CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) values (?,?,(SELECT Κατηγορία FROM CATEGORY WHERE IDCATEGORY = ?),?,?)";
+            Statement statement = connect().createStatement();
+            String selectSQL = "Select * from CENTRAL WHERE Όνομα='" + name + "'";
+            ResultSet rs = statement.executeQuery(selectSQL);
+            while(rs.next()){
+                System.out.println(rs.getInt("ID")+","+rs.getString("Όνομα")+","+rs.getString("Κατηγορία")+","+rs.getString("Περιοχή")+","+rs.getString("Οδηγίες"));
+            }
+            statement.close();
+            connection.close();
+            System.out.println("Done");
+        }catch (SQLException throwables){
+            System.out.println(throwables.getLocalizedMessage());
+        }
+    }
+
+    public static void insMeal(int id,String name, String category,String area, String instruction){
+        try{
+            Connection connection = connect();
+            String insSQL = "Insert into CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) values (?,?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insSQL);
             preparedStatement.setInt(1, id);
             preparedStatement.setString(2,name);
-            preparedStatement.setInt(3,category);
+            preparedStatement.setString(3,category);
             preparedStatement.setString(4,area);
             preparedStatement.setString(5, instruction);
             int count = preparedStatement.executeUpdate();

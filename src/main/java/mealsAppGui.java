@@ -1,4 +1,7 @@
+import org.database.Database;
+
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -53,14 +56,46 @@ public class mealsAppGui {
         SAVEButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanel inputPane = new JPanel();
+                inputPane.setLayout(new GridLayout(5, 2));
 
+                JTextField idField = new JTextField();
+                JTextField nameField = new JTextField();
+                JTextField categoryField = new JTextField();
+                JTextField areaField = new JTextField();
+                JTextField instructionsField = new JTextField();
+
+                inputPane.add(new JLabel("ID:"));
+                inputPane.add(idField);
+                inputPane.add(new JLabel("Name:"));
+                inputPane.add(nameField);
+                inputPane.add(new JLabel("Category:"));
+                inputPane.add(categoryField);
+                inputPane.add(new JLabel("Area:"));
+                inputPane.add(areaField);
+                inputPane.add(new JLabel("Instructions:"));
+                inputPane.add(instructionsField);
+
+                int result = JOptionPane.showConfirmDialog(null, inputPane, "Νέα εγγραφή", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+                if (result == JOptionPane.OK_OPTION) {
+                    int id = Integer.parseInt(idField.getText());
+                    String name = nameField.getText();
+                    String category = categoryField.getText();
+                    String area = areaField.getText();
+                    String instructions = instructionsField.getText();
+
+                    Database database = new Database();
+                    database.insMeal(id, name, category, area, instructions);
+                }
             }
         });
        
         SEARCHButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                String name = JOptionPane.showInputDialog(null, "Enter name to search:");
+                Database.selectByName(name);
             }
         });
 
