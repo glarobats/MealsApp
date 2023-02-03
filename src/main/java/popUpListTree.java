@@ -14,7 +14,7 @@ public class popUpListTree extends JFrame {
 
         OkHttpClient client = new OkHttpClient();
 
-        Map<String, List<Meal>> categories = new HashMap<>();
+        Map<String, List<getMealsFromApi>> categories = new HashMap<>();
 
         // make requests for each letter of the alphabet
         for (char letter = 'a'; letter <= 'z'; letter++) {
@@ -28,9 +28,9 @@ public class popUpListTree extends JFrame {
                 // store the meals by category
                 if (mealResponse.getMeals() != null && !mealResponse.getMeals().isEmpty()) {
 
-                    for (Meal meal : mealResponse.getMeals()) {
+                    for (getMealsFromApi meal : mealResponse.getMeals()) {
                         String category = meal.getStrCategory();
-                        List<Meal> meals = categories.getOrDefault(category, new ArrayList<>());
+                        List<getMealsFromApi> meals = categories.getOrDefault(category, new ArrayList<>());
                         meals.add(meal);
                         categories.put(category, meals);
                         System.out.println();
@@ -43,10 +43,10 @@ public class popUpListTree extends JFrame {
 
         // create a JTree with the categories and meals
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categories");
-        for (Map.Entry<String, List<Meal>> entry : categories.entrySet()) {
+        for (Map.Entry<String, List<getMealsFromApi>> entry : categories.entrySet()) {
             DefaultMutableTreeNode categoryNode = new DefaultMutableTreeNode(entry.getKey());
             root.add(categoryNode);
-            for (Meal meal : entry.getValue()) {
+            for (getMealsFromApi meal : entry.getValue()) {
                 DefaultMutableTreeNode mealNode = new DefaultMutableTreeNode(meal.getStrMeal());
                 categoryNode.add(mealNode);
             }
@@ -83,18 +83,19 @@ public class popUpListTree extends JFrame {
 }
 
 class MealResponse {
-    private List<Meal> meals;
+    private List<getMealsFromApi> meals;
 
-    public List<Meal> getMeals() {
+    public List<getMealsFromApi> getMeals() {
         return meals;
     }
 
-    public void setMeals(List<Meal> meals) {
+    public void setMeals(List<getMealsFromApi> meals) {
         this.meals = meals;
     }
 }
 
-class Meal {
+class getMealsFromApi {
+
     private String strMeal;
     private String strCategory;
 
