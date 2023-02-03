@@ -5,10 +5,12 @@ import okhttp3.Response;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.*;
 public class popUpListTree extends JFrame {
-    private popUpListTree() {
+    public popUpListTree() {
         final String API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?f=";
         final Gson GSON = new Gson();
 
@@ -33,7 +35,6 @@ public class popUpListTree extends JFrame {
                         List<getMealsFromApi> meals = categories.getOrDefault(category, new ArrayList<>());
                         meals.add(meal);
                         categories.put(category, meals);
-                        System.out.println();
                     }
                 }
             } catch (IOException e) {
@@ -51,35 +52,51 @@ public class popUpListTree extends JFrame {
                 categoryNode.add(mealNode);
             }
         }
-        JTree tree = new JTree(root);
+            JTree tree = new JTree(root);
 
-        // create a popup window to display the JTree
-        JFrame frame = new JFrame("Meals");
-        frame.add(new JScrollPane(tree));
-        frame.setSize(250, 600);
-        frame.setLocation(1155,108);
-        frame.setVisible(true);
-        frame.setAlwaysOnTop(true);
+            // create a popup window to display the JTree
+            JFrame frame = new JFrame("Meals");
+            frame.add(new JScrollPane(tree));
+            frame.setSize(250, 600);
+            frame.setLocation(1155,108);
+            frame.setVisible(true);
+            frame.setAlwaysOnTop(true);
+
+            //έλεγχος εαν το popUpWindow είναι ανοιχτό
+            frame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    closePopUpWindow();
+                }
+            });
 
 
     }
 
-    //singleton pattern for popUp window and double locked idiom
-    private static volatile popUpListTree instance;
+    //singleton pattern for popUp window
+    private static popUpListTree instance;
+    private static boolean isOpen = false;
+
     public static popUpListTree getInstance() {
-        popUpListTree result = instance;
-        if (instance == null) {
-            synchronized (popUpListTree.class) {
-                result = instance;
-                if (instance == null) {
-                    instance = new popUpListTree();
-                }
-            }
+        if (instance == null || !isOpen) {
+            instance = new popUpListTree();
+            isOpen = true;
         }
         return instance;
     }
 
-    public void popUpWindow() {}
+    public void popUpWindow() {
+        isOpen = true;
+    }
+
+    public void closePopUpWindow() {
+        isOpen = false;
+    }
+
+
+    //-------------------------//
+
+  //  public void popUpWindow() {}
 }
 
 class MealResponse {

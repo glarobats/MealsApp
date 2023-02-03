@@ -61,6 +61,11 @@ public class mealsAppGui {
             public void actionPerformed(ActionEvent e) {
                 popUpListTree obj = popUpListTree.getInstance();
                 obj.popUpWindow();
+
+
+
+            //    popUpListTree pop = new popUpListTree();
+            //    pop.popUpWindow();
             }
         });
         button3.addActionListener(new ActionListener() {
