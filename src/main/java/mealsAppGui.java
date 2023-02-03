@@ -34,12 +34,22 @@ public class mealsAppGui {
                 Meal meal = mealApi.searchByName(searchTerm);
 
                 if (meal != null) {
-                    String message = "Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions();
-                    JOptionPane.showMessageDialog(null, message);
+                    JTextArea textArea = new JTextArea();
+                    textArea.setText("Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions());
+                    textArea.setLineWrap(true);
+                    textArea.setWrapStyleWord(true);
+                    textArea.setEditable(false);
+                    JScrollPane scrollPane = new JScrollPane(textArea);
+                    scrollPane.setPreferredSize(new Dimension(500, 500));
+                    JOptionPane optionPane = new JOptionPane(scrollPane, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                    JDialog dialog = optionPane.createDialog(null, "Meal Details");
+                    dialog.setResizable(true);
+                    dialog.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή");}
-            }
+                    JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή", "Error", JOptionPane.ERROR_MESSAGE);
+                }}
         });
+
 
 
 
