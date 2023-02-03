@@ -125,6 +125,7 @@ public class Database {
         }
     }
 
+
     private static void deleteRow(int id) {
         try {
             Connection connection = connect();

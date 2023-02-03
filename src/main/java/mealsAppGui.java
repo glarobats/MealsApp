@@ -1,5 +1,4 @@
 import org.database.Database;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,15 +24,25 @@ public class mealsAppGui {
 
 
     public mealsAppGui() {
-        //top buttons listeners
+//top buttons listeners
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mealAppApi meal = new mealAppApi();
+                mealApi mealApi = new mealApi();
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
-                meal.searchByName(searchTerm, centerTextfield);
+                Meal meal = mealApi.searchByName(searchTerm);
+
+                if (meal != null) {
+                    String message = "Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions();
+                    JOptionPane.showMessageDialog(null, message);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή");}
             }
         });
+
+
+
+
 
 
         button2.addActionListener(new ActionListener() {
@@ -57,6 +66,7 @@ public class mealsAppGui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel inputPane = new JPanel();
+
                 inputPane.setLayout(new GridLayout(5, 2));
 
                 JTextField idField = new JTextField();
@@ -79,6 +89,9 @@ public class mealsAppGui {
                 int result = JOptionPane.showConfirmDialog(null, inputPane, "Νέα εγγραφή", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                 if (result == JOptionPane.OK_OPTION) {
+
+
+
                     int id = Integer.parseInt(idField.getText());
                     String name = nameField.getText();
                     String category = categoryField.getText();
@@ -87,6 +100,7 @@ public class mealsAppGui {
 
                     Database database = new Database();
                     database.insMeal(id, name, category, area, instructions);
+
                 }
             }
         });

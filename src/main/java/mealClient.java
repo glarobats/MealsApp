@@ -26,7 +26,7 @@ public class mealClient extends OkHttpClient {
      * @param path The path of the endpoint we're calling
      * @return
      */
-    public static Call get(String path) {
+    public static Call getSearch(String path) {
         Request request = new Request.Builder().url(BASE_URL + path).get().build();
         return getInstance().newCall(request);
     }
