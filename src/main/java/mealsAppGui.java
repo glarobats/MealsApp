@@ -33,6 +33,11 @@ public class mealsAppGui {
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
                 Meal meal = mealApi.searchByName(searchTerm);
 
+                if (searchTerm == null || searchTerm.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
                 if (meal != null) {
                     JTextArea textArea = new JTextArea();
                     textArea.setText("Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions());
