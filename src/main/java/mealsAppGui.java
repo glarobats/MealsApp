@@ -14,7 +14,7 @@ public class mealsAppGui {
     private JButton SAVEButton;
     private JButton EDITButton;
     private JButton DELETEButton;
-    private JButton SEARCHButton;
+
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JPanel leftPanel;
@@ -126,13 +126,7 @@ public class mealsAppGui {
             }
         });
        
-        SEARCHButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = JOptionPane.showInputDialog(null, "Enter name to search:");
-                Database.selectByName(name);
-            }
-        });
+
 
         DELETEButton.addActionListener(new ActionListener() {
             @Override
