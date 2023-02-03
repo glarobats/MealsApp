@@ -117,6 +117,7 @@
                 <constraints/>
                 <properties>
                   <font name="Consolas" size="16" style="0"/>
+                  <text value=""/>
                   <wrapStyleWord value="false"/>
                 </properties>
               </component>
