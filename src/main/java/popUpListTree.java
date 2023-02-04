@@ -5,16 +5,18 @@ import okhttp3.Response;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.*;
 public class popUpListTree extends JFrame {
-    private popUpListTree() {
+    public popUpListTree() {
         final String API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?f=";
         final Gson GSON = new Gson();
 
         OkHttpClient client = new OkHttpClient();
 
-        Map<String, List<Meal>> categories = new HashMap<>();
+        Map<String, List<getMealsFromApi>> categories = new HashMap<>();
 
         // make requests for each letter of the alphabet
         for (char letter = 'a'; letter <= 'z'; letter++) {
@@ -28,12 +30,11 @@ public class popUpListTree extends JFrame {
                 // store the meals by category
                 if (mealResponse.getMeals() != null && !mealResponse.getMeals().isEmpty()) {
 
-                    for (Meal meal : mealResponse.getMeals()) {
+                    for (getMealsFromApi meal : mealResponse.getMeals()) {
                         String category = meal.getStrCategory();
-                        List<Meal> meals = categories.getOrDefault(category, new ArrayList<>());
+                        List<getMealsFromApi> meals = categories.getOrDefault(category, new ArrayList<>());
                         meals.add(meal);
                         categories.put(category, meals);
-                        System.out.println();
                     }
                 }
             } catch (IOException e) {
@@ -43,58 +44,72 @@ public class popUpListTree extends JFrame {
 
         // create a JTree with the categories and meals
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categories");
-        for (Map.Entry<String, List<Meal>> entry : categories.entrySet()) {
+        for (Map.Entry<String, List<getMealsFromApi>> entry : categories.entrySet()) {
             DefaultMutableTreeNode categoryNode = new DefaultMutableTreeNode(entry.getKey());
             root.add(categoryNode);
-            for (Meal meal : entry.getValue()) {
+            for (getMealsFromApi meal : entry.getValue()) {
                 DefaultMutableTreeNode mealNode = new DefaultMutableTreeNode(meal.getStrMeal());
                 categoryNode.add(mealNode);
             }
         }
-        JTree tree = new JTree(root);
+            JTree tree = new JTree(root);
 
-        // create a popup window to display the JTree
-        JFrame frame = new JFrame("Meals");
-        frame.add(new JScrollPane(tree));
-        frame.setSize(250, 600);
-        frame.setLocation(1155,108);
-        frame.setVisible(true);
-        frame.setAlwaysOnTop(true);
+            // create a popup window to display the JTree
+            JFrame frame = new JFrame("Meals");
+            frame.add(new JScrollPane(tree));
+            frame.setSize(250, 600);
+            frame.setLocation(1155,108);
+            frame.setVisible(true);
+            frame.setAlwaysOnTop(true);
+
+            //έλεγχος εαν το popUpWindow είναι ανοιχτό
+            frame.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    closePopUpWindow();
+                }
+            });
 
 
     }
 
-    //singleton pattern for popUp window and double locked idiom
-    private static volatile popUpListTree instance;
+    //singleton pattern for popUp window
+    private static popUpListTree instance;
+    private static boolean isOpen = false;
+
     public static popUpListTree getInstance() {
-        popUpListTree result = instance;
-        if (instance == null) {
-            synchronized (popUpListTree.class) {
-                result = instance;
-                if (instance == null) {
-                    instance = new popUpListTree();
-                }
-            }
+        if (instance == null || !isOpen) {
+            instance = new popUpListTree();
+            isOpen = true;
         }
         return instance;
     }
 
-    public void popUpWindow() {}
+    public void popUpWindow() {
+        isOpen = true;
+    }
+
+    public void closePopUpWindow() {
+        isOpen = false;
+    }
+
+
 }
 
 class MealResponse {
-    private List<Meal> meals;
+    private List<getMealsFromApi> meals;
 
-    public List<Meal> getMeals() {
+    public List<getMealsFromApi> getMeals() {
         return meals;
     }
 
-    public void setMeals(List<Meal> meals) {
+    public void setMeals(List<getMealsFromApi> meals) {
         this.meals = meals;
     }
 }
 
-class Meal {
+class getMealsFromApi {
+
     private String strMeal;
     private String strCategory;
 

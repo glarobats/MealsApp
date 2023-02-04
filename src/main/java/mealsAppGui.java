@@ -1,5 +1,4 @@
 import org.database.Database;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +14,7 @@ public class mealsAppGui {
     private JButton SAVEButton;
     private JButton EDITButton;
     private JButton DELETEButton;
-    private JButton SEARCHButton;
+
     private JPanel topPanel;
     private JPanel bottomPanel;
     private JPanel leftPanel;
@@ -26,15 +25,47 @@ public class mealsAppGui {
 
 
     public mealsAppGui() {
-        //top buttons listeners
+//top buttons listeners
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mealAppApi meal = new mealAppApi();
+                mealApi mealApi = new mealApi();
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
-                meal.searchByName(searchTerm, centerTextfield);
-            }
+                Meal meal = mealApi.searchByName(searchTerm);
+
+                if (searchTerm == null || searchTerm.trim().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (meal != null) {
+                    JTextArea textArea = new JTextArea();
+                    textArea.setText("Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions());
+                    textArea.setLineWrap(true);
+                    textArea.setWrapStyleWord(true);
+                    textArea.setEditable(false);
+                    JScrollPane scrollPane = new JScrollPane(textArea);
+                    scrollPane.setPreferredSize(new Dimension(500, 500));
+                    JOptionPane optionPane = new JOptionPane(scrollPane, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                    JDialog dialog = optionPane.createDialog(null, "Meal Details");
+                    dialog.setResizable(true);
+                    dialog.setVisible(true);
+                    Database database = new Database();
+                    int getId=1;
+                    if (!database.idSearch(getId)){
+                        database.insMeal(getId, meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Το γεύμα "+meal.getName()+" υπάρχει στην βάση δεδομένων", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή", "Error", JOptionPane.ERROR_MESSAGE);
+                }}
         });
+
+
+
+
+
 
 
         button2.addActionListener(new ActionListener() {
@@ -42,6 +73,11 @@ public class mealsAppGui {
             public void actionPerformed(ActionEvent e) {
                 popUpListTree obj = popUpListTree.getInstance();
                 obj.popUpWindow();
+
+
+
+            //    popUpListTree pop = new popUpListTree();
+            //    pop.popUpWindow();
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -58,6 +94,7 @@ public class mealsAppGui {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JPanel inputPane = new JPanel();
+
                 inputPane.setLayout(new GridLayout(5, 2));
 
                 JTextField idField = new JTextField();
@@ -80,6 +117,9 @@ public class mealsAppGui {
                 int result = JOptionPane.showConfirmDialog(null, inputPane, "Νέα εγγραφή", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                 if (result == JOptionPane.OK_OPTION) {
+
+
+
                     int id = Integer.parseInt(idField.getText());
                     String name = nameField.getText();
                     String category = categoryField.getText();
@@ -88,17 +128,12 @@ public class mealsAppGui {
 
                     Database database = new Database();
                     database.insMeal(id, name, category, area, instructions);
+
                 }
             }
         });
        
-        SEARCHButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String name = JOptionPane.showInputDialog(null, "Enter name to search:");
-                Database.selectByName(name);
-            }
-        });
+
 
         DELETEButton.addActionListener(new ActionListener() {
             @Override
@@ -109,8 +144,8 @@ public class mealsAppGui {
                 int id = Integer.parseInt(idField.getText());
                 int chois = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the meal?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
                 if (chois == JOptionPane.YES_OPTION) {
-                    Database database = new Database();
-                    database.deleteRow(id);
+                    //Database database = new Database();
+                    //database.deleteRow(id);
                 }
             }
 
@@ -127,8 +162,11 @@ public class mealsAppGui {
                 if (e.getSource() == EXITButton) {
                     int result = JOptionPane.showConfirmDialog(null,
                             "Είσαι σίγουρος οτι θέλεις να κάνεις έξοδο?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-                    if (result == JOptionPane.YES_NO_OPTION)
+                    if (result == JOptionPane.YES_NO_OPTION) {
+                        Database db = new Database();
+                        db.deleteData();
                         System.exit(0);
+                    }
                 }
             }
         });
