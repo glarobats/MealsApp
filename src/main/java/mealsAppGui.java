@@ -48,6 +48,8 @@ public class mealsAppGui {
                     scrollPane.setPreferredSize(new Dimension(500, 500));
                     JOptionPane optionPane = new JOptionPane(scrollPane, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
                     JDialog dialog = optionPane.createDialog(null, "Meal Details");
+                    ImageIcon image = new ImageIcon("logo.png");
+                    dialog.setIconImage(image.getImage());
                     dialog.setResizable(true);
                     dialog.setVisible(true);
                     Database database = new Database();
