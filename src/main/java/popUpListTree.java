@@ -94,9 +94,6 @@ public class popUpListTree extends JFrame {
     }
 
 
-    //-------------------------//
-
-  //  public void popUpWindow() {}
 }
 
 class MealResponse {

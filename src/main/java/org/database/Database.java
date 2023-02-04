@@ -34,17 +34,14 @@ public class Database {
                     "Περιοχή VARCHAR(20)," +
                     "Οδηγίες VARCHAR(1000))";
             statement.executeUpdate(createSQL);
-            /*
-            //Δημιουργία του πίνακα κατηγορία
-            String createCategorySQL = "CREATE TABLE CATEGORY" +
-                    "(IDCATEGORY INTEGER NOT NULL PRIMARY KEY," +
-                    "Κατηγορία VARCHAR(20))";
-            statement.executeUpdate(createCategorySQL);
 
-            //σύνδεση κλειδιού πίνακα κατηγορία με τον κεντρικό πίνακα
-            String addForeignKeySQL = "ALTER TABLE CENTRAL" +
-                    "ADD FOREIGN KEY (Κατηγορία) REFERENCES CATEGORY(IDCATEGORY)";
-            statement.executeUpdate(addForeignKeySQL); */
+            /*Δημιουργία του πίνακα εμφανίσεις
+            String createViewsSQL = "CREATE TABLE VIES" +
+                    "(ID INTEGER NOT NULL PRIMARY KEY," +
+                    "Όνομα VARCHAR(20)," +
+                    "Εμφανίσεις INT," +
+                    "FOREGN KEY (ID) REFERENCES CENTRAL(ID))";
+            statement.executeUpdate(createViewsSQL);*/
             statement.close();
             connection.close();
         }catch (SQLException throwables){
@@ -114,7 +111,7 @@ public class Database {
             preparedStatement.setString(5, instruction);
             int count = preparedStatement.executeUpdate();
             if (count>0){
-                System.out.println(count + "Εγγραφή ενημερώθηκε");
+                System.out.println(count + " Εγγραφή ενημερώθηκε");
             }else{
                 System.out.println("Ανεπιτυχείς ενημέρωση δεδομένων");
             }
@@ -125,17 +122,33 @@ public class Database {
         }
     }
 
-
-    private static void deleteRow(int id) {
+    public static void deleteData() {
         try {
             Connection connection = connect();
             Statement statement = connection.createStatement();
-            String deleteSQL = "DELETE FROM CENTRAL WHERE ID = " + id;
+            String deleteSQL = "TRUNCATE TABLE CENTRAL";
             statement.executeUpdate(deleteSQL);
             statement.close();
             connection.close();
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getLocalizedMessage());
+            } catch (SQLException throwables) {
+               System.out.println(throwables.getLocalizedMessage());
+            }
         }
-    }
+
+    public boolean idSearch(int id){
+           try{
+               Connection connection = connect();
+               Statement statement = connection.createStatement();
+               String searchSQL = "SELECT * FROM CENTRAL WHERE ID = " + id;
+               ResultSet resultSet = statement.executeQuery(searchSQL);
+               boolean exist = resultSet.next();
+               resultSet.close();
+               statement.close();
+               connection.close();
+               return exist;
+           } catch (SQLException throwables) {
+               System.out.println(throwables.getLocalizedMessage());
+               return false;
+           }
+        }
 }

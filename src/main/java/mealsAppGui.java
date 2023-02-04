@@ -48,8 +48,17 @@ public class mealsAppGui {
                     scrollPane.setPreferredSize(new Dimension(500, 500));
                     JOptionPane optionPane = new JOptionPane(scrollPane, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
                     JDialog dialog = optionPane.createDialog(null, "Meal Details");
+                    ImageIcon image = new ImageIcon("logo.png");
+                    dialog.setIconImage(image.getImage());
                     dialog.setResizable(true);
                     dialog.setVisible(true);
+                    Database database = new Database();
+                    int getId=1;
+                    if (!database.idSearch(getId)){
+                        database.insMeal(getId, meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Το γεύμα "+meal.getName()+" υπάρχει στην βάση δεδομένων", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή", "Error", JOptionPane.ERROR_MESSAGE);
                 }}
@@ -131,8 +140,17 @@ public class mealsAppGui {
         DELETEButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JPanel inputPane = new JPanel();
+                inputPane.setLayout(new GridLayout(1, 1));
+                JTextField idField = new JTextField();
+                int id = Integer.parseInt(idField.getText());
+                int chois = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the meal?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+                if (chois == JOptionPane.YES_OPTION) {
+                    //Database database = new Database();
+                    //database.deleteRow(id);
+                }
             }
+
         });
         EDITButton.addActionListener(new ActionListener() {
             @Override
@@ -146,8 +164,11 @@ public class mealsAppGui {
                 if (e.getSource() == EXITButton) {
                     int result = JOptionPane.showConfirmDialog(null,
                             "Είσαι σίγουρος οτι θέλεις να κάνεις έξοδο?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-                    if (result == JOptionPane.YES_NO_OPTION)
+                    if (result == JOptionPane.YES_NO_OPTION) {
+                        Database db = new Database();
+                        db.deleteData();
                         System.exit(0);
+                    }
                 }
             }
         });
