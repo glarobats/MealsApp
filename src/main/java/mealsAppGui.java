@@ -33,6 +33,7 @@ public class mealsAppGui {
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
                 Meal meal = mealApi.searchByName(searchTerm);
 
+
                 if (searchTerm == null || searchTerm.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -53,9 +54,9 @@ public class mealsAppGui {
                     dialog.setResizable(true);
                     dialog.setVisible(true);
                     Database database = new Database();
-                    int getId=1;
-                    if (!database.idSearch(getId)){
-                        database.insMeal(getId, meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                    //int getId=1;
+                    if (!database.idSearch(meal.getId())){
+                        Database.insMeal(meal.getId(), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     } else {
                         JOptionPane.showMessageDialog(null, "Το γεύμα "+meal.getName()+" υπάρχει στην βάση δεδομένων", "Error", JOptionPane.ERROR_MESSAGE);
                     }

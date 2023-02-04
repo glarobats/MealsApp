@@ -12,7 +12,7 @@ public class Main {
 
 
 
-        //Database db = new Database();
+        Database db = new Database();
         //db.malakies();
 
         //mealAppApi mealAppApi = new mealAppApi();
