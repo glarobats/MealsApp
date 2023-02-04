@@ -125,7 +125,7 @@ public class Database {
         }
     }
 
-    private static void deleteRow(int id) {
+    public static void deleteRow(int id) {
         try {
             Connection connection = connect();
             Statement statement = connection.createStatement();
