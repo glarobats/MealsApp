@@ -2,11 +2,8 @@ package org.database;
 
 import java.sql.*;
 public class Database {
-    public void malakies() {
-        //createTables();
-        //insMeal(1,"fakes","ospria","athina","maladies");
-        //insMeal(2,"fakes","ospria","athina","malakies");
-        //insMeal(3,"fakes","ospria","athina","malakies");
+    public void data() {
+        createTables();
         //selectAll();
         //deleteTables();
         //deleteRow(1);
@@ -32,7 +29,7 @@ public class Database {
                     "Όνομα VARCHAR(20)," +
                     "Κατηγορία VARCHAR(20)," +
                     "Περιοχή VARCHAR(20)," +
-                    "Οδηγίες VARCHAR(1000))";
+                    "Οδηγίες VARCHAR(10000))";
             statement.executeUpdate(createSQL);
 
             /*Δημιουργία του πίνακα εμφανίσεις
