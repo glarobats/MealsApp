@@ -35,7 +35,7 @@ public class mealApi {
                 // Get the first meal from the result
                 MealData mealData = result.getMeals().get(0);
                 // Return a new Meal object created using the data from the first meal
-                return new Meal(mealData.getStrId(),mealData.getStrMeal(), mealData.getStrCategory(), mealData.getStrArea(), mealData.getStrInstructions());
+                return new Meal(mealData.getStrMeal(), mealData.getStrCategory(), mealData.getStrArea(), mealData.getStrInstructions());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,23 +46,16 @@ public class mealApi {
 
 
 class Meal {
-
-    private String id;
     private String name;
     private String category;
     private String area;
     private String instructions;
 
-    public Meal(String id,String name, String category, String area, String instructions) {
-        this.id = id;
+    public Meal(String name, String category, String area, String instructions) {
         this.name = name;
         this.category = category;
         this.area = area;
         this.instructions = instructions;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getName() {
@@ -83,18 +76,15 @@ class Meal {
 
     @Override
     public String toString() {
-        return "Meal [id="+ id +",name=" + name + ", category=" + category + ", area=" + area + ", instructions=" + instructions + "]";
+        return "Meal [name=" + name + ", category=" + category + ", area=" + area + ", instructions=" + instructions + "]";
     }
 }
 
 class MealData {
-    private  String idMeal;
     private String strMeal;
     private String strCategory;
     private String strArea;
     private String strInstructions;
-
-    public String getStrId(){return idMeal;}
 
     public String getStrMeal() {
         return strMeal;
