@@ -61,7 +61,10 @@ class Meal {
         this.instructions = instructions;
     }
 
-    public String getId() { return id; }
+
+    public String getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -81,9 +84,10 @@ class Meal {
 
     @Override
     public String toString() {
-        return "Meal [name=" + name + ", category=" + category + ", area=" + area + ", instructions=" + instructions + "]";
+        return "Meal [id="+ id +", name=" + name + ", category=" + category + ", area=" + area + ", instructions=" + instructions + "]";
     }
 }
+
 
 class MealData {
     private String idMeal;
@@ -92,7 +96,16 @@ class MealData {
     private String strArea;
     private String strInstructions;
 
+
     public String getIdMeal() { return idMeal; }
+
+   // public void setStrId(String idMeal) {
+    //    this.idMeal = idMeal;
+   // }
+
+    public String getStrId() {
+        return idMeal;
+    }
 
     public String getStrMeal() {
         return strMeal;
@@ -110,6 +123,7 @@ class MealData {
         return strInstructions;
     }
 }
+
 
 class MealSearchResult {
     private List<MealData> meals;

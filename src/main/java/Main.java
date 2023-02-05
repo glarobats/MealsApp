@@ -11,14 +11,9 @@ public class Main {
         mealsAppGui start = new mealsAppGui();
         mealClient MC = new mealClient();
         Database db = new Database();
-        db.data();
         start.JFrameMain();
-
-
-        //mealAppApi mealAppApi = new mealAppApi();
-        //mealAppApi.getCategoryMeal();
-        //mealAppApi.searchByName("Chicken");
-        //mealAppApi.getMealsByCategory("Seafood");
-        
     }
 }
+        
+
+
