@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 public class Main {
     public static void main(String[] args) {
-     // mealsAppGui start = new mealsAppGui();
-      mealClient MC = new mealClient();
+        mealsAppGui start = new mealsAppGui();
+        Database db = new Database();
+        db.malakies();
 
-      // start.JFrameMain();
+
+        start.JFrameMain();
 
         Meal meal = mealApi.searchByName("chicken");
 

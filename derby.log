@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Sun Feb 05 13:32:15 EET 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0186-2159-225a-00000222ad10 
-on database directory C:\java_eap\G.E.3\mealsdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6f94fa3e 
-Loaded from file:/C:/Users/tzele/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
-java.vendor=Amazon.com Inc.
-java.runtime.version=17.0.4.1+9-LTS
+Sun Feb 05 16:02:20 UTC 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0186-2250-65b5-0000076b6240 
+on database directory C:\java_eap\G.E.3\mealsdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@45ff54e6 
+Loaded from file:/C:/Users/tzele/AppData/Roaming/JetBrains/IntelliJIdea2022.2/jdbc-drivers/Apache%20Derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=17.0.5+7-b469.71
 user.dir=C:\java_eap\G.E.3
 os.name=Windows 10
 os.arch=amd64
