@@ -59,7 +59,7 @@ public class mealsAppGui {
                         Database.insMeal(meal.getId(), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     } else {
                         JOptionPane.showMessageDialog(null, "Το γεύμα "+meal.getName()+" υπάρχει στην βάση δεδομένων", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
+                   }
                 } else {
                     JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή", "Error", JOptionPane.ERROR_MESSAGE);
                 }}

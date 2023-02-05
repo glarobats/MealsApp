@@ -46,21 +46,20 @@ public class mealApi {
 
 
 class Meal {
-
-    private final int id;
+    private final String id;
     private final String name;
     private final String category;
     private final String area;
     private final String instructions;
 
-    public Meal(int id,String name, String category, String area, String instructions) {
+    public Meal(String id,String name, String category, String area, String instructions) {
         this.id = id;
         this.name = name;
         this.category = category;
         this.area = area;
         this.instructions = instructions;
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getName() {
@@ -81,21 +80,26 @@ class Meal {
 
     @Override
     public String toString() {
-        return "Meal [name=" + name + ", category=" + category + ", area=" + area + ", instructions=" + instructions + "]";
+        return "Meal [id="+ id +", name=" + name + ", category=" + category + ", area=" + area + ", instructions=" + instructions + "]";
     }
 }
 
-class MealData {
 
-    private int strId;
+class MealData {
+    private String idMeal;
     private String strMeal;
     private String strCategory;
     private String strArea;
     private String strInstructions;
 
-    public int getStrId() {
-        return strId;
+   // public void setStrId(String idMeal) {
+    //    this.idMeal = idMeal;
+   // }
+
+    public String getStrId() {
+        return idMeal;
     }
+
     public String getStrMeal() {
         return strMeal;
     }
@@ -112,6 +116,7 @@ class MealData {
         return strInstructions;
     }
 }
+
 
 class MealSearchResult {
     private List<MealData> meals;
