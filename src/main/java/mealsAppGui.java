@@ -52,10 +52,9 @@ public class mealsAppGui {
                     dialog.setIconImage(image.getImage());
                     dialog.setResizable(true);
                     dialog.setVisible(true);
-                    Database database = new Database();
-                    int getId=1;
-                    if (!database.idSearch(getId)){
-                        database.insMeal(getId, meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                    Database db = new Database();
+                    if (!db.idSearch(Integer.valueOf(meal.getId()))){
+                        db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     } else {
                         JOptionPane.showMessageDialog(null, "Το γεύμα "+meal.getName()+" υπάρχει στην βάση δεδομένων", "Error", JOptionPane.ERROR_MESSAGE);
                     }
