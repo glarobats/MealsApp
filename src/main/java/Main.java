@@ -8,17 +8,13 @@ public class Main {
     public static void main(String[] args) {
       mealsAppGui start = new mealsAppGui();
       mealClient MC = new mealClient();
-       start.JFrameMain();
+      start.JFrameMain();
 
-
-
-        //Database db = new Database();
-        //db.malakies();
-
-        //mealAppApi mealAppApi = new mealAppApi();
-        //mealAppApi.getCategoryMeal();
-        //mealAppApi.searchByName("Chicken");
-        //mealAppApi.getMealsByCategory("Seafood");
-        
     }
+    //Database db = new Database();
+    //db.malakies();
+    //mealAppApi mealAppApi = new mealAppApi();
+    //mealAppApi.getCategoryMeal();
+    //mealAppApi.searchByName("Chicken");
+    //mealAppApi.getMealsByCategory("Seafood");
 }

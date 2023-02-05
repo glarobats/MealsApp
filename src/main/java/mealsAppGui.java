@@ -53,9 +53,9 @@ public class mealsAppGui {
                     dialog.setResizable(true);
                     dialog.setVisible(true);
                     Database database = new Database();
-                    int getId=1;
-                    if (!database.idSearch(getId)){
-                        database.insMeal(getId, meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                    //int getId=1;
+                    if (!database.idSearch(Integer.valueOf(meal.getId()))){
+                        database.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     } else {
                         JOptionPane.showMessageDialog(null, "Το γεύμα "+meal.getName()+" υπάρχει στην βάση δεδομένων", "Error", JOptionPane.ERROR_MESSAGE);
                     }
