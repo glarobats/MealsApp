@@ -177,10 +177,10 @@ public class mealsAppGui {
     public void JFrameMain (){
         JFrame frame = new JFrame("MainGui");
 
-     /*   Διαγράφει την πάνω καρτέλα με το Χ
-        frame.setUndecorated(true);
+     //   Διαγράφει την πάνω καρτέλα με το Χ
+     /*   frame.setUndecorated(true);
         frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-      */
+    */
         frame.setSize(800,600);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(new mealsAppGui().mainPanel);
@@ -188,6 +188,7 @@ public class mealsAppGui {
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setTitle("MealsApp");
+        frame.getRootPane().setBorder(BorderFactory.createMatteBorder(6, 6, 6, 6, Color.DARK_GRAY));
         ImageIcon image = new ImageIcon("logo.png");
         frame.setIconImage(image.getImage());
 
