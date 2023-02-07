@@ -5,10 +5,12 @@ import okhttp3.Response;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -73,12 +75,16 @@ public class popUpListTree extends JFrame {
                 categoryNode.add(mealNode);
             }
         }
+            //Δημιουργία JTree
             JTree tree = new JTree(root);
-
+            //Αλλαγή μεγέθους γραμμτοσειράς
+            Font font = tree.getFont();
+            font = font.deriveFont(16f); // change the font size to 16
+            tree.setFont(font);
             // Δημιούργησε popup ώστε να εμφανιστεί στο JTree
             JFrame frame = new JFrame("Meals");
             frame.add(new JScrollPane(tree));
-            frame.setSize(250, 600);
+            frame.setSize(370, 600);
             frame.setLocation(1155,108);
             frame.setVisible(true);
             frame.setAlwaysOnTop(true);
