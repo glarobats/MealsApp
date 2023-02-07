@@ -90,53 +90,6 @@ public class popUpListTree extends JFrame {
             frame.setVisible(true);
             frame.setAlwaysOnTop(true);
 
-            //Προσθήκη επιλογής Copy απο το JTree
-            tree.addMouseListener(new MouseListener() {
-                @Override
-                public void mouseClicked(MouseEvent e) {
-                    if (SwingUtilities.isRightMouseButton(e)) {
-                        int row = tree.getClosestRowForLocation(e.getX(),e.getY());
-                        tree.setSelectionRow(row);
-                        //Δημιουργία μενού με την επιλογή Copy
-                        JPopupMenu contextMenu = new JPopupMenu();
-                        JMenuItem copyItem = new JMenuItem("Copy");
-                        //Προσθήκη ενέργειας copy στο μενού
-                        copyItem.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                TreePath path = tree.getSelectionPath();
-                                Object lastComponent = path.getLastPathComponent();
-                                String text = lastComponent.toString();
-                                StringSelection stringSelection = new StringSelection(text);
-                                Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-                                clipboard.setContents(stringSelection, null);
-                            }
-                        });
-                        contextMenu.add(copyItem);
-                        contextMenu.show(tree, e.getX(), e.getY());
-                    }
-                }
-                //κενές μέθοδοι
-                @Override
-                public void mousePressed(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseEntered(MouseEvent e) {
-                }
-
-                @Override
-                public void mouseExited(MouseEvent e) {
-                }
-                //Τέλος, κενών μεθόδων
-
-            });
-
-
             //έλεγχος εαν το popUpWindow είναι ανοιχτό
             frame.addWindowListener(new WindowAdapter() {
                 @Override

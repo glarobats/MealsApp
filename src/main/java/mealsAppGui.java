@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+
 
 public class mealsAppGui {
     private JPanel mainPanel;
@@ -25,7 +25,6 @@ public class mealsAppGui {
                 mealApi mealApi = new mealApi();
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
                 Meal meal = mealApi.searchByName(searchTerm);
-
 
 
                 if (searchTerm == null || searchTerm.trim().isEmpty()) {
