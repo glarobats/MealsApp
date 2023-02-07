@@ -27,6 +27,7 @@ public class mealsAppGui {
                 Meal meal = mealApi.searchByName(searchTerm);
 
 
+
                 if (searchTerm == null || searchTerm.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
                     return;

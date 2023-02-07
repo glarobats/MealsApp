@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Tue Feb 07 12:46:39 EET 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0186-2b7c-1ade-000003cbc578 
+Tue Feb 07 13:13:05 EET 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0186-2b94-4f6c-0000033adfe0 
 on database directory C:\Users\glaro\IdeaProjects\G.E.3\mealsdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@1d44bcfa 
 Loaded from file:/C:/Users/glaro/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
