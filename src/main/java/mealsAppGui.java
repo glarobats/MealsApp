@@ -186,4 +186,5 @@ public class mealsAppGui {
         ImageIcon image = new ImageIcon("logo.png");
         frame.setIconImage(image.getImage());
     }
+
 }
