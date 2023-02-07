@@ -9,8 +9,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class popUpListTree extends JFrame {
-    public popUpListTree() {
+    public popUpListTree() throws InterruptedException {
         final String API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?f=";
         final Gson GSON = new Gson();
 
@@ -18,31 +23,46 @@ public class popUpListTree extends JFrame {
 
         Map<String, List<getMealsFromApi>> categories = new HashMap<>();
 
-        // make requests for each letter of the alphabet
+        //Δημιουργία thread pool
+        ExecutorService executor = Executors.newFixedThreadPool(26);
+
+        //Κλήση του API με threads γιατί με σκέτο for loop καθυστερούσε βελτίωση χρόνου Χ4 τουλάχιστον.
+        //Γίνονται ταυτόχρονα 26 κλήσεις οπότε:
+        //Μην κάνετε κατάχρηση του API call μην περάσει ο server του MealsDB την κλήση για DDOS Attack!!!!!
         for (char letter = 'a'; letter <= 'z'; letter++) {
-            Request request = new Request.Builder()
-                    .url(API_URL + letter)
-                    .build();
+            char finalLetter = letter;
+            executor.submit(() -> {
+                Request request = new Request.Builder()
+                        .url(API_URL + finalLetter)
+                        .build();
 
-            try {
-                Response response = client.newCall(request).execute();
-                MealResponse mealResponse = GSON.fromJson(response.body().string(), MealResponse.class);
-                // store the meals by category
-                if (mealResponse.getMeals() != null && !mealResponse.getMeals().isEmpty()) {
+                try {
+                    Response response = client.newCall(request).execute();
+                    MealResponse mealResponse = GSON.fromJson(response.body().string(), MealResponse.class);
+                    // store the meals by category
+                    if (mealResponse.getMeals() != null && !mealResponse.getMeals().isEmpty()) {
 
-                    for (getMealsFromApi meal : mealResponse.getMeals()) {
-                        String category = meal.getStrCategory();
-                        List<getMealsFromApi> meals = categories.getOrDefault(category, new ArrayList<>());
-                        meals.add(meal);
-                        categories.put(category, meals);
+                        for (getMealsFromApi meal : mealResponse.getMeals()) {
+                            String category = meal.getStrCategory();
+                            synchronized (categories) { // synchronize access to the shared categories map
+                                List<getMealsFromApi> meals = categories.getOrDefault(category, new ArrayList<>());
+                                meals.add(meal);
+                                categories.put(category, meals);
+                            }
+                        }
                     }
+                } catch (IOException e) {
+                    System.out.println("Error making API request: " + e.getMessage());
                 }
-            } catch (IOException e) {
-                System.out.println("Error making API request: " + e.getMessage());
-            }
+            });
         }
 
-        // create a JTree with the categories and meals
+        //Κλείσιμο του executor αφού έχουν ολοκληρωθεί όλες οι παραπάνω εργασίες
+        executor.shutdown();
+        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+
+
+        // Δημιουργία JTree με τις κατηγορίες και τα γεύματα
         DefaultMutableTreeNode root = new DefaultMutableTreeNode("Categories");
         for (Map.Entry<String, List<getMealsFromApi>> entry : categories.entrySet()) {
             DefaultMutableTreeNode categoryNode = new DefaultMutableTreeNode(entry.getKey());
@@ -54,7 +74,7 @@ public class popUpListTree extends JFrame {
         }
             JTree tree = new JTree(root);
 
-            // create a popup window to display the JTree
+            // Δημιούργησε popup ώστε να εμφανιστεί στο JTree
             JFrame frame = new JFrame("Meals");
             frame.add(new JScrollPane(tree));
             frame.setSize(250, 600);
@@ -69,15 +89,13 @@ public class popUpListTree extends JFrame {
                     closePopUpWindow();
                 }
             });
-
-
     }
 
-    //singleton pattern for popUp window
+    //singleton pattern for popUp window μαζί με exception για την κλήση με τα threads
     private static popUpListTree instance;
     private static boolean isOpen = false;
 
-    public static popUpListTree getInstance() {
+    public static popUpListTree getInstance() throws InterruptedException {
         if (instance == null || !isOpen) {
             instance = new popUpListTree();
             isOpen = true;
@@ -92,8 +110,7 @@ public class popUpListTree extends JFrame {
     public void closePopUpWindow() {
         isOpen = false;
     }
-
-
+    //Τέλος, singleton μαζί με έλεγχο
 }
 
 class MealResponse {

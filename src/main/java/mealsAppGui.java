@@ -150,7 +150,12 @@ public class mealsAppGui {
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                popUpListTree obj = popUpListTree.getInstance();
+                popUpListTree obj = null;
+                try {
+                    obj = popUpListTree.getInstance();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
                 obj.popUpWindow();
 
 
