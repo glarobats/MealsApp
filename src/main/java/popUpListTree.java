@@ -20,13 +20,13 @@ public class popUpListTree extends JFrame {
         final Gson GSON = new Gson();
 
         OkHttpClient client = new OkHttpClient();
-
+        //Χρήση Map για την εισαγωγή γεύματος σε κατηγορίες
         Map<String, List<getMealsFromApi>> categories = new HashMap<>();
 
         //Δημιουργία thread pool
         ExecutorService executor = Executors.newFixedThreadPool(26);
 
-        //Κλήση του API με threads γιατί με σκέτο for loop καθυστερούσε βελτίωση χρόνου Χ4 τουλάχιστον.
+        //Κλήση του API με threads γιατί με σκέτο for loop καθυστερούσε, βελτίωση χρόνου Χ4 τουλάχιστον.
         //Γίνονται ταυτόχρονα 26 κλήσεις οπότε:
         //Μην κάνετε κατάχρηση του API call μην περάσει ο server του MealsDB την κλήση για DDOS Attack!!!!!
         for (char letter = 'a'; letter <= 'z'; letter++) {
@@ -39,12 +39,13 @@ public class popUpListTree extends JFrame {
                 try {
                     Response response = client.newCall(request).execute();
                     MealResponse mealResponse = GSON.fromJson(response.body().string(), MealResponse.class);
-                    // store the meals by category
+                    //Αποθήκευση των γευμάτων ανα κατηγορία
                     if (mealResponse.getMeals() != null && !mealResponse.getMeals().isEmpty()) {
 
                         for (getMealsFromApi meal : mealResponse.getMeals()) {
                             String category = meal.getStrCategory();
-                            synchronized (categories) { // synchronize access to the shared categories map
+                            // Χρήση της synchronize για εισαγωγή σε map
+                            synchronized (categories) {
                                 List<getMealsFromApi> meals = categories.getOrDefault(category, new ArrayList<>());
                                 meals.add(meal);
                                 categories.put(category, meals);
