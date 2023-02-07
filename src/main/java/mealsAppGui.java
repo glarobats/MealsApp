@@ -18,7 +18,7 @@ public class mealsAppGui {
 
 
     public mealsAppGui() {
-//top buttons listeners
+
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,7 +41,7 @@ public class mealsAppGui {
 
                     JScrollPane scrollPane = new JScrollPane(textArea);
 
-                    //Προσθήκη κουμπιών σαν εξτρα panel στο κάτω μέρος του παραθύρου
+                    //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρα panel στο κάτω μέρος του παραθύρου
                     JButton SaveButton = new JButton("SAVE");
                     JButton EditButton = new JButton("EDIT");
                     JButton DeleteButton = new JButton("DELETE");
@@ -103,7 +103,6 @@ public class mealsAppGui {
                     });
 
 
-
                     DeleteButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -128,6 +127,7 @@ public class mealsAppGui {
                         }
                     });
 
+                    //Τέλος listeners
 
                     scrollPane.setPreferredSize(new Dimension(500, 500));
 
@@ -147,13 +147,6 @@ public class mealsAppGui {
                     JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή", "Error", JOptionPane.ERROR_MESSAGE);
                 }}
         });
-
-
-
-
-
-
-
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -172,9 +165,6 @@ public class mealsAppGui {
 
             }
         });
-
-
-
         EXITButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
