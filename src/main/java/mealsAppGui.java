@@ -56,7 +56,7 @@ public class mealsAppGui {
                     buttonPanel.add(DeleteButton);
 
                     panel.add(buttonPanel,BorderLayout.SOUTH);
-                    //Τέλος προσθήκης κουμπιών
+                    //Τέλος, προσθήκης κουμπιών
 
                     //Listeners για ανωτέρω κουμπιά
                     SaveButton.addActionListener(new ActionListener() {
@@ -157,11 +157,6 @@ public class mealsAppGui {
                     throw new RuntimeException(ex);
                 }
                 obj.popUpWindow();
-
-
-
-            //    popUpListTree pop = new popUpListTree();
-            //    pop.popUpWindow();
             }
         });
         button3.addActionListener(new ActionListener() {
