@@ -26,6 +26,7 @@ public class mealsAppGui {
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
                 Meal meal = mealApi.searchByName(searchTerm);
 
+                Database db = Database.getInstance();
 
                 if (searchTerm == null || searchTerm.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
@@ -33,6 +34,13 @@ public class mealsAppGui {
                 }
 
                 if (meal != null) {
+                    //ενημέρωση ΒΔ
+                    if (!db.idSearch(Integer.valueOf(meal.getId()))){
+                        db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                    }else {
+                        db.incrementViews(Integer.valueOf(meal.getId()));
+                    }
+
                     JTextArea textArea = new JTextArea();
                     textArea.setText("Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions());
                     textArea.setLineWrap(true);
@@ -95,8 +103,9 @@ public class mealsAppGui {
                                 String area = areaField.getText();
                                 String instructions = instructionsField.getText();
 
-                                Database database = new Database();
-                                database.insMeal(id, name, category, area, instructions);
+                                Database db = Database.getInstance();
+                                db.insMeal(id, name, category, area, instructions);
+
 
                             }
                         }
@@ -112,8 +121,8 @@ public class mealsAppGui {
                             int id = Integer.parseInt(idField.getText());
                             int chois = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the meal?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
                             if (chois == JOptionPane.YES_OPTION) {
-                                Database database = new Database();
-                                database.deleteData();
+                                Database db = Database.getInstance();
+                                db.deleteData();
                             }
                         }
 
@@ -137,15 +146,18 @@ public class mealsAppGui {
                     dialog.setIconImage(image.getImage());
                     dialog.setResizable(true);
                     dialog.setVisible(true);
-                    Database db = new Database();
-                    if (!db.idSearch(Integer.valueOf(meal.getId()))){
-                        db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Το γεύμα "+meal.getName()+" υπάρχει στην βάση δεδομένων", "Error", JOptionPane.ERROR_MESSAGE);
-                   }
+
                 } else {
-                    JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή", "Error", JOptionPane.ERROR_MESSAGE);
-                }}
+                    JOptionPane.showMessageDialog(null, "Το Γεύμα που εισάγατε δεν υπάρχει", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+
+
+
+
+
+
+            }
         });
         button2.addActionListener(new ActionListener() {
             @Override
@@ -172,8 +184,9 @@ public class mealsAppGui {
                     int result = JOptionPane.showConfirmDialog(null,
                             "Είσαι σίγουρος οτι θέλεις να κάνεις έξοδο?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
                     if (result == JOptionPane.YES_NO_OPTION) {
-                        Database db = new Database();
-                        db.deleteData();
+                        Database db = Database.getInstance();
+                        db.dropDatabase();
+                        System.out.println("Database droped");
                         System.exit(0);
                     }
                 }
