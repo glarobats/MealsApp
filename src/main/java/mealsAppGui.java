@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+
 
 public class mealsAppGui {
     private JPanel mainPanel;
@@ -18,7 +18,7 @@ public class mealsAppGui {
 
 
     public mealsAppGui() {
-//top buttons listeners
+
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -41,7 +41,7 @@ public class mealsAppGui {
 
                     JScrollPane scrollPane = new JScrollPane(textArea);
 
-                    //Προσθήκη κουμπιών σαν εξτρα panel στο κάτω μέρος του παραθύρου
+                    //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρα panel στο κάτω μέρος του παραθύρου
                     JButton SaveButton = new JButton("SAVE");
                     JButton EditButton = new JButton("EDIT");
                     JButton DeleteButton = new JButton("DELETE");
@@ -56,7 +56,7 @@ public class mealsAppGui {
                     buttonPanel.add(DeleteButton);
 
                     panel.add(buttonPanel,BorderLayout.SOUTH);
-                    //Τέλος προσθήκης κουμπιών
+                    //Τέλος, προσθήκης κουμπιών
 
                     //Listeners για ανωτέρω κουμπιά
                     SaveButton.addActionListener(new ActionListener() {
@@ -103,7 +103,6 @@ public class mealsAppGui {
                     });
 
 
-
                     DeleteButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -128,6 +127,7 @@ public class mealsAppGui {
                         }
                     });
 
+                    //Τέλος listeners
 
                     scrollPane.setPreferredSize(new Dimension(500, 500));
 
@@ -147,20 +147,20 @@ public class mealsAppGui {
                     JOptionPane.showMessageDialog(null, "Λάθος εισαγωγή", "Error", JOptionPane.ERROR_MESSAGE);
                 }}
         });
-
-
-
-
-
-
-
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                popUpListTree obj = popUpListTree.getInstance();
+                popUpListTree obj = null;
+                try {
+                    obj = popUpListTree.getInstance();
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
                 obj.popUpWindow();
+
             //    popUpListTree pop = new popUpListTree();
             //    pop.popUpWindow();
+
             }
         });
         button3.addActionListener(new ActionListener() {
@@ -169,9 +169,6 @@ public class mealsAppGui {
 
             }
         });
-
-
-
         EXITButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

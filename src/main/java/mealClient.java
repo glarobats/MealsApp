@@ -6,7 +6,6 @@ public class mealClient extends OkHttpClient {
     // Define BASE_URL and CATEGORIES_URL
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
     private static final String CATEGORIES_URL = "https://www.themealdb.com/api/json/v1/1/list.php?c=list";
-
     private static final String CATEGORIESCHOOSE_URL = "https:www.themealdb.com/api/json/v1/1/filter.php?c=";
 
     private static mealClient singletonInstance;
