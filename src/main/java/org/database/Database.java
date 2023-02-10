@@ -51,7 +51,7 @@ public class Database {
             statement.executeUpdate(createViewsSQL);
 
             //Δημιουργία πίνακα που αποθηκεύει ποια γεύματα έχουν αποθηκευτεί και υπάρχει περίπτωση να δεχτούν τροποποίηση
-            String createSavedMealsSQL = "CREATE TABLE SAVED((ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(max), PRIMARY KEY(ID)))";
+            String createSavedMealsSQL = "CREATE TABLE SAVED(ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(max), PRIMARY KEY(ID), FOREIGN KEY (ID) REFERENCES CENTRAL (ID))";
             statement.executeUpdate(createSavedMealsSQL);
 
             statement.executeUpdate(createViewsSQL);
@@ -161,7 +161,9 @@ public class Database {
             Statement statement = connection.createStatement();
             String deleteSQL = "DROP TABLE  CENTRAL";
             String deleteSQL2 = "DROP TABLE VIEWS";
+            String deleteSQL3 = "DROP TABLE SAVED";
 
+            statement.executeUpdate(deleteSQL3);
             statement.executeUpdate(deleteSQL2);
             statement.executeUpdate(deleteSQL);
             statement.close();
