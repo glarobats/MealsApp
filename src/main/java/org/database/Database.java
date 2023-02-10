@@ -108,6 +108,13 @@ public class Database {
             String updateSQL = "UPDATE VIEWS SET Εμφανίσεις = Εμφανίσεις + 1 WHERE ID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(updateSQL);
             preparedStatement.setInt(1, id);
+
+            //Ταξινόμιση απο τις περισσότερες στις λιγότερες εμφανίσεις
+            //πρέπει να ελέξουμε εάν υπάρχει bug μεε τις νέες εισαγωγές
+            String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
+            Statement statement = connection.createStatement();
+            statement.executeQuery(orderDesc);
+
             int count = preparedStatement.executeUpdate();
             if (count > 0) {
                 System.out.println("Επιτυχής ενημέρωση κελιού");
