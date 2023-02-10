@@ -7,7 +7,7 @@ public class Database {
     public void startDB() {
         createTables();
     }
-
+    //Singleton για να υπάρχει μόνο ένα στιγμιότυπο της ΒΔ
     private static Database instance;
     private Database() {}
     public static Database getInstance() {
@@ -17,8 +17,7 @@ public class Database {
         return instance;
     }
 
-
-
+    //σύνδεση με API
     private static Connection connect(){
         String connectionString = "jdbc:derby:mealsdb;create=true";
         Connection connection = null;
@@ -30,7 +29,8 @@ public class Database {
         return connection;
     }//end Connection
 
-    private static void createTables(){
+    //δημιουργία πινάκων
+   private static void createTables(){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
@@ -38,7 +38,7 @@ public class Database {
             String createSQL = "CREATE TABLE CENTRAL(ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(10000), PRIMARY KEY(ID))";
             statement.executeUpdate(createSQL);
 
-            //Δημιουργία του πίνακα εμφανίσεις
+            //Δημιουργία του πίνακα εμφανίσεις ο οποίος μετράει τις προβολές του κάθε φαγητού
             String createViewsSQL = "CREATE TABLE VIEWS(ID INT NOT NULL, Εμφανίσεις INT NOT NULL, PRIMARY KEY (ID),FOREIGN KEY (ID) REFERENCES CENTRAL (ID))";
             statement.executeUpdate(createViewsSQL);
             statement.close();
@@ -48,6 +48,7 @@ public class Database {
         }
     }//end createTables
 
+    //εισαγωγή του φαγητού στη ΒΔ
     public static void insMeal(int id, String name, String category, String area, String instruction) {
         try {
             Connection connection = connect();
@@ -69,17 +70,14 @@ public class Database {
             int countCentral = preparedStatementCentral.executeUpdate();
             int countViews = preparedStatementViews.executeUpdate();
             if (countCentral > 0 && countViews > 0) {
-                System.out.println("Data inserted into both CENTRAL and VIEWS tables successfully");
+                System.out.println("Επιτυχής εγγραφή δεδομένων και στους δύο πίνακες");
             } else if (countCentral > 0) {
-                System.out.println("Data inserted into CENTRAL table successfully");
+                System.out.println("Επιτυχής εγγραφή δεδομένων στον πίνακα CENTRAL");
             } else if (countViews > 0) {
-                System.out.println("Data inserted into VIEWS table successfully");
+                System.out.println("Επιτυχής εγγραφή δεδομένων στον πίνακα VIEWS");
             } else {
-                System.out.println("Failed to insert data into either CENTRAL or VIEWS table");
+                System.out.println("ΑΠΟΤΥΧΙΑ ΕΓΓΡΑΦΗΣ ΣΤΟΥΣ ΠΙΝΑΚΕΣ");
             }
-
-
-
             connection.commit();
             preparedStatementCentral.close();
             preparedStatementViews.close();
@@ -89,21 +87,28 @@ public class Database {
         }
     }//end insMeal
 
-
-    public void incrementViews(int id) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    //αύξηση του κελιού "Εμφανίσεις" στον πίνακα VIEWS
+    public static void incrementViews(int id) {
         try {
-            connection  = connect();
-            statement = connection.prepareStatement("UPDATE APP.VIEWS SET Εμφανίσεις = Εμφανίσεις + 1 WHERE ID = ?");
-            statement.setInt(1,Integer.valueOf(id));
-            System.out.println("cell incremented");
+            Connection connection = connect();
+            String updateSQL = "UPDATE VIEWS SET Εμφανίσεις = Εμφανίσεις + 1 WHERE ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(updateSQL);
+            preparedStatement.setInt(1, id);
+            int count = preparedStatement.executeUpdate();
+            if (count > 0) {
+                System.out.println("Επιτυχής ενημέρωση κελιού");
+            } else {
+                System.out.println("Μη επιτυχής ενημέρωση κελιού!!!!!!!!");
+            }
+            connection.commit();
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
         }
-    }//end insIncrement
+    }
 
-
+    //αναζήτηση του γεύματος στη ΒΔ
     public boolean idSearch(int id){
         try{
             Connection connection = connect();
@@ -134,6 +139,7 @@ public class Database {
         }
     }//end deleteData
 
+    //εκκαθάριση της ΒΔ κατά το κλείσιμο
     public void dropDatabase() {
 
         try {
@@ -141,9 +147,7 @@ public class Database {
             Statement statement = connection.createStatement();
             String deleteSQL = "DROP TABLE  CENTRAL";
             String deleteSQL2 = "DROP TABLE VIEWS";
-            String constr = "ALTER TABLE VIEWS DROP FOREIGN KEY ID";
 
-          //  statement.executeUpdate(constr);
             statement.executeUpdate(deleteSQL2);
             statement.executeUpdate(deleteSQL);
             statement.close();
@@ -151,7 +155,7 @@ public class Database {
         } catch (SQLException throwables) {
             System.out.println(throwables.getLocalizedMessage());
         }
-    }
+    }//end dropDatabase
 }//end databaseNew
 
 

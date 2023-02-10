@@ -18,29 +18,33 @@ public class mealsAppGui {
 
 
     public mealsAppGui() {
-
+        //κουμπί προβολής δεδομένων γεύματος
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Παράθυρο για αναζήτηση
                 mealApi mealApi = new mealApi();
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
                 Meal meal = mealApi.searchByName(searchTerm);
 
                 Database db = Database.getInstance();
-
+                //εάν είναι κενό το πεδίο και πατήσεις ΟΚ
                 if (searchTerm == null || searchTerm.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-
+                //εάν δεν είναι κενό το πεδίο
                 if (meal != null) {
-                    //ενημέρωση ΒΔ
+                    //αναζήτηση στη ΒΔ εάν έχει γίνει ξανά αναζήτηση του γεύματος
+                    //εάν δεν έχει γίνει τότε εισαγωγή στη ΒΔ
                     if (!db.idSearch(Integer.valueOf(meal.getId()))){
                         db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     }else {
+                        //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
                         db.incrementViews(Integer.valueOf(meal.getId()));
                     }
 
+                    //Δημιουργία παραθύρου με τα ζητούμενα στοιχεία
                     JTextArea textArea = new JTextArea();
                     textArea.setText("Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions());
                     textArea.setLineWrap(true);
@@ -49,7 +53,7 @@ public class mealsAppGui {
 
                     JScrollPane scrollPane = new JScrollPane(textArea);
 
-                    //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρα panel στο κάτω μέρος του παραθύρου
+                    //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρά panel στο κάτω μέρος του παραθύρου
                     JButton SaveButton = new JButton("SAVE");
                     JButton EditButton = new JButton("EDIT");
                     JButton DeleteButton = new JButton("DELETE");
@@ -111,7 +115,6 @@ public class mealsAppGui {
                         }
                     });
 
-
                     DeleteButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -135,7 +138,6 @@ public class mealsAppGui {
 
                         }
                     });
-
                     //Τέλος listeners
 
                     scrollPane.setPreferredSize(new Dimension(500, 500));
@@ -148,22 +150,18 @@ public class mealsAppGui {
                     dialog.setVisible(true);
 
                 } else {
+                    //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος
                     JOptionPane.showMessageDialog(null, "Το Γεύμα που εισάγατε δεν υπάρχει", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-
-
-
-
-
-
             }
         });
+        //κουμπί προβολής λίστας γευμάτων ανα κατηγορία γεύματος
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 popUpListTree obj = null;
                 try {
+                    //εμφάνιση παραθύρου
                     obj = popUpListTree.getInstance();
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
@@ -171,12 +169,14 @@ public class mealsAppGui {
                 obj.popUpWindow();
             }
         });
+        //κουμπί προβολής στατιστικών δεδομένων γευμάτων και εκτύπωση σε αρχείο pdf
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+        //κουμπί έξοδος
         EXITButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -194,6 +194,7 @@ public class mealsAppGui {
         });
     }
 
+    //ρυθμίσεις κεντρικού μενού
     public void JFrameMain (){
         JFrame frame = new JFrame("MainGui");
 
