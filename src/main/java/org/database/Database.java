@@ -32,12 +32,13 @@ public class Database {
     //δημιουργία πινάκων
    private static void createTables(){
         try{
-
                                         /*--------------ΠΑΡΑΔΟΧΗ----------------*/
             /*
             Κατασκευάστηκαν 3 πίνακες. Ο πίνακας CENTRAL και ο πίνακας SAVED ναι μεν είναι ίδιοι αλλά επειδή ο πίνακας SAVED
             μπορεί να δεχτεί τροποποιήσεις απο τον χρήστη καλό είναι να κρατάμε και τις αρχικές τιμές που ανακτήθηκαν απο
-            το API σε περίπτωση που θα τις χρειαστούμε επίσης ο πίνακας CENTRAL χρειάζεται για τα στατιστικά.
+            το API σε περίπτωση που θα τις χρειαστούμε επίσης ο πίνακας CENTRAL χρειάζεται για τα στατιστικά καθώς αυτά δημιουργούνται
+            απο τα γεύματα που έχουν προβληθεί, ένα γεύμα που έχει τροποποιηθεί ή σωθεί, έχει προβληθεί αλλά ένα γεύμα που έχει προβληθεί
+            δεν είναι δεδομένο ότι έχει τροποποιηθεί ή σωθεί.
              */
 
             Connection connection = connect();
@@ -101,7 +102,7 @@ public class Database {
         }
     }//end insMeal
 
-    //αύξηση του κελιού "Εμφανίσεις" στον πίνακα VIEWS
+    //αύξηση του κελιού "Εμφανίσεις" στον πίνακα VIEWS κάθε φορά που καλείται η μέθοδος για το συγκεκριμένο ID
     public static void incrementViews(int id) {
         try {
             Connection connection = connect();
@@ -109,11 +110,6 @@ public class Database {
             PreparedStatement preparedStatement = connection.prepareStatement(updateSQL);
             preparedStatement.setInt(1, id);
 
-            //Ταξινόμιση απο τις περισσότερες στις λιγότερες εμφανίσεις
-            //πρέπει να ελέξουμε εάν υπάρχει bug μεε τις νέες εισαγωγές
-            String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
-            Statement statement = connection.createStatement();
-            statement.executeQuery(orderDesc);
 
             int count = preparedStatement.executeUpdate();
             if (count > 0) {
@@ -179,6 +175,21 @@ public class Database {
             System.out.println(throwables.getLocalizedMessage());
         }
     }//end dropDatabase
+
+    //Ταξινόμιση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
+    public void orderBy() {
+        Connection connection = connect();
+        String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            statement.executeQuery(orderDesc);
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+    }//end orderBy
 }//end databaseNew
 
 
