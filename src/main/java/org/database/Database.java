@@ -32,14 +32,28 @@ public class Database {
     //δημιουργία πινάκων
    private static void createTables(){
         try{
+
+                                        /*--------------ΠΑΡΑΔΟΧΗ----------------*/
+            /*
+            Κατασκευάστηκαν 3 πίνακες. Ο πίνακας CENTRAL και ο πίνακας SAVED ναι μεν είναι ίδιοι αλλά επειδή ο πίνακας SAVED
+            μπορεί να δεχτεί τροποποιήσεις απο τον χρήστη καλό είναι να κρατάμε και τις αρχικές τιμές που ανακτήθηκαν απο
+            το API σε περίπτωση που θα τις χρειαστούμε.
+             */
+
             Connection connection = connect();
             Statement statement = connection.createStatement();
-            //Δημιουργία κεντρικού πίνακα
+            //Δημιουργία πίνακα που αποθηκεύει ποια γεύματα έχουν προβληθεί
             String createSQL = "CREATE TABLE CENTRAL(ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(10000), PRIMARY KEY(ID))";
             statement.executeUpdate(createSQL);
 
             //Δημιουργία του πίνακα εμφανίσεις ο οποίος μετράει τις προβολές του κάθε φαγητού
             String createViewsSQL = "CREATE TABLE VIEWS(ID INT NOT NULL, Εμφανίσεις INT NOT NULL, PRIMARY KEY (ID),FOREIGN KEY (ID) REFERENCES CENTRAL (ID))";
+            statement.executeUpdate(createViewsSQL);
+
+            //Δημιουργία πίνακα που αποθηκεύει ποια γεύματα έχουν αποθηκευτεί και υπάρχει περίπτωση να δεχτούν τροποποίηση
+            String createSavedMealsSQL = "CREATE TABLE SAVED((ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(max), PRIMARY KEY(ID)))";
+            statement.executeUpdate(createSavedMealsSQL);
+
             statement.executeUpdate(createViewsSQL);
             statement.close();
             connection.close();
