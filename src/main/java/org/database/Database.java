@@ -89,19 +89,27 @@ public class Database {
         }
     }//end insMeal
 
-
-    public void incrementViews(int id) {
-        Connection connection = null;
-        PreparedStatement statement = null;
+    public static void incrementViews(int id) {
         try {
-            connection  = connect();
-            statement = connection.prepareStatement("UPDATE APP.VIEWS SET Εμφανίσεις = Εμφανίσεις + 1 WHERE ID = ?");
-            statement.setInt(1,Integer.valueOf(id));
-            System.out.println("cell incremented");
+            Connection connection = connect();
+            String updateSQL = "UPDATE VIEWS SET Εμφανίσεις = Εμφανίσεις + 1 WHERE ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(updateSQL);
+            preparedStatement.setInt(1, id);
+            int count = preparedStatement.executeUpdate();
+            if (count > 0) {
+                System.out.println("Column Εμφανίσεις has been incremented successfully");
+            } else {
+                System.out.println("Failed to increment column Εμφανίσεις");
+            }
+            connection.commit();
+            preparedStatement.close();
+            connection.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
         }
-    }//end insIncrement
+    }
+
+
 
 
     public boolean idSearch(int id){
@@ -141,7 +149,7 @@ public class Database {
             Statement statement = connection.createStatement();
             String deleteSQL = "DROP TABLE  CENTRAL";
             String deleteSQL2 = "DROP TABLE VIEWS";
-            String constr = "ALTER TABLE VIEWS DROP FOREIGN KEY ID";
+           // String constr = "ALTER TABLE VIEWS DROP FOREIGN KEY ID";
 
           //  statement.executeUpdate(constr);
             statement.executeUpdate(deleteSQL2);
