@@ -170,9 +170,13 @@ public class mealsAppGui {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             if (!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-                                db.saveToNewTable(Integer.valueOf(meal.getId()));
-                                EditButton.setEnabled(true);
-                                DeleteButton.setEnabled(true);
+                                int save = JOptionPane.showConfirmDialog(null,
+                                        "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+                                if (save == JOptionPane.YES_NO_OPTION) {
+                                    db.saveToNewTable(Integer.valueOf(meal.getId()));
+                                    EditButton.setEnabled(true);
+                                    DeleteButton.setEnabled(true);
+                                }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
                                 EditButton.setEnabled(true);
@@ -197,43 +201,47 @@ public class mealsAppGui {
                     EditButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            //απενεργοποίηση κουμπιών και ενεργοποίηση των πεδίων προς τροποποίηση
-                            SaveEdited.setEnabled(true);
-                            SaveButton.setEnabled(false);
-                            EditButton.setEnabled(false);
-                            DeleteButton.setEnabled(false);
-                            mealsArea.setEditable(true);
-                            category.setEditable(true);
-                            Area.setEditable(true);
-                            Instructions.setEditable(true);
+                            int edit = JOptionPane.showConfirmDialog(null,
+                                    "Είσαι σίγουρος οτι θέλεις να τροποποιήσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+                            if (edit == JOptionPane.YES_NO_OPTION) {
+                                //απενεργοποίηση κουμπιών και ενεργοποίηση των πεδίων προς τροποποίηση
+                                SaveEdited.setEnabled(true);
+                                SaveButton.setEnabled(false);
+                                EditButton.setEnabled(false);
+                                DeleteButton.setEnabled(false);
+                                mealsArea.setEditable(true);
+                                category.setEditable(true);
+                                Area.setEditable(true);
+                                Instructions.setEditable(true);
 
-                            //listener κουμπιού SAVE EDITED
-                            SaveEdited.addActionListener(new ActionListener() {
-                                @Override
-                                public void actionPerformed(ActionEvent e) {
-                                    int ID = Integer.valueOf(meal.getId());
-                                    try {
-                                        //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
-                                        SaveEdited.setEnabled(false);
-                                        Connection connection = db.connect();
-                                        Statement stmt = connection.createStatement();
-                                        String modifiedFields = "UPDATE SAVED SET "
-                                                + "Όνομα = '" + mealsArea.getText() + "', "
-                                                + "Κατηγορία = '" + category.getText() + "', "
-                                                + "Περιοχή = '" + mealsArea.getText() + "', "
-                                                + "Οδηγίες = '" + Instructions.getText() + "' "
-                                                + "WHERE ID = " + ID;
-                                        stmt.executeUpdate(modifiedFields);
-                                        connection.commit();
-                                        SaveButton.setEnabled(false);
-                                        EditButton.setEnabled(true);
-                                        DeleteButton.setEnabled(true);
-                                    } catch (SQLException exception) {
-                                        System.out.println(exception.getLocalizedMessage());
-                                        JOptionPane.showMessageDialog(null, "Το γεύμα τροποποιήθηκε", "EDITED", JOptionPane.INFORMATION_MESSAGE);
+                                //listener κουμπιού SAVE EDITED
+                                SaveEdited.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        int ID = Integer.valueOf(meal.getId());
+                                        try {
+                                            //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
+                                            SaveEdited.setEnabled(false);
+                                            Connection connection = db.connect();
+                                            Statement stmt = connection.createStatement();
+                                            String modifiedFields = "UPDATE SAVED SET "
+                                                    + "Όνομα = '" + mealsArea.getText() + "', "
+                                                    + "Κατηγορία = '" + category.getText() + "', "
+                                                    + "Περιοχή = '" + mealsArea.getText() + "', "
+                                                    + "Οδηγίες = '" + Instructions.getText() + "' "
+                                                    + "WHERE ID = " + ID;
+                                            stmt.executeUpdate(modifiedFields);
+                                            connection.commit();
+                                            SaveButton.setEnabled(false);
+                                            EditButton.setEnabled(true);
+                                            DeleteButton.setEnabled(true);
+                                            JOptionPane.showMessageDialog(null, "Το γεύμα τροποποιήθηκε", "EDITED", JOptionPane.INFORMATION_MESSAGE);
+                                        } catch (SQLException exception) {
+                                            System.out.println(exception.getLocalizedMessage());
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     });
                     //Τέλος listeners
