@@ -1,5 +1,6 @@
 import org.database.Database;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,28 +45,42 @@ public class mealsAppGui {
                         db.incrementViews(Integer.valueOf(meal.getId()));
                     }
 
-                    //Δημιουργία παραθύρου με τα ζητούμενα στοιχεία
+                    //Δημιουργία JFrame με 4 διαφορετικές JTextArea ώστε να αποθηκευτούν τα δεδομένα κατά την τροποποίηση
+                    //πιο εύκολα
                     JFrame frame = new JFrame("Meal Details");
+
                     JTextArea mealsArea = new JTextArea();
+                    mealsArea.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
+                            BorderFactory.createEmptyBorder(0,0,0,0)));
                     mealsArea.setText("Meal: " + meal.getName());
                     mealsArea.setLineWrap(true);
                     mealsArea.setWrapStyleWord(true);
                     mealsArea.setEditable(false);
 
                     JTextArea category = new JTextArea();
+                    category.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
+                            BorderFactory.createEmptyBorder(0,0,0,0)));
                     category.setText("Category: " + meal.getCategory());
                     category.setLineWrap(true);
                     category.setWrapStyleWord(true);
                     category.setEditable(false);
 
                     JTextArea Area = new JTextArea();
+                    Area.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
+                            BorderFactory.createEmptyBorder(0,0,0,0)));
                     Area.setText("Area: " + meal.getArea());
                     Area.setLineWrap(true);
                     Area.setWrapStyleWord(true);
                     Area.setEditable(false);
 
                     JTextArea Instructions = new JTextArea();
-                    Instructions.setText("Instructions: " + meal.getInstructions());
+                    Instructions.setBorder(BorderFactory.createCompoundBorder(
+                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
+                            BorderFactory.createEmptyBorder(0,0,0,0)));
+                    Instructions.setText(meal.getInstructions());
                     Instructions.setLineWrap(true);
                     Instructions.setWrapStyleWord(true);
                     Instructions.setEditable(false);
@@ -93,12 +108,29 @@ public class mealsAppGui {
                     buttonPanel.add(EditButton);
                     buttonPanel.add(DeleteButton);
 
-                    scrollPane1.setPreferredSize(new Dimension(500, 20));
-                    scrollPane2.setPreferredSize(new Dimension(500, 20));
-                    scrollPane3.setPreferredSize(new Dimension(500, 20));
-                    scrollPane4.setPreferredSize(new Dimension(500, 440));
+                    scrollPane1.setPreferredSize(new Dimension(500, 25));
+                    scrollPane2.setPreferredSize(new Dimension(500, 25));
+                    scrollPane3.setPreferredSize(new Dimension(500, 25));
+                    scrollPane4.setPreferredSize(new Dimension(500, 430));
 
                     ImageIcon image = new ImageIcon("logo.png");
+
+                    Font font1 = mealsArea.getFont();
+                    font1 = font1.deriveFont(16f); // change the font size to 16
+                    mealsArea.setFont(font1);
+
+                    Font font2 = category.getFont();
+                    font2 = font2.deriveFont(16f); // change the font size to 16
+                    category.setFont(font2);
+
+                    Font font3 = Area.getFont();
+                    font3 = font3.deriveFont(16f); // change the font size to 16
+                    Area.setFont(font3);
+
+                    Font font4 = Instructions.getFont();
+                    font4 = font4.deriveFont(14f); // change the font size to 14
+                    Instructions.setFont(font4);
+
 
                     panel.add(buttonPanel, BorderLayout.SOUTH);
 
@@ -106,6 +138,7 @@ public class mealsAppGui {
                     frame.getContentPane().add(panel, BorderLayout.CENTER);
                     frame.setResizable(true);
                     frame.pack();
+                    frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
 
                     buttonPanel.add(DeleteButton);
@@ -158,6 +191,8 @@ public class mealsAppGui {
                     EditButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+
+
 
                         }
                     });
@@ -212,9 +247,11 @@ public class mealsAppGui {
         JFrame frame = new JFrame("MainGui");
 
      //   Διαγράφει την πάνω καρτέλα με το Χ
-     /*   frame.setUndecorated(true);
+        /*
+        frame.setUndecorated(true);
         frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-    */
+         */
+
         frame.setSize(800,400);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(new mealsAppGui().mainPanel);
