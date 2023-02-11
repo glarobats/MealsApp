@@ -215,6 +215,10 @@ public class mealsAppGui {
                     throw new RuntimeException(ex);
                 }
                 obj.popUpWindow();
+
+            //    popUpListTree pop = new popUpListTree();
+            //    pop.popUpWindow();
+
             }
         });
         //κουμπί προβολής στατιστικών δεδομένων γευμάτων και εκτύπωση σε αρχείο pdf
@@ -264,4 +268,5 @@ public class mealsAppGui {
         frame.setIconImage(image.getImage());
 
     }
+
 }

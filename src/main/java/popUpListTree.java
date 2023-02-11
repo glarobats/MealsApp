@@ -84,6 +84,8 @@ public class popUpListTree extends JFrame {
             tree.setFont(font);
             // Δημιούργησε popup ώστε να εμφανιστεί στο JTree
             JFrame frame = new JFrame("Meals");
+            ImageIcon image = new ImageIcon("logo.png");
+            frame.setIconImage(image.getImage());
             frame.add(new JScrollPane(tree));
             frame.setSize(370, 600);
             frame.setLocation(1155,108);
