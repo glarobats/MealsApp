@@ -80,7 +80,7 @@ public class mealsAppGui {
                     Instructions.setBorder(BorderFactory.createCompoundBorder(
                             BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
                             BorderFactory.createEmptyBorder(0,0,0,0)));
-                    Instructions.setText(meal.getInstructions());
+                    Instructions.setText("Instructions: " + meal.getInstructions());
                     Instructions.setLineWrap(true);
                     Instructions.setWrapStyleWord(true);
                     Instructions.setEditable(false);
@@ -126,11 +126,6 @@ public class mealsAppGui {
                     Font font3 = Area.getFont();
                     font3 = font3.deriveFont(16f); // change the font size to 16
                     Area.setFont(font3);
-
-                    Font font4 = Instructions.getFont();
-                    font4 = font4.deriveFont(14f); // change the font size to 14
-                    Instructions.setFont(font4);
-
 
                     panel.add(buttonPanel, BorderLayout.SOUTH);
 
