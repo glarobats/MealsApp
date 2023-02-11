@@ -72,6 +72,12 @@ public class mealsAppGui {
                         EditButton.setEnabled(true);
                     }
                     buttonPanel.add(DeleteButton);
+                    //ενεργοποίηση ή απενεργοποίηση του κουμποιύ DELETE ανάλογα εάν είναι αποθηκευμένο το γεύμα
+                    if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                        DeleteButton.setEnabled(false);
+                    }else {
+                        DeleteButton.setEnabled(true);
+                    }
                     panel.add(buttonPanel,BorderLayout.SOUTH);
                     //Τέλος, προσθήκης κουμπιών
 
@@ -82,6 +88,7 @@ public class mealsAppGui {
                             if (!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
                                 db.saveToNewTable(Integer.valueOf(meal.getId()));
                                 EditButton.setEnabled(true);
+                                DeleteButton.setEnabled(true);
                             } else {
                                 JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
                                 EditButton.setEnabled(true);
@@ -92,17 +99,15 @@ public class mealsAppGui {
                     DeleteButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            JPanel inputPane = new JPanel();
-                            inputPane.setLayout(new GridLayout(1, 1));
-                            JTextField idField = new JTextField();
-                            int id = Integer.parseInt(idField.getText());
-                            int chois = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the meal?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
-                            if (chois == JOptionPane.YES_OPTION) {
-                                Database db = Database.getInstance();
-                                db.deleteData();
+                            if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                                db.deleteSavedTable(Integer.valueOf(meal.getId()));
+                                DeleteButton.setEnabled(false);
+                                EditButton.setEnabled(false);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                                DeleteButton.setEnabled(false);
                             }
                         }
-
                     });
 
 

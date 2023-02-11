@@ -143,19 +143,6 @@ public class Database {
         }
     }//end idSearch
 
-    public static void deleteData() {
-        try {
-            Connection connection = connect();
-            Statement statement = connection.createStatement();
-            String deleteSQL = "TRUNCATE TABLE CENTRAL";
-            statement.executeUpdate(deleteSQL);
-            statement.close();
-            connection.close();
-        } catch (SQLException throwables) {
-            System.out.println(throwables.getLocalizedMessage());
-        }
-    }//end deleteData
-
     //εκκαθάριση της ΒΔ κατά το κλείσιμο
     public void dropDatabase() {
 
@@ -201,7 +188,24 @@ public class Database {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }//end saveToNewTable
+
+    //διαγραφή του πίνακα που έχει σωθεί
+    public void deleteSavedTable(int id) {
+        try {
+            Connection connection = connect();
+            String deleteTable = "DELETE FROM SAVED WHERE ID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(deleteTable);
+            preparedStatement.setInt(1, id);
+            preparedStatement.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Εισαγωγή διαγράφηκε", "DELETED", JOptionPane.INFORMATION_MESSAGE);
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+        }
     }
+//end deleteSavedTable
+
 
     //αναζήτηση στον πίνακα SAVED εάν υπάρχει το ID που αναζητούμε
     public boolean idSearchInSAVED(int id){
