@@ -45,13 +45,36 @@ public class mealsAppGui {
                     }
 
                     //Δημιουργία παραθύρου με τα ζητούμενα στοιχεία
-                    JTextArea textArea = new JTextArea();
-                    textArea.setText("Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions());
-                    textArea.setLineWrap(true);
-                    textArea.setWrapStyleWord(true);
-                    textArea.setEditable(false);
+                    JFrame frame = new JFrame("Meal Details");
+                    JTextArea mealsArea = new JTextArea();
+                    mealsArea.setText("Meal: " + meal.getName());
+                    mealsArea.setLineWrap(true);
+                    mealsArea.setWrapStyleWord(true);
+                    mealsArea.setEditable(false);
 
-                    JScrollPane scrollPane = new JScrollPane(textArea);
+                    JTextArea category = new JTextArea();
+                    category.setText("Category: " + meal.getCategory());
+                    category.setLineWrap(true);
+                    category.setWrapStyleWord(true);
+                    category.setEditable(false);
+
+                    JTextArea Area = new JTextArea();
+                    Area.setText("Area: " + meal.getArea());
+                    Area.setLineWrap(true);
+                    Area.setWrapStyleWord(true);
+                    Area.setEditable(false);
+
+                    JTextArea Instructions = new JTextArea();
+                    Instructions.setText("Instructions: " + meal.getInstructions());
+                    Instructions.setLineWrap(true);
+                    Instructions.setWrapStyleWord(true);
+                    Instructions.setEditable(false);
+
+                    JScrollPane scrollPane1 = new JScrollPane(mealsArea);
+                    JScrollPane scrollPane2 = new JScrollPane(category);
+                    JScrollPane scrollPane3 = new JScrollPane(Area);
+                    JScrollPane scrollPane4 = new JScrollPane(Instructions);
+
 
                     //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρά panel στο κάτω μέρος του παραθύρου
                     JButton SaveButton = new JButton("SAVE");
@@ -59,26 +82,48 @@ public class mealsAppGui {
                     JButton DeleteButton = new JButton("DELETE");
 
                     JPanel panel = new JPanel();
-                    panel.setLayout(new BorderLayout());
-                    panel.add(scrollPane,BorderLayout.CENTER);
+                    panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+                    panel.add(scrollPane1);
+                    panel.add(scrollPane2);
+                    panel.add(scrollPane3);
+                    panel.add(scrollPane4);
 
                     JPanel buttonPanel = new JPanel();
                     buttonPanel.add(SaveButton);
                     buttonPanel.add(EditButton);
-                    //ενεργοποίηση ή απενεργοποίηση του κουμποιύ EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
+                    buttonPanel.add(DeleteButton);
+
+                    scrollPane1.setPreferredSize(new Dimension(500, 20));
+                    scrollPane2.setPreferredSize(new Dimension(500, 20));
+                    scrollPane3.setPreferredSize(new Dimension(500, 20));
+                    scrollPane4.setPreferredSize(new Dimension(500, 440));
+
+                    ImageIcon image = new ImageIcon("logo.png");
+
+                    panel.add(buttonPanel, BorderLayout.SOUTH);
+
+                    frame.setIconImage(image.getImage());
+                    frame.getContentPane().add(panel, BorderLayout.CENTER);
+                    frame.setResizable(true);
+                    frame.pack();
+                    frame.setVisible(true);
+
+                    buttonPanel.add(DeleteButton);
+                    panel.add(buttonPanel,BorderLayout.SOUTH);
+
+                    //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
                     if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
                         EditButton.setEnabled(false);
                     }else {
                         EditButton.setEnabled(true);
                     }
-                    buttonPanel.add(DeleteButton);
-                    //ενεργοποίηση ή απενεργοποίηση του κουμποιύ DELETE ανάλογα εάν είναι αποθηκευμένο το γεύμα
+
+                    //ενεργοποίηση ή απενεργοποίηση του κουμπιού DELETE ανάλογα εάν είναι αποθηκευμένο το γεύμα
                     if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
                         DeleteButton.setEnabled(false);
                     }else {
                         DeleteButton.setEnabled(true);
                     }
-                    panel.add(buttonPanel,BorderLayout.SOUTH);
                     //Τέλος, προσθήκης κουμπιών
 
                     //Listeners για ανωτέρω κουμπιά
@@ -110,7 +155,6 @@ public class mealsAppGui {
                         }
                     });
 
-
                     EditButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -118,16 +162,6 @@ public class mealsAppGui {
                         }
                     });
                     //Τέλος listeners
-
-                    scrollPane.setPreferredSize(new Dimension(500, 500));
-
-                    JOptionPane optionPane = new JOptionPane(panel, JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-                    JDialog dialog = optionPane.createDialog(null, "Meal Details");
-                    ImageIcon image = new ImageIcon("logo.png");
-                    dialog.setIconImage(image.getImage());
-                    dialog.setResizable(true);
-                    dialog.setVisible(true);
-
                 } else {
                     //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος
                     JOptionPane.showMessageDialog(null, "Το Γεύμα που εισάγατε δεν υπάρχει", "Error", JOptionPane.ERROR_MESSAGE);
