@@ -1,13 +1,147 @@
-----------------------------------------------------------------
-Wed Feb 08 22:33:13 EET 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0186-32bb-7c68-0000026c4f20 
-on database directory C:\Users\moutp\Desktop\java\Project\MealsApp\mealsdb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@1d44bcfa 
-Loaded from file:/C:/Users/moutp/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
-java.vendor=Oracle Corporation
-java.runtime.version=17.0.4.1+1-LTS-2
-user.dir=C:\Users\moutp\Desktop\java\Project\MealsApp
-os.name=Windows 10
-os.arch=amd64
-os.version=10.0
-derby.system.home=null
-Database Class Loader started - derby.database.classpath=''
+Thu Feb 09 21:17:40 EET 2023 Thread[main,5,main] Cleanup action starting
+ERROR XBM0A: The database directory 'C:\Users\moutp\Desktop\java\Project\MealsApp\mealsdb' exists. However, it does not contain the expected 'service.properties' file. Perhaps Derby was brought down in the middle of creating this database. You may want to delete this directory and try creating the database again.
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:300)
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:295)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.vetService(StorageFactoryService.java:879)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.access$900(StorageFactoryService.java:73)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService$10.run(StorageFactoryService.java:821)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.createServiceRoot(StorageFactoryService.java:798)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(BaseMonitor.java:1754)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.createPersistentService(BaseMonitor.java:1022)
+	at org.apache.derby.impl.services.monitor.FileMonitor.createPersistentService(FileMonitor.java:48)
+	at org.apache.derby.iapi.services.monitor.Monitor.createPersistentService(Monitor.java:650)
+	at org.apache.derby.impl.jdbc.EmbedConnection$5.run(EmbedConnection.java:4067)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createPersistentService(EmbedConnection.java:4061)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createDatabase(EmbedConnection.java:2654)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:435)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:660)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:656)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:654)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:300)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:967)
+	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:136)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:252)
+	at org.database.Database.connect(Database.java:26)
+	at org.database.Database.createTables(Database.java:35)
+	at org.database.Database.startDB(Database.java:8)
+	at Main.main(Main.java:10)
+Cleanup action completed
+Thu Feb 09 21:17:40 EET 2023 Thread[main,5,main] Cleanup action starting
+java.sql.SQLException: Failed to create database 'mealsdb', see the next exception for details.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:115)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:141)
+	at org.apache.derby.impl.jdbc.Util.seeNextException(Util.java:252)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createDatabase(EmbedConnection.java:2661)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:435)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:660)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:656)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:654)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:300)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:967)
+	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:136)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:252)
+	at org.database.Database.connect(Database.java:26)
+	at org.database.Database.createTables(Database.java:35)
+	at org.database.Database.startDB(Database.java:8)
+	at Main.main(Main.java:10)
+Caused by: ERROR XJ041: Failed to create database 'mealsdb', see the next exception for details.
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:300)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(SQLExceptionFactory.java:170)
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:75)
+	... 17 more
+Caused by: ERROR XBM0A: The database directory 'C:\Users\moutp\Desktop\java\Project\MealsApp\mealsdb' exists. However, it does not contain the expected 'service.properties' file. Perhaps Derby was brought down in the middle of creating this database. You may want to delete this directory and try creating the database again.
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:300)
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:295)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.vetService(StorageFactoryService.java:879)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.access$900(StorageFactoryService.java:73)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService$10.run(StorageFactoryService.java:821)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.createServiceRoot(StorageFactoryService.java:798)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(BaseMonitor.java:1754)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.createPersistentService(BaseMonitor.java:1022)
+	at org.apache.derby.impl.services.monitor.FileMonitor.createPersistentService(FileMonitor.java:48)
+	at org.apache.derby.iapi.services.monitor.Monitor.createPersistentService(Monitor.java:650)
+	at org.apache.derby.impl.jdbc.EmbedConnection$5.run(EmbedConnection.java:4067)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createPersistentService(EmbedConnection.java:4061)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createDatabase(EmbedConnection.java:2654)
+	... 14 more
+============= begin nested exception, level (1) ===========
+java.sql.SQLException: The database directory 'C:\Users\moutp\Desktop\java\Project\MealsApp\mealsdb' exists. However, it does not contain the expected 'service.properties' file. Perhaps Derby was brought down in the middle of creating this database. You may want to delete this directory and try creating the database again.
+	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:115)
+	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:230)
+	at org.apache.derby.impl.jdbc.TransactionResourceImpl.wrapInSQLException(TransactionResourceImpl.java:431)
+	at org.apache.derby.impl.jdbc.TransactionResourceImpl.handleException(TransactionResourceImpl.java:360)
+	at org.apache.derby.impl.jdbc.EmbedConnection.handleException(EmbedConnection.java:2405)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createDatabase(EmbedConnection.java:2662)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:435)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:660)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:656)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:654)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:300)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:967)
+	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:136)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:252)
+	at org.database.Database.connect(Database.java:26)
+	at org.database.Database.createTables(Database.java:35)
+	at org.database.Database.startDB(Database.java:8)
+	at Main.main(Main.java:10)
+Caused by: ERROR XBM0A: The database directory 'C:\Users\moutp\Desktop\java\Project\MealsApp\mealsdb' exists. However, it does not contain the expected 'service.properties' file. Perhaps Derby was brought down in the middle of creating this database. You may want to delete this directory and try creating the database again.
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:300)
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:295)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.vetService(StorageFactoryService.java:879)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.access$900(StorageFactoryService.java:73)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService$10.run(StorageFactoryService.java:821)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.createServiceRoot(StorageFactoryService.java:798)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(BaseMonitor.java:1754)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.createPersistentService(BaseMonitor.java:1022)
+	at org.apache.derby.impl.services.monitor.FileMonitor.createPersistentService(FileMonitor.java:48)
+	at org.apache.derby.iapi.services.monitor.Monitor.createPersistentService(Monitor.java:650)
+	at org.apache.derby.impl.jdbc.EmbedConnection$5.run(EmbedConnection.java:4067)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createPersistentService(EmbedConnection.java:4061)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createDatabase(EmbedConnection.java:2654)
+	... 14 more
+============= end nested exception, level (1) ===========
+============= begin nested exception, level (2) ===========
+ERROR XBM0A: The database directory 'C:\Users\moutp\Desktop\java\Project\MealsApp\mealsdb' exists. However, it does not contain the expected 'service.properties' file. Perhaps Derby was brought down in the middle of creating this database. You may want to delete this directory and try creating the database again.
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:300)
+	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:295)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.vetService(StorageFactoryService.java:879)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.access$900(StorageFactoryService.java:73)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService$10.run(StorageFactoryService.java:821)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.services.monitor.StorageFactoryService.createServiceRoot(StorageFactoryService.java:798)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.bootService(BaseMonitor.java:1754)
+	at org.apache.derby.impl.services.monitor.BaseMonitor.createPersistentService(BaseMonitor.java:1022)
+	at org.apache.derby.impl.services.monitor.FileMonitor.createPersistentService(FileMonitor.java:48)
+	at org.apache.derby.iapi.services.monitor.Monitor.createPersistentService(Monitor.java:650)
+	at org.apache.derby.impl.jdbc.EmbedConnection$5.run(EmbedConnection.java:4067)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createPersistentService(EmbedConnection.java:4061)
+	at org.apache.derby.impl.jdbc.EmbedConnection.createDatabase(EmbedConnection.java:2654)
+	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:435)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:660)
+	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:656)
+	at java.base/java.security.AccessController.doPrivileged(AccessController.java:569)
+	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:654)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:300)
+	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:967)
+	at org.apache.derby.iapi.jdbc.AutoloadedDriver.connect(AutoloadedDriver.java:136)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:681)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:252)
+	at org.database.Database.connect(Database.java:26)
+	at org.database.Database.createTables(Database.java:35)
+	at org.database.Database.startDB(Database.java:8)
+	at Main.main(Main.java:10)
+============= end nested exception, level (2) ===========
+Cleanup action completed

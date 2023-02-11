@@ -1,17 +1,23 @@
 package org.database;
 
 import java.sql.*;
+
 public class Database {
 
-    public void malakies() {
+    public void startDB() {
         createTables();
-        //insMeal(1,"fakes","ospria","athina","maladies");
-        //insMeal(2,"fakes","ospria","athina","malakies");
-        //insMeal(3,"fakes","ospria","athina","malakies");
-        //selectAll();
-        //deleteTables();
-        //deleteRow(1);
     }
+
+    private static Database instance;
+    private Database() {}
+    public static Database getInstance() {
+        if (instance == null) {
+            instance = new Database();
+        }
+        return instance;
+    }
+
+
 
     private static Connection connect(){
         String connectionString = "jdbc:derby:mealsdb;create=true";
@@ -22,106 +28,98 @@ public class Database {
             throwables.printStackTrace();
         }
         return connection;
-    }
+    }//end Connection
+
     private static void createTables(){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
             //Δημιουργία κεντρικού πίνακα
-            String createSQL = "CREATE TABLE CENTRAL" +
-                    "(ID INTEGER NOT NULL PRIMARY KEY," +
-                    "Όνομα VARCHAR(20)," +
-                    "Κατηγορία VARCHAR(20)," +
-                    "Περιοχή VARCHAR(20)," +
-                    "Οδηγίες VARCHAR(10000))";
+            String createSQL = "CREATE TABLE CENTRAL(ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(10000), PRIMARY KEY(ID))";
             statement.executeUpdate(createSQL);
 
-            /*Δημιουργία του πίνακα εμφανίσεις
-            String createViewsSQL = "CREATE TABLE VIES" +
-                    "(ID INTEGER NOT NULL PRIMARY KEY," +
-                    "Όνομα VARCHAR(20)," +
-                    "Εμφανίσεις INT," +
-                    "FOREGN KEY (ID) REFERENCES CENTRAL(ID))";
-            statement.executeUpdate(createViewsSQL);*/
+            //Δημιουργία του πίνακα εμφανίσεις
+            String createViewsSQL = "CREATE TABLE VIEWS(ID INT NOT NULL, Εμφανίσεις INT NOT NULL, PRIMARY KEY (ID),FOREIGN KEY (ID) REFERENCES CENTRAL (ID))";
+            statement.executeUpdate(createViewsSQL);
             statement.close();
             connection.close();
-        }catch (SQLException throwables){
-            System.out.println(throwables.getLocalizedMessage());
+        }catch (SQLException throwable){
+            System.out.println(throwable.getLocalizedMessage());
         }
-    }
+    }//end createTables
 
-    private static void deleteTables(){
+    public static void insMeal(int id, String name, String category, String area, String instruction) {
+        try {
+            Connection connection = connect();
+            String insrtCntrlSQL = "INSERT INTO CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) VALUES (?,?,?,?,?)";
+            String insrtVwsSQL = "INSERT INTO VIEWS (ID, Εμφανίσεις) VALUES (?,?)";
+            PreparedStatement preparedStatementCentral = connection.prepareStatement(insrtCntrlSQL);
+            PreparedStatement preparedStatementViews = connection.prepareStatement(insrtVwsSQL);
+
+            preparedStatementCentral.setInt(1, id);
+            preparedStatementCentral.setString(2, name);
+            preparedStatementCentral.setString(3, category);
+            preparedStatementCentral.setString(4, area);
+            preparedStatementCentral.setString(5, instruction);
+
+            preparedStatementViews.setInt(1, id);
+            preparedStatementViews.setInt(2, 1);
+
+
+            int countCentral = preparedStatementCentral.executeUpdate();
+            int countViews = preparedStatementViews.executeUpdate();
+            if (countCentral > 0 && countViews > 0) {
+                System.out.println("Data inserted into both CENTRAL and VIEWS tables successfully");
+            } else if (countCentral > 0) {
+                System.out.println("Data inserted into CENTRAL table successfully");
+            } else if (countViews > 0) {
+                System.out.println("Data inserted into VIEWS table successfully");
+            } else {
+                System.out.println("Failed to insert data into either CENTRAL or VIEWS table");
+            }
+
+
+
+            connection.commit();
+            preparedStatementCentral.close();
+            preparedStatementViews.close();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println(e.getLocalizedMessage());
+        }
+    }//end insMeal
+
+
+    public void incrementViews(int id) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection  = connect();
+            statement = connection.prepareStatement("UPDATE APP.VIEWS SET Εμφανίσεις = Εμφανίσεις + 1 WHERE ID = ?");
+            statement.setInt(1,Integer.valueOf(id));
+            System.out.println("cell incremented");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }//end insIncrement
+
+
+    public boolean idSearch(int id){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
-            String deleteSQL = "DROP TABLE CENTRAL" ;
-            //String deleteCategorySQL = "DROP TABLE CATEGORY";
-            statement.executeUpdate(deleteSQL);
-            //statement.executeUpdate(deleteCategorySQL);
-            System.out.println("Οι πίνακες διαγράφηκαν με επιτυχία!");
+            String searchSQL = "SELECT * FROM CENTRAL WHERE ID = " + id;
+            ResultSet resultSet = statement.executeQuery(searchSQL);
+            boolean exist = resultSet.next();
+            resultSet.close();
             statement.close();
             connection.close();
-        } catch (SQLException throwables){
+            return exist;
+        } catch (SQLException throwables) {
             System.out.println(throwables.getLocalizedMessage());
+            return false;
         }
-    }
-
-    public static void selectAll(){
-        try{
-            Connection connection = connect();
-            Statement statement = connect().createStatement();
-            String selectSQL = "Select * from CENTRAL";
-            ResultSet rs = statement.executeQuery(selectSQL);
-            while(rs.next()){
-                System.out.println(rs.getInt("ID")+","+rs.getString("Όνομα")+","+rs.getString("Κατηγορία")+","+rs.getString("Περιοχή")+","+rs.getString("Οδηγίες"));
-            }
-            statement.close();
-            connection.close();
-            System.out.println("Done");
-        }catch (SQLException throwables){
-            System.out.println(throwables.getLocalizedMessage());
-        }
-    }
-
-    public static void selectByName(String name){
-        try{
-            Connection connection = connect();
-            Statement statement = connect().createStatement();
-            String selectSQL = "Select * from CENTRAL WHERE Όνομα='" + name + "'";
-            ResultSet rs = statement.executeQuery(selectSQL);
-            while(rs.next()){
-                System.out.println(rs.getInt("ID")+","+rs.getString("Όνομα")+","+rs.getString("Κατηγορία")+","+rs.getString("Περιοχή")+","+rs.getString("Οδηγίες"));
-            }
-            statement.close();
-            connection.close();
-            System.out.println("Done");
-        }catch (SQLException throwables){
-            System.out.println(throwables.getLocalizedMessage());
-        }
-    }
-
-    public static void insMeal(int id,String name, String category,String area, String instruction){
-        try{
-            Connection connection = connect();
-            String insSQL = "Insert into CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) values (?,?,?,?,?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(insSQL);
-            preparedStatement.setInt(1, id);
-            preparedStatement.setString(2,name);
-            preparedStatement.setString(3,category);
-            preparedStatement.setString(4,area);
-            preparedStatement.setString(5, instruction);
-            int count = preparedStatement.executeUpdate();
-            if (count>0){
-                System.out.println(count + " Εγγραφή ενημερώθηκε");
-            }else{
-                System.out.println("Ανεπιτυχείς ενημέρωση δεδομένων");
-            }
-            preparedStatement.close();
-            connection.close();
-        }catch (SQLException throwables){
-            System.out.println(throwables.getLocalizedMessage());
-        }
-    }
+    }//end idSearch
 
     public static void deleteData() {
         try {
@@ -131,25 +129,29 @@ public class Database {
             statement.executeUpdate(deleteSQL);
             statement.close();
             connection.close();
-            } catch (SQLException throwables) {
-               System.out.println(throwables.getLocalizedMessage());
-            }
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getLocalizedMessage());
         }
+    }//end deleteData
 
-    public boolean idSearch(int id){
-           try{
-               Connection connection = connect();
-               Statement statement = connection.createStatement();
-               String searchSQL = "SELECT * FROM CENTRAL WHERE ID = " + id;
-               ResultSet resultSet = statement.executeQuery(searchSQL);
-               boolean exist = resultSet.next();
-               resultSet.close();
-               statement.close();
-               connection.close();
-               return exist;
-           } catch (SQLException throwables) {
-               System.out.println(throwables.getLocalizedMessage());
-               return false;
-           }
+    public void dropDatabase() {
+
+        try {
+            Connection connection = connect();
+            Statement statement = connection.createStatement();
+            String deleteSQL = "DROP TABLE  CENTRAL";
+            String deleteSQL2 = "DROP TABLE VIEWS";
+            String constr = "ALTER TABLE VIEWS DROP FOREIGN KEY ID";
+
+          //  statement.executeUpdate(constr);
+            statement.executeUpdate(deleteSQL2);
+            statement.executeUpdate(deleteSQL);
+            statement.close();
+            connection.close();
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getLocalizedMessage());
         }
-}
+    }
+}//end databaseNew
+
+
