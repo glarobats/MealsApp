@@ -1,5 +1,6 @@
 package org.database;
 
+import javax.swing.*;
 import java.sql.*;
 
 public class Database {
@@ -52,10 +53,9 @@ public class Database {
             statement.executeUpdate(createViewsSQL);
 
             //Δημιουργία πίνακα που αποθηκεύει ποια γεύματα έχουν αποθηκευτεί και υπάρχει περίπτωση να δεχτούν τροποποίηση
-            String createSavedMealsSQL = "CREATE TABLE SAVED(ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(max), PRIMARY KEY(ID), FOREIGN KEY (ID) REFERENCES CENTRAL (ID))";
+            String createSavedMealsSQL = "CREATE TABLE SAVED(ID INT NOT NULL, Όνομα VARCHAR(200),Κατηγορία VARCHAR(200),Περιοχή VARCHAR(200),Οδηγίες VARCHAR(10000), PRIMARY KEY(ID), FOREIGN KEY (ID) REFERENCES CENTRAL (ID))";
             statement.executeUpdate(createSavedMealsSQL);
 
-            statement.executeUpdate(createViewsSQL);
             statement.close();
             connection.close();
         }catch (SQLException throwable){
@@ -175,6 +175,51 @@ public class Database {
             System.out.println(throwables.getLocalizedMessage());
         }
     }//end dropDatabase
+
+    //αντιγραφή του πίνακα CENTRAL στον πίνακα SAVED
+    public void saveToNewTable(int id) {
+        try {
+            ResultSet res = null;
+            Connection connection = connect();
+            PreparedStatement preparedStatement;
+            String selectSql = "SELECT * FROM CENTRAL WHERE id = ?";
+            preparedStatement = connection.prepareStatement(selectSql);
+            preparedStatement.setInt(1, id);
+            res = preparedStatement.executeQuery();
+                if (res.next()) {
+                    String insertSql = "INSERT INTO SAVED (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) VALUES (?,?,?,?,?)";
+                    preparedStatement = connection.prepareStatement(insertSql);
+                    preparedStatement.setInt(1, id);
+                    preparedStatement.setString(2, res.getString("Όνομα"));
+                    preparedStatement.setString(3,res.getString("Κατηγορία"));
+                    preparedStatement.setString(4,res.getString("Περιοχή"));
+                    preparedStatement.setString(5,res.getString("Οδηγίες"));
+                    preparedStatement.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Εισαγωγή αποθηκεύτηκε", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                    connection.close();
+                }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //αναζήτηση στον πίνακα SAVED εάν υπάρχει το ID που αναζητούμε
+    public boolean idSearchInSAVED(int id){
+        try{
+            Connection connection = connect();
+            Statement statement = connection.createStatement();
+            String searchSQL = "SELECT * FROM SAVED WHERE ID = " + id;
+            ResultSet resultSet = statement.executeQuery(searchSQL);
+            boolean exist = resultSet.next();
+            resultSet.close();
+            statement.close();
+            connection.close();
+            return exist;
+        } catch (SQLException throwables) {
+            System.out.println(throwables.getLocalizedMessage());
+            return false;
+        }
+    }//end idSearch
 
     //Ταξινόμιση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
     public void orderBy() {

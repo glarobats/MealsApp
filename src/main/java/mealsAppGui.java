@@ -65,8 +65,13 @@ public class mealsAppGui {
                     JPanel buttonPanel = new JPanel();
                     buttonPanel.add(SaveButton);
                     buttonPanel.add(EditButton);
+                    //ενεργοποίηση ή απενεργοποίηση του κουμποιύ EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
+                    if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                        EditButton.setEnabled(false);
+                    }else {
+                        EditButton.setEnabled(true);
+                    }
                     buttonPanel.add(DeleteButton);
-
                     panel.add(buttonPanel,BorderLayout.SOUTH);
                     //Τέλος, προσθήκης κουμπιών
 
@@ -74,43 +79,12 @@ public class mealsAppGui {
                     SaveButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            JPanel inputPane = new JPanel();
-
-                            inputPane.setLayout(new GridLayout(5, 2));
-
-                            JTextField idField = new JTextField();
-                            JTextField nameField = new JTextField();
-                            JTextField categoryField = new JTextField();
-                            JTextField areaField = new JTextField();
-                            JTextField instructionsField = new JTextField();
-
-                            inputPane.add(new JLabel("ID:"));
-                            inputPane.add(idField);
-                            inputPane.add(new JLabel("Name:"));
-                            inputPane.add(nameField);
-                            inputPane.add(new JLabel("Category:"));
-                            inputPane.add(categoryField);
-                            inputPane.add(new JLabel("Area:"));
-                            inputPane.add(areaField);
-                            inputPane.add(new JLabel("Instructions:"));
-                            inputPane.add(instructionsField);
-
-                            int result = JOptionPane.showConfirmDialog(null, inputPane, "Νέα εγγραφή", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-                            if (result == JOptionPane.OK_OPTION) {
-
-
-
-                                int id = Integer.parseInt(idField.getText());
-                                String name = nameField.getText();
-                                String category = categoryField.getText();
-                                String area = areaField.getText();
-                                String instructions = instructionsField.getText();
-
-                                Database db = Database.getInstance();
-                                db.insMeal(id, name, category, area, instructions);
-
-
+                            if (!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                                db.saveToNewTable(Integer.valueOf(meal.getId()));
+                                EditButton.setEnabled(true);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                                EditButton.setEnabled(true);
                             }
                         }
                     });
