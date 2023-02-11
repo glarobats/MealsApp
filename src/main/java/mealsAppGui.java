@@ -1,9 +1,11 @@
 import org.database.Database;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 public class mealsAppGui {
@@ -38,7 +40,11 @@ public class mealsAppGui {
                 if (meal != null) {
                     //αναζήτηση στη ΒΔ εάν έχει γίνει ξανά αναζήτηση του γεύματος
                     //εάν δεν έχει γίνει τότε εισαγωγή στη ΒΔ
-                    if (!db.idSearch(Integer.valueOf(meal.getId()))){
+                    if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                        JOptionPane.showMessageDialog(null, "ΠΡΟΣΟΧΗ!!!!\nΤο γεύμα έχει ήδη τροποποιηθεί και η τροποποιημένη του έκδοση βρίσκεται ήδη" +
+                                "στην Βάση Δεδομένων σου.\nΓια να έχεις πρόσβαση στο τροποποιημένο γεύμα θα \nπρέπει να περιμένεις την " +
+                                "επόμενη έκδοση του MealsDB.", "EDITED", JOptionPane.INFORMATION_MESSAGE);
+                    }else if (!db.idSearch(Integer.valueOf(meal.getId()))){
                         db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     }else {
                         //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
@@ -53,7 +59,7 @@ public class mealsAppGui {
                     mealsArea.setBorder(BorderFactory.createCompoundBorder(
                             BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
                             BorderFactory.createEmptyBorder(0,0,0,0)));
-                    mealsArea.setText("Meal: " + meal.getName());
+                    mealsArea.setText(meal.getName());
                     mealsArea.setLineWrap(true);
                     mealsArea.setWrapStyleWord(true);
                     mealsArea.setEditable(false);
@@ -62,7 +68,7 @@ public class mealsAppGui {
                     category.setBorder(BorderFactory.createCompoundBorder(
                             BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
                             BorderFactory.createEmptyBorder(0,0,0,0)));
-                    category.setText("Category: " + meal.getCategory());
+                    category.setText(meal.getCategory());
                     category.setLineWrap(true);
                     category.setWrapStyleWord(true);
                     category.setEditable(false);
@@ -71,7 +77,7 @@ public class mealsAppGui {
                     Area.setBorder(BorderFactory.createCompoundBorder(
                             BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
                             BorderFactory.createEmptyBorder(0,0,0,0)));
-                    Area.setText("Area: " + meal.getArea());
+                    Area.setText(meal.getArea());
                     Area.setLineWrap(true);
                     Area.setWrapStyleWord(true);
                     Area.setEditable(false);
@@ -80,7 +86,7 @@ public class mealsAppGui {
                     Instructions.setBorder(BorderFactory.createCompoundBorder(
                             BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
                             BorderFactory.createEmptyBorder(0,0,0,0)));
-                    Instructions.setText("Instructions: " + meal.getInstructions());
+                    Instructions.setText(meal.getInstructions());
                     Instructions.setLineWrap(true);
                     Instructions.setWrapStyleWord(true);
                     Instructions.setEditable(false);
@@ -95,6 +101,7 @@ public class mealsAppGui {
                     JButton SaveButton = new JButton("SAVE");
                     JButton EditButton = new JButton("EDIT");
                     JButton DeleteButton = new JButton("DELETE");
+                    JButton SaveEdited = new JButton("SAVE EDITED");
 
                     JPanel panel = new JPanel();
                     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -107,6 +114,7 @@ public class mealsAppGui {
                     buttonPanel.add(SaveButton);
                     buttonPanel.add(EditButton);
                     buttonPanel.add(DeleteButton);
+                    buttonPanel.add(SaveEdited);
 
                     scrollPane1.setPreferredSize(new Dimension(500, 25));
                     scrollPane2.setPreferredSize(new Dimension(500, 25));
@@ -152,6 +160,9 @@ public class mealsAppGui {
                     }else {
                         DeleteButton.setEnabled(true);
                     }
+
+                    //απενεργοποίηση κουμπιού SAVE EDITED
+                    SaveEdited.setEnabled(false);
                     //Τέλος, προσθήκης κουμπιών
 
                     //Listeners για ανωτέρω κουμπιά
@@ -186,9 +197,43 @@ public class mealsAppGui {
                     EditButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            //απενεργοποίηση κουμπιών και ενεργοποίηση των πεδίων προς τροποποίηση
+                            SaveEdited.setEnabled(true);
+                            SaveButton.setEnabled(false);
+                            EditButton.setEnabled(false);
+                            DeleteButton.setEnabled(false);
+                            mealsArea.setEditable(true);
+                            category.setEditable(true);
+                            Area.setEditable(true);
+                            Instructions.setEditable(true);
 
-
-
+                            //listener κουμπιού SAVE EDITED
+                            SaveEdited.addActionListener(new ActionListener() {
+                                @Override
+                                public void actionPerformed(ActionEvent e) {
+                                    int ID = Integer.valueOf(meal.getId());
+                                    try {
+                                        //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
+                                        SaveEdited.setEnabled(false);
+                                        Connection connection = db.connect();
+                                        Statement stmt = connection.createStatement();
+                                        String modifiedFields = "UPDATE SAVED SET "
+                                                + "Όνομα = '" + mealsArea.getText() + "', "
+                                                + "Κατηγορία = '" + category.getText() + "', "
+                                                + "Περιοχή = '" + mealsArea.getText() + "', "
+                                                + "Οδηγίες = '" + Instructions.getText() + "' "
+                                                + "WHERE ID = " + ID;
+                                        stmt.executeUpdate(modifiedFields);
+                                        connection.commit();
+                                        SaveButton.setEnabled(false);
+                                        EditButton.setEnabled(true);
+                                        DeleteButton.setEnabled(true);
+                                    } catch (SQLException exception) {
+                                        System.out.println(exception.getLocalizedMessage());
+                                        JOptionPane.showMessageDialog(null, "Το γεύμα τροποποιήθηκε", "EDITED", JOptionPane.INFORMATION_MESSAGE);
+                                    }
+                                }
+                            });
                         }
                     });
                     //Τέλος listeners

@@ -19,7 +19,7 @@ public class Database {
     }
 
     //σύνδεση με API
-    private static Connection connect(){
+    public static Connection connect(){
         String connectionString = "jdbc:derby:mealsdb;create=true";
         Connection connection = null;
         try{
@@ -203,9 +203,7 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
         }
-    }
-//end deleteSavedTable
-
+    }//end deleteSavedTable
 
     //αναζήτηση στον πίνακα SAVED εάν υπάρχει το ID που αναζητούμε
     public boolean idSearchInSAVED(int id){
