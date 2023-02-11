@@ -47,7 +47,7 @@ public class popUpListTree extends JFrame {
 
                         for (getMealsFromApi meal : mealResponse.getMeals()) {
                             String category = meal.getStrCategory();
-                            // Χρήση της synchronize για εισαγωγή σε map
+                            // Χρήση της synchronize για εισαγωγή σε map με κλειδί την κατηγορία γεύματος και πεδίο το γεύμα
                             synchronized (categories) {
                                 List<getMealsFromApi> meals = categories.getOrDefault(category, new ArrayList<>());
                                 meals.add(meal);
@@ -84,6 +84,8 @@ public class popUpListTree extends JFrame {
             tree.setFont(font);
             // Δημιούργησε popup ώστε να εμφανιστεί στο JTree
             JFrame frame = new JFrame("Meals");
+            ImageIcon image = new ImageIcon("logo.png");
+            frame.setIconImage(image.getImage());
             frame.add(new JScrollPane(tree));
             frame.setSize(370, 600);
             frame.setLocation(1155,108);

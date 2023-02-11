@@ -18,29 +18,33 @@ public class mealsAppGui {
 
 
     public mealsAppGui() {
-
+        //κουμπί προβολής δεδομένων γεύματος
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //Παράθυρο για αναζήτηση
                 mealApi mealApi = new mealApi();
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
                 Meal meal = mealApi.searchByName(searchTerm);
 
                 Database db = Database.getInstance();
-
+                //εάν είναι κενό το πεδίο και πατήσεις ΟΚ
                 if (searchTerm == null || searchTerm.trim().isEmpty()) {
                     JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-
+                //εάν δεν είναι κενό το πεδίο
                 if (meal != null) {
-                    //ενημέρωση ΒΔ
+                    //αναζήτηση στη ΒΔ εάν έχει γίνει ξανά αναζήτηση του γεύματος
+                    //εάν δεν έχει γίνει τότε εισαγωγή στη ΒΔ
                     if (!db.idSearch(Integer.valueOf(meal.getId()))){
                         db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     }else {
+                        //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
                         db.incrementViews(Integer.valueOf(meal.getId()));
                     }
 
+                    //Δημιουργία παραθύρου με τα ζητούμενα στοιχεία
                     JTextArea textArea = new JTextArea();
                     textArea.setText("Meal: " + meal.getName() + "\n\nCategory: " + meal.getCategory() + "\n\nArea: " + meal.getArea() + "\n\nInstructions: " + meal.getInstructions());
                     textArea.setLineWrap(true);
@@ -49,7 +53,7 @@ public class mealsAppGui {
 
                     JScrollPane scrollPane = new JScrollPane(textArea);
 
-                    //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρα panel στο κάτω μέρος του παραθύρου
+                    //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρά panel στο κάτω μέρος του παραθύρου
                     JButton SaveButton = new JButton("SAVE");
                     JButton EditButton = new JButton("EDIT");
                     JButton DeleteButton = new JButton("DELETE");
@@ -61,8 +65,19 @@ public class mealsAppGui {
                     JPanel buttonPanel = new JPanel();
                     buttonPanel.add(SaveButton);
                     buttonPanel.add(EditButton);
+                    //ενεργοποίηση ή απενεργοποίηση του κουμποιύ EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
+                    if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                        EditButton.setEnabled(false);
+                    }else {
+                        EditButton.setEnabled(true);
+                    }
                     buttonPanel.add(DeleteButton);
-
+                    //ενεργοποίηση ή απενεργοποίηση του κουμποιύ DELETE ανάλογα εάν είναι αποθηκευμένο το γεύμα
+                    if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                        DeleteButton.setEnabled(false);
+                    }else {
+                        DeleteButton.setEnabled(true);
+                    }
                     panel.add(buttonPanel,BorderLayout.SOUTH);
                     //Τέλος, προσθήκης κουμπιών
 
@@ -70,62 +85,29 @@ public class mealsAppGui {
                     SaveButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            JPanel inputPane = new JPanel();
-
-                            inputPane.setLayout(new GridLayout(5, 2));
-
-                            JTextField idField = new JTextField();
-                            JTextField nameField = new JTextField();
-                            JTextField categoryField = new JTextField();
-                            JTextField areaField = new JTextField();
-                            JTextField instructionsField = new JTextField();
-
-                            inputPane.add(new JLabel("ID:"));
-                            inputPane.add(idField);
-                            inputPane.add(new JLabel("Name:"));
-                            inputPane.add(nameField);
-                            inputPane.add(new JLabel("Category:"));
-                            inputPane.add(categoryField);
-                            inputPane.add(new JLabel("Area:"));
-                            inputPane.add(areaField);
-                            inputPane.add(new JLabel("Instructions:"));
-                            inputPane.add(instructionsField);
-
-                            int result = JOptionPane.showConfirmDialog(null, inputPane, "Νέα εγγραφή", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-
-                            if (result == JOptionPane.OK_OPTION) {
-
-
-
-                                int id = Integer.parseInt(idField.getText());
-                                String name = nameField.getText();
-                                String category = categoryField.getText();
-                                String area = areaField.getText();
-                                String instructions = instructionsField.getText();
-
-                                Database db = Database.getInstance();
-                                db.insMeal(id, name, category, area, instructions);
-
-
+                            if (!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                                db.saveToNewTable(Integer.valueOf(meal.getId()));
+                                EditButton.setEnabled(true);
+                                DeleteButton.setEnabled(true);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                                EditButton.setEnabled(true);
                             }
                         }
                     });
 
-
                     DeleteButton.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                            JPanel inputPane = new JPanel();
-                            inputPane.setLayout(new GridLayout(1, 1));
-                            JTextField idField = new JTextField();
-                            int id = Integer.parseInt(idField.getText());
-                            int chois = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete the meal?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
-                            if (chois == JOptionPane.YES_OPTION) {
-                                Database db = Database.getInstance();
-                                db.deleteData();
+                            if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                                db.deleteSavedTable(Integer.valueOf(meal.getId()));
+                                DeleteButton.setEnabled(false);
+                                EditButton.setEnabled(false);
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                                DeleteButton.setEnabled(false);
                             }
                         }
-
                     });
 
 
@@ -135,7 +117,6 @@ public class mealsAppGui {
 
                         }
                     });
-
                     //Τέλος listeners
 
                     scrollPane.setPreferredSize(new Dimension(500, 500));
@@ -148,22 +129,18 @@ public class mealsAppGui {
                     dialog.setVisible(true);
 
                 } else {
+                    //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος
                     JOptionPane.showMessageDialog(null, "Το Γεύμα που εισάγατε δεν υπάρχει", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-
-
-
-
-
-
             }
         });
+        //κουμπί προβολής λίστας γευμάτων ανα κατηγορία γεύματος
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 popUpListTree obj = null;
                 try {
+                    //εμφάνιση παραθύρου
                     obj = popUpListTree.getInstance();
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
@@ -175,12 +152,14 @@ public class mealsAppGui {
 
             }
         });
+        //κουμπί προβολής στατιστικών δεδομένων γευμάτων και εκτύπωση σε αρχείο pdf
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
         });
+        //κουμπί έξοδος
         EXITButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -198,6 +177,7 @@ public class mealsAppGui {
         });
     }
 
+    //ρυθμίσεις κεντρικού μενού
     public void JFrameMain (){
         JFrame frame = new JFrame("MainGui");
 
