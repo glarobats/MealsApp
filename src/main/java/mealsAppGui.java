@@ -41,8 +41,8 @@ public class mealsAppGui {
                     //αναζήτηση στη ΒΔ εάν έχει γίνει ξανά αναζήτηση του γεύματος
                     //εάν δεν έχει γίνει τότε εισαγωγή στη ΒΔ
                     if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-                        JOptionPane.showMessageDialog(null, "ΠΡΟΣΟΧΗ!!!!\nΤο γεύμα έχει ήδη τροποποιηθεί και η τροποποιημένη του έκδοση βρίσκεται ήδη" +
-                                "στην Βάση Δεδομένων σου.\nΓια να έχεις πρόσβαση στο τροποποιημένο γεύμα θα \nπρέπει να περιμένεις την " +
+                        JOptionPane.showMessageDialog(null, "ΠΡΟΣΟΧΗ!!!!\nΥπάρχει περίπτωση το γεύμα να έχει ΗΔΗ τροποποιηθεί \nοπότε και η τροποποιημένη του έκδοση θα βρίσκεται ήδη\n" +
+                                "στην Βάση Δεδομένων σου.\nΓια να έχεις πρόσβαση στο σε αυτήν την λειτουργία θα \nπρέπει να περιμένεις την " +
                                 "επόμενη έκδοση του MealsDB.", "EDITED", JOptionPane.INFORMATION_MESSAGE);
                     }else if (!db.idSearch(Integer.valueOf(meal.getId()))){
                         db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
