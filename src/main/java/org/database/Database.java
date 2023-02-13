@@ -159,18 +159,14 @@ public class Database {
         try {
             Connection connection = connect();
             Statement statement = connection.createStatement();
-            String dlCentralSQL = "DROP FROM CENTRAL";
-            statement.executeUpdate(dlCentralSQL);
-            String dlViewsSQL = "DROP FROM VIEWS";
-            statement.executeUpdate(dlViewsSQL);
-            String dlSavedMealsSQL = "DROP FROM SAVED";
-            statement.executeUpdate(dlSavedMealsSQL);
-            statement.close();
+            statement.executeUpdate("DELETE FROM VIEWS");
+            statement.executeUpdate("DELETE FROM SAVED");
+            statement.executeUpdate("DELETE FROM CENTRAL");
             connection.close();
         } catch (SQLException throwables) {
             System.out.println(throwables.getLocalizedMessage());
         }
-    }//end dropDatabase
+    }//end deleteDB
 
     //αντιγραφή του πίνακα CENTRAL στον πίνακα SAVED
     public void saveToNewTable(int id) {
