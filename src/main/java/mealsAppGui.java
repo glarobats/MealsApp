@@ -1,3 +1,5 @@
+import Pdf.Chart;
+import Pdf.ViewsPDF;
 import org.database.Database;
 import javax.swing.*;
 import java.awt.*;
@@ -271,9 +273,11 @@ public class mealsAppGui {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Database db = Database.getInstance();
-                db.ViewsPDF();
-                db.chart();
+                ViewsPDF view = new ViewsPDF();
+                view.viewPdf();
+
+                Chart chart = new Chart();
+                chart.makeChart();
             }
         });
         //κουμπί έξοδος
