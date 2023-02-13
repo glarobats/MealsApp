@@ -1,6 +1,9 @@
 package org.database;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.sql.*;
@@ -250,6 +253,27 @@ public class Database {
                 table.addCell(String.valueOf(resultSet.getInt("Εμφανίσεις")));
             }
             document.add(table);
+
+            /*DefaultPieDataset dataset = new DefaultPieDataset();
+            try {
+                Connection connection1 = connect();
+                Statement statement1 = connection.createStatement();
+                String qur = ("SELECT Εμφανίσεις, Όνομα FROM CENTRAL INNER JOIN VIEWS ON CENTRAL.ID = VIEWS.ID");
+                ResultSet resultSet1 = statement.executeQuery(qur);
+                while (resultSet1.next()) {
+                    dataset.setValue(resultSet1.getString("Όνομα"), resultSet.getInt("Εμφανίσεις"));
+                }
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+            JFreeChart chart = ChartFactory.createPieChart("Εμφανίσεις Γευμάτων",dataset,true,true, false);
+            int w = 500;
+            int h = 400;
+            BufferedImage image = chart.createBufferedImage(w,h);
+            ImageIO.write(image,"PNG",new File("chart.png"));
+            Image chartIm = Image.getInstance("chart.png");
+            chartIm.scaleToFit(w,h);
+            document.add(chartIm);*/
             document.close();
         } catch (Exception e) {
             e.printStackTrace();
