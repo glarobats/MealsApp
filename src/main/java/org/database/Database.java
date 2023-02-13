@@ -1,7 +1,15 @@
 package org.database;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.sql.*;
+import com.itextpdf.text.*;
+import com.itextpdf.text.pdf.*;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
 
 public class Database {
 
@@ -144,18 +152,16 @@ public class Database {
     }//end idSearch
 
     //εκκαθάριση της ΒΔ κατά το κλείσιμο
-    public void dropDatabase() {
-
+    public void truncateDB() {
         try {
             Connection connection = connect();
             Statement statement = connection.createStatement();
-            String deleteSQL = "DROP TABLE  CENTRAL";
-            String deleteSQL2 = "DROP TABLE VIEWS";
-            String deleteSQL3 = "DROP TABLE SAVED";
-
-            statement.executeUpdate(deleteSQL3);
-            statement.executeUpdate(deleteSQL2);
-            statement.executeUpdate(deleteSQL);
+            String truncateCentralSQL = "TRUNCATE TABLE CENTRAL";
+            statement.executeUpdate(truncateCentralSQL);
+            String truncateViewsSQL = "TRUNCATE TABLE VIEWS";
+            statement.executeUpdate(truncateViewsSQL);
+            String truncateSavedMealsSQL = "TRUNCATE TABLE SAVED";
+            statement.executeUpdate(truncateSavedMealsSQL);
             statement.close();
             connection.close();
         } catch (SQLException throwables) {
@@ -182,7 +188,6 @@ public class Database {
                     preparedStatement.setString(4,res.getString("Περιοχή"));
                     preparedStatement.setString(5,res.getString("Οδηγίες"));
                     preparedStatement.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Εισαγωγή αποθηκεύτηκε", "SAVED", JOptionPane.INFORMATION_MESSAGE);
                     connection.close();
                 }
         } catch (SQLException e) {
@@ -198,7 +203,6 @@ public class Database {
             PreparedStatement preparedStatement = connection.prepareStatement(deleteTable);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Εισαγωγή διαγράφηκε", "DELETED", JOptionPane.INFORMATION_MESSAGE);
             connection.close();
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
@@ -222,8 +226,59 @@ public class Database {
             return false;
         }
     }//end idSearch
+    public void ViewsPDF () {
+        try {
+            Connection connection = connect();
+            Statement statement = connection.createStatement();
+            String qr = "SELECT CENTRAL.Όνομα, VIEWS.Εμφανίσεις FROM CENTRAL INNER JOIN VIEWS ON CENTRAL.ID = VIEWS.ID ORDER BY VIEWS.Εμφανίσεις DESC";
+            ResultSet resultSet = statement.executeQuery(qr);
 
-    //Ταξινόμιση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("views.pdf"));
+            document.open();
+            PdfPTable table = new PdfPTable(2);
+            PdfPCell onoma = new PdfPCell(new Phrase("Onoma", new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD)));
+            onoma.setHorizontalAlignment(Element.ALIGN_CENTER);
+            onoma.setBackgroundColor(BaseColor.YELLOW);
+            table.addCell(onoma);
+            PdfPCell emfaniseis = new PdfPCell(new Phrase("Emfaniseis", new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD)));
+            emfaniseis.setHorizontalAlignment(Element.ALIGN_CENTER);
+            emfaniseis.setBackgroundColor(BaseColor.YELLOW);
+            table.addCell(emfaniseis);
+            while (resultSet.next()) {
+                table.addCell(resultSet.getString("Όνομα"));
+                table.addCell(String.valueOf(resultSet.getInt("Εμφανίσεις")));
+            }
+            document.add(table);
+            document.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void chart(){
+        DefaultPieDataset dataset = new DefaultPieDataset();
+        try {
+            Connection connection = connect();
+            Statement statement = connection.createStatement();
+            String qur = ("SELECT Εμφανίσεις, Όνομα FROM CENTRAL INNER JOIN VIEWS ON CENTRAL.ID = VIEWS.ID");
+            ResultSet resultSet = statement.executeQuery(qur);
+            while (resultSet.next()) {
+                dataset.setValue(resultSet.getString("Όνομα"), resultSet.getInt("Εμφανίσεις"));
+            }
+        }catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        JFreeChart chart = ChartFactory.createPieChart("Εμφανίσεις Γευμάτων", dataset, true, true, false);
+        ChartFrame frame = new ChartFrame("Διάγραμμα Εμφανίσεων Γευμάτων", chart);
+        frame.setVisible(true);
+        frame.setSize(700, 600);
+        ImageIcon image = new ImageIcon("logo.png");
+        frame.setIconImage(image.getImage());
+    }
+
+    //Ταξινόμηση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
     public void orderBy() {
         Connection connection = connect();
         String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
