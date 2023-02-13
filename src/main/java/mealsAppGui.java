@@ -271,7 +271,9 @@ public class mealsAppGui {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Database db = Database.getInstance();
+                db.ViewsPDF();
+                db.chart();
             }
         });
         //κουμπί έξοδος
@@ -283,8 +285,8 @@ public class mealsAppGui {
                             "Είσαι σίγουρος οτι θέλεις να κάνεις έξοδο?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
                     if (result == JOptionPane.YES_NO_OPTION) {
                         Database db = Database.getInstance();
-                        db.dropDatabase();
-                        System.out.println("Database droped");
+                        db.deleteDB();
+                        System.out.println("Επιτυχείς διαγραφή δεδομένων");
                         System.exit(0);
                     }
                 }
