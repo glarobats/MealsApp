@@ -41,9 +41,10 @@ public class mealsAppGui {
                     //αναζήτηση στη ΒΔ εάν έχει γίνει ξανά αναζήτηση του γεύματος
                     //εάν δεν έχει γίνει τότε εισαγωγή στη ΒΔ
                     if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-                        JOptionPane.showMessageDialog(null, "ΠΡΟΣΟΧΗ!!!!\nΥπάρχει περίπτωση το γεύμα να έχει ΗΔΗ τροποποιηθεί \nοπότε και η τροποποιημένη του έκδοση θα βρίσκεται ήδη\n" +
-                                "στην Βάση Δεδομένων σου.\nΓια να έχεις πρόσβαση στο σε αυτήν την λειτουργία θα \nπρέπει να περιμένεις την " +
-                                "επόμενη έκδοση του MealsDB.", "EDITED", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "ΠΡΟΣΟΧΗ!!!!\nΥπάρχει περίπτωση το γεύμα να έχει ΗΔΗ τροποποιηθεί \n" +
+                                "οπότε και η τροποποιημένη του έκδοση θα βρίσκεται ήδη\n" +
+                                "στην Βάση Δεδομένων σου.\nΓια να έχεις πρόσβαση στο σε αυτήν την λειτουργία θα \n" +
+                                "πρέπει να περιμένεις την επόμενη έκδοση του MealsDB.", "EDITED", JOptionPane.INFORMATION_MESSAGE);
                     }else if (!db.idSearch(Integer.valueOf(meal.getId()))){
                         db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     }else {
@@ -55,46 +56,16 @@ public class mealsAppGui {
                     //πιο εύκολα
                     JFrame frame = new JFrame("Meal Details");
 
-                    JTextArea mealsArea = new JTextArea();
-                    mealsArea.setBorder(BorderFactory.createCompoundBorder(
-                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
-                            BorderFactory.createEmptyBorder(0,0,0,0)));
-                    mealsArea.setText(meal.getName());
-                    mealsArea.setLineWrap(true);
-                    mealsArea.setWrapStyleWord(true);
-                    mealsArea.setEditable(false);
+                    JTextArea mealsArea = createTextArea(meal.getName());
+                    JTextArea category = createTextArea(meal.getCategory());
+                    JTextArea Area = createTextArea(meal.getArea());
+                    JTextArea Instructions = createTextArea(meal.getInstructions());
 
-                    JTextArea category = new JTextArea();
-                    category.setBorder(BorderFactory.createCompoundBorder(
-                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
-                            BorderFactory.createEmptyBorder(0,0,0,0)));
-                    category.setText(meal.getCategory());
-                    category.setLineWrap(true);
-                    category.setWrapStyleWord(true);
-                    category.setEditable(false);
-
-                    JTextArea Area = new JTextArea();
-                    Area.setBorder(BorderFactory.createCompoundBorder(
-                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
-                            BorderFactory.createEmptyBorder(0,0,0,0)));
-                    Area.setText(meal.getArea());
-                    Area.setLineWrap(true);
-                    Area.setWrapStyleWord(true);
-                    Area.setEditable(false);
-
-                    JTextArea Instructions = new JTextArea();
-                    Instructions.setBorder(BorderFactory.createCompoundBorder(
-                            BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
-                            BorderFactory.createEmptyBorder(0,0,0,0)));
-                    Instructions.setText(meal.getInstructions());
-                    Instructions.setLineWrap(true);
-                    Instructions.setWrapStyleWord(true);
-                    Instructions.setEditable(false);
-
-                    JScrollPane scrollPane1 = new JScrollPane(mealsArea);
-                    JScrollPane scrollPane2 = new JScrollPane(category);
-                    JScrollPane scrollPane3 = new JScrollPane(Area);
-                    JScrollPane scrollPane4 = new JScrollPane(Instructions);
+                    JScrollPane scrollPane1 = createScrollPane(mealsArea);
+                    JScrollPane scrollPane2 = createScrollPane(category);
+                    JScrollPane scrollPane3 = createScrollPane(Area);
+                    JScrollPane scrollPane4 = createScrollPane(Instructions);
+                    scrollPane4.setPreferredSize(new Dimension(500, 430));
 
 
                     //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρά panel στο κάτω μέρος του παραθύρου
@@ -105,6 +76,7 @@ public class mealsAppGui {
 
                     JPanel panel = new JPanel();
                     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+
                     panel.add(scrollPane1);
                     panel.add(scrollPane2);
                     panel.add(scrollPane3);
@@ -123,19 +95,43 @@ public class mealsAppGui {
 
                     ImageIcon image = new ImageIcon("logo.png");
 
-                    Font font1 = mealsArea.getFont();
-                    font1 = font1.deriveFont(16f); // change the font size to 16
-                    mealsArea.setFont(font1);
+                    Font font = mealsArea.getFont();
+                    font = font.deriveFont(16f); // Αλλαγή γραμματοσειράς σε 16
+                    mealsArea.setFont(font);
+                    category.setFont(font);
+                    Area.setFont(font);
 
-                    Font font2 = category.getFont();
-                    font2 = font2.deriveFont(16f); // change the font size to 16
-                    category.setFont(font2);
+                    //JLabel
+                    JLabel label = new JLabel("Meal:");
+                    label.setFont(font);
+                    JPanel labelPanel = new JPanel();
+                    labelPanel.add(label, BorderLayout.WEST);
+                    panel.add(labelPanel, BorderLayout.WEST);
+                    panel.add(scrollPane1, BorderLayout.WEST);
 
-                    Font font3 = Area.getFont();
-                    font3 = font3.deriveFont(16f); // change the font size to 16
-                    Area.setFont(font3);
+                    label = new JLabel("Category:");
+                    label.setFont(font);
+                    labelPanel = new JPanel();
+                    labelPanel.add(label, BorderLayout.WEST);
+                    panel.add(labelPanel, BorderLayout.WEST);
+                    panel.add(scrollPane2, BorderLayout.WEST);
 
-                    panel.add(buttonPanel, BorderLayout.SOUTH);
+                    label = new JLabel("Area:");
+                    label.setFont(font);
+                    labelPanel = new JPanel();
+                    labelPanel.add(label, BorderLayout.WEST);
+                    panel.add(labelPanel, BorderLayout.WEST);
+                    panel.add(scrollPane3, BorderLayout.WEST);
+
+                    label = new JLabel("Instructions:");
+                    label.setFont(font);
+                    labelPanel = new JPanel();
+                    labelPanel.add(label, BorderLayout.WEST);
+                    panel.add(labelPanel, BorderLayout.WEST);
+                    panel.add(scrollPane4, BorderLayout.WEST);
+
+                    buttonPanel.add(DeleteButton);
+                    panel.add(buttonPanel,BorderLayout.SOUTH);
 
                     frame.setIconImage(image.getImage());
                     frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -176,6 +172,7 @@ public class mealsAppGui {
                                     db.saveToNewTable(Integer.valueOf(meal.getId()));
                                     EditButton.setEnabled(true);
                                     DeleteButton.setEnabled(true);
+                                    SaveButton.setEnabled(false);
                                 }
                             } else {
                                 JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
@@ -191,6 +188,7 @@ public class mealsAppGui {
                                 db.deleteSavedTable(Integer.valueOf(meal.getId()));
                                 DeleteButton.setEnabled(false);
                                 EditButton.setEnabled(false);
+                                SaveButton.setEnabled(true);
                             } else {
                                 JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
                                 DeleteButton.setEnabled(false);
@@ -232,10 +230,10 @@ public class mealsAppGui {
                                                     + "WHERE ID = " + ID;
                                             stmt.executeUpdate(modifiedFields);
                                             connection.commit();
+                                            mealsArea.setEditable(false);
                                             SaveButton.setEnabled(false);
                                             EditButton.setEnabled(true);
                                             DeleteButton.setEnabled(true);
-                                            JOptionPane.showMessageDialog(null, "Το γεύμα τροποποιήθηκε", "EDITED", JOptionPane.INFORMATION_MESSAGE);
                                         } catch (SQLException exception) {
                                             System.out.println(exception.getLocalizedMessage());
                                         }
@@ -315,6 +313,24 @@ public class mealsAppGui {
         ImageIcon image = new ImageIcon("logo.png");
         frame.setIconImage(image.getImage());
 
+    }
+
+    private JTextArea createTextArea(String text) {
+        JTextArea area = new JTextArea();
+        area.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
+                BorderFactory.createEmptyBorder(0,0,0,0)));
+        area.setText(text);
+        area.setLineWrap(true);
+        area.setWrapStyleWord(true);
+        area.setEditable(false);
+        area.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
+        return area;
+    }
+    private JScrollPane createScrollPane(JTextArea area) {
+        JScrollPane scrollPane = new JScrollPane(area);
+        scrollPane.setPreferredSize(new Dimension(500, 25));
+        return scrollPane;
     }
 
 }

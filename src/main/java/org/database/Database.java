@@ -182,7 +182,6 @@ public class Database {
                     preparedStatement.setString(4,res.getString("Περιοχή"));
                     preparedStatement.setString(5,res.getString("Οδηγίες"));
                     preparedStatement.executeUpdate();
-                    JOptionPane.showMessageDialog(null, "Εισαγωγή αποθηκεύτηκε", "SAVED", JOptionPane.INFORMATION_MESSAGE);
                     connection.close();
                 }
         } catch (SQLException e) {
@@ -198,7 +197,6 @@ public class Database {
             PreparedStatement preparedStatement = connection.prepareStatement(deleteTable);
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Εισαγωγή διαγράφηκε", "DELETED", JOptionPane.INFORMATION_MESSAGE);
             connection.close();
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
@@ -223,7 +221,7 @@ public class Database {
         }
     }//end idSearch
 
-    //Ταξινόμιση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
+    //Ταξινόμηση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
     public void orderBy() {
         Connection connection = connect();
         String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
