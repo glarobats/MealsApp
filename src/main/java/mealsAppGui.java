@@ -285,7 +285,7 @@ public class mealsAppGui {
                             "Είσαι σίγουρος οτι θέλεις να κάνεις έξοδο?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
                     if (result == JOptionPane.YES_NO_OPTION) {
                         Database db = Database.getInstance();
-                        db.truncateDB();
+                        db.deleteDB();
                         System.out.println("Επιτυχείς διαγραφή δεδομένων");
                         System.exit(0);
                     }

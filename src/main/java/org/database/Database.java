@@ -155,16 +155,16 @@ public class Database {
     }//end idSearch
 
     //εκκαθάριση της ΒΔ κατά το κλείσιμο
-    public void truncateDB() {
+    public void deleteDB() {
         try {
             Connection connection = connect();
             Statement statement = connection.createStatement();
-            String truncateCentralSQL = "TRUNCATE TABLE CENTRAL";
-            statement.executeUpdate(truncateCentralSQL);
-            String truncateViewsSQL = "TRUNCATE TABLE VIEWS";
-            statement.executeUpdate(truncateViewsSQL);
-            String truncateSavedMealsSQL = "TRUNCATE TABLE SAVED";
-            statement.executeUpdate(truncateSavedMealsSQL);
+            String dlCentralSQL = "DROP FROM CENTRAL";
+            statement.executeUpdate(dlCentralSQL);
+            String dlViewsSQL = "DROP FROM VIEWS";
+            statement.executeUpdate(dlViewsSQL);
+            String dlSavedMealsSQL = "DROP FROM SAVED";
+            statement.executeUpdate(dlSavedMealsSQL);
             statement.close();
             connection.close();
         } catch (SQLException throwables) {
