@@ -273,11 +273,14 @@ public class mealsAppGui {
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ViewsPDF view = new ViewsPDF();
-                view.viewPdf();
+                Database db = Database.getInstance();
+                db.orderBy();
 
-                Chart chart = new Chart();
-                chart.makeChart();
+               // ViewsPDF view = new ViewsPDF();
+               // view.viewPdf();
+
+               // Chart chart = new Chart();
+               // chart.makeChart();
             }
         });
         //κουμπί έξοδος

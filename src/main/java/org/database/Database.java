@@ -226,19 +226,14 @@ public class Database {
         }
     }//end idSearch
 
-
-
-
     //Ταξινόμηση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
     public void orderBy() {
         Connection connection = connect();
         String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
-        Statement statement = null;
         try {
-            statement = connection.createStatement();
-            statement.executeQuery(orderDesc);
+            PreparedStatement preparedStatement = connection.prepareStatement(orderDesc);
+            preparedStatement.executeQuery();
             connection.close();
-
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
         }

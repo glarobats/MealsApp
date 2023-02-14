@@ -1,68 +1,74 @@
 package Pdf;
 
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-
 import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import org.database.Database;
+
 import static org.database.Database.connect;
 
 public class ViewsPDF {
 
-    public void viewPdf () {
-        try {
-            Connection connection = connect();
-            Statement statement = connection.createStatement();
-            String qr = "SELECT CENTRAL.Όνομα, VIEWS.Εμφανίσεις FROM CENTRAL INNER JOIN VIEWS ON CENTRAL.ID = VIEWS.ID ORDER BY VIEWS.Εμφανίσεις DESC";
-            ResultSet resultSet = statement.executeQuery(qr);
+    public void viewPdf() {
 
+        Database db = Database.getInstance();
+        db.orderBy();
+
+        try {
+            // Step 2: Establish a connection
+            Connection connection = connect();
+
+            // Step 3: Create a statement
+            Statement statement = connection.createStatement();
+
+            // Step 4: Execute the query
+            ResultSet resultSet = statement.executeQuery("SELECT Όνομα, Εμφανίσεις FROM CENTRAL INNER JOIN VIEWS ON CENTRAL.ID = VIEWS.ID");
+
+            // Step 5: Create the PDF document
             Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("views.pdf"));
+            PdfWriter.getInstance(document, new FileOutputStream("Statistika_Geymaton.pdf"));
             document.open();
+            // Step 6: Create the table
             PdfPTable table = new PdfPTable(2);
-            PdfPCell onoma = new PdfPCell(new Phrase("Onoma", new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD)));
-            onoma.setHorizontalAlignment(Element.ALIGN_CENTER);
-            onoma.setBackgroundColor(BaseColor.YELLOW);
-            table.addCell(onoma);
-            PdfPCell emfaniseis = new PdfPCell(new Phrase("Emfaniseis", new Font(Font.FontFamily.TIMES_ROMAN, 12, Font.BOLD)));
-            emfaniseis.setHorizontalAlignment(Element.ALIGN_CENTER);
-            emfaniseis.setBackgroundColor(BaseColor.YELLOW);
-            table.addCell(emfaniseis);
+            table.setWidthPercentage(100);
+            table.setSpacingBefore(10f);
+            table.setSpacingAfter(10f);
+
+            // Step 7: Add the header row
+            PdfPCell headerCell1 = new PdfPCell(new Phrase("Meal"));
+            headerCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(headerCell1);
+
+            PdfPCell headerCell2 = new PdfPCell(new Phrase("Views"));
+            headerCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(headerCell2);
+
+            // Step 8: Add the data rows
             while (resultSet.next()) {
                 table.addCell(resultSet.getString("Όνομα"));
-                table.addCell(String.valueOf(resultSet.getInt("Εμφανίσεις")));
+                table.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(Integer.toString(resultSet.getInt("Εμφανίσεις")));
+                table.setHorizontalAlignment(Element.ALIGN_CENTER);
             }
+
+            // Step 9: Add the table to the document
             document.add(table);
 
-            /*DefaultPieDataset dataset = new DefaultPieDataset();
-            try {
-                Connection connection1 = connect();
-                Statement statement1 = connection.createStatement();
-                String qur = ("SELECT Εμφανίσεις, Όνομα FROM CENTRAL INNER JOIN VIEWS ON CENTRAL.ID = VIEWS.ID");
-                ResultSet resultSet1 = statement.executeQuery(qur);
-                while (resultSet1.next()) {
-                    dataset.setValue(resultSet1.getString("Όνομα"), resultSet.getInt("Εμφανίσεις"));
-                }
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-            JFreeChart chart = ChartFactory.createPieChart("Εμφανίσεις Γευμάτων",dataset,true,true, false);
-            int w = 500;
-            int h = 400;
-            BufferedImage image = chart.createBufferedImage(w,h);
-            ImageIO.write(image,"PNG",new File("chart.png"));
-            Image chartIm = Image.getInstance("chart.png");
-            chartIm.scaleToFit(w,h);
-            document.add(chartIm);*/
+            // Step 10: Close the document
             document.close();
+
+            // Step 11: Close the connection
+            connection.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 }
