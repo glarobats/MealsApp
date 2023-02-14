@@ -276,8 +276,8 @@ public class mealsAppGui {
                 Database db = Database.getInstance();
                 db.orderBy();
 
-               // ViewsPDF view = new ViewsPDF();
-               // view.viewPdf();
+                ViewsPDF view = new ViewsPDF();
+                view.viewPdf();
 
                // Chart chart = new Chart();
                // chart.makeChart();

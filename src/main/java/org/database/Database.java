@@ -1,18 +1,8 @@
 package org.database;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.sql.*;
-import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.*;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.general.DefaultPieDataset;
+
 
 public class Database {
 
@@ -80,6 +70,7 @@ public class Database {
             Connection connection = connect();
             String insrtCntrlSQL = "INSERT INTO CENTRAL (ID, Όνομα, Κατηγορία, Περιοχή, Οδηγίες) VALUES (?,?,?,?,?)";
             String insrtVwsSQL = "INSERT INTO VIEWS (ID, Εμφανίσεις) VALUES (?,?)";
+
             PreparedStatement preparedStatementCentral = connection.prepareStatement(insrtCntrlSQL);
             PreparedStatement preparedStatementViews = connection.prepareStatement(insrtVwsSQL);
 
@@ -91,7 +82,6 @@ public class Database {
 
             preparedStatementViews.setInt(1, id);
             preparedStatementViews.setInt(2, 1);
-
 
             int countCentral = preparedStatementCentral.executeUpdate();
             int countViews = preparedStatementViews.executeUpdate();
@@ -162,6 +152,10 @@ public class Database {
             statement.executeUpdate("DELETE FROM VIEWS");
             statement.executeUpdate("DELETE FROM SAVED");
             statement.executeUpdate("DELETE FROM CENTRAL");
+
+            statement.executeUpdate("DROP TABLE VIEWS");
+            statement.executeUpdate("DROP TABLE SAVED");
+            statement.executeUpdate("DROP TABLE CENTRAL");
             connection.close();
         } catch (SQLException throwables) {
             System.out.println(throwables.getLocalizedMessage());
@@ -230,9 +224,15 @@ public class Database {
     public void orderBy() {
         Connection connection = connect();
         String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
+        String print = "SELECT * FROM VIEWS";
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(orderDesc);
-            preparedStatement.executeQuery();
+            PreparedStatement statement = connection.prepareStatement(orderDesc);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString("ID") + "\t" + resultSet.getString("Εμφανίσεις"));
+            }
+            resultSet.close();
+            statement.close();
             connection.close();
         } catch (SQLException e) {
             System.out.println(e.getLocalizedMessage());
