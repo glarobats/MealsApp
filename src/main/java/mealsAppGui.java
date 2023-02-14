@@ -67,7 +67,9 @@ public class mealsAppGui {
                     JButton SaveButton = new JButton("SAVE");
                     JButton EditButton = new JButton("EDIT");
                     JButton DeleteButton = new JButton("DELETE");
+                    DeleteButton.setBackground(Color.pink);
                     JButton SaveEdited = new JButton("SAVE EDITED");
+                    JButton OkButton = new JButton("OK");
 
                     JPanel panel = new JPanel();
                     panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
@@ -82,6 +84,7 @@ public class mealsAppGui {
                     buttonPanel.add(EditButton);
                     buttonPanel.add(DeleteButton);
                     buttonPanel.add(SaveEdited);
+                    buttonPanel.add(OkButton);
 
                     scrollPane1.setPreferredSize(new Dimension(500, 25));
                     scrollPane2.setPreferredSize(new Dimension(500, 25));
@@ -125,7 +128,7 @@ public class mealsAppGui {
                     panel.add(labelPanel, BorderLayout.WEST);
                     panel.add(scrollPane4, BorderLayout.WEST);
 
-                    buttonPanel.add(DeleteButton);
+                    buttonPanel.add(OkButton);
                     panel.add(buttonPanel,BorderLayout.SOUTH);
 
                     frame.setIconImage(image.getImage());
@@ -135,7 +138,7 @@ public class mealsAppGui {
                     frame.setLocationRelativeTo(null);
                     frame.setVisible(true);
 
-                    buttonPanel.add(DeleteButton);
+                    buttonPanel.add(OkButton);
                     panel.add(buttonPanel,BorderLayout.SOUTH);
 
                     //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
@@ -235,6 +238,12 @@ public class mealsAppGui {
                                     }
                                 });
                             }
+                        }
+                    });
+                    OkButton.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            frame.dispose();
                         }
                     });
                     //Τέλος listeners
