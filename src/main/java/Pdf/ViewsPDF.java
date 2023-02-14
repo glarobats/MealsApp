@@ -23,7 +23,7 @@ public class ViewsPDF {
             Connection connection = connect();
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT VIEWS.Εμφανίσεις, CENTRAL.Όνομα \n" +
-                    "FROM VIEWS INNER JOIN CENTRAL ON VIEWS.ID = CENTRAL.ID");
+                    "FROM VIEWS INNER JOIN CENTRAL ON VIEWS.ID = CENTRAL.ID ORDER BY VIEWS.Εμφανίσεις DESC  ");
 
             // Φτιάξε το PDF
             Document document = new Document();

@@ -40,14 +40,7 @@ public class mealsAppGui {
                 }
                 //εάν δεν είναι κενό το πεδίο
                 if (meal != null) {
-                    //αναζήτηση στη ΒΔ εάν έχει γίνει ξανά αναζήτηση του γεύματος
-                    //εάν δεν έχει γίνει τότε εισαγωγή στη ΒΔ
-                    if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-                        JOptionPane.showMessageDialog(null, "ΠΡΟΣΟΧΗ!!!!\nΥπάρχει περίπτωση το γεύμα να έχει ΗΔΗ τροποποιηθεί \n" +
-                                "οπότε και η τροποποιημένη του έκδοση θα βρίσκεται ήδη\n" +
-                                "στην Βάση Δεδομένων σου.\nΓια να έχεις πρόσβαση στο σε αυτήν την λειτουργία θα \n" +
-                                "πρέπει να περιμένεις την επόμενη έκδοση του MealsDB.", "EDITED", JOptionPane.INFORMATION_MESSAGE);
-                    }else if (!db.idSearch(Integer.valueOf(meal.getId()))){
+                    if (!db.idSearch(Integer.valueOf(meal.getId()))){
                         db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                     }else {
                         //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
@@ -279,8 +272,8 @@ public class mealsAppGui {
                 ViewsPDF view = new ViewsPDF();
                 view.viewPdf();
 
-               // Chart chart = new Chart();
-               // chart.makeChart();
+                Chart chart = new Chart();
+                chart.makeChart();
             }
         });
         //κουμπί έξοδος
