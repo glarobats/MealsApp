@@ -278,8 +278,8 @@ public class mealsAppGui {
                 Database db = Database.getInstance();
                 db.orderBy();
 
-                ViewsPDF view = new ViewsPDF();
-                view.viewPdf();
+                //ViewsPDF view = new ViewsPDF();
+                //view.viewPdf();
 
                 Chart chart = new Chart();
                 chart.makeChart();
@@ -313,7 +313,7 @@ public class mealsAppGui {
         frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
          */
 
-        frame.setSize(800,400);
+        /*frame.setSize(800,400);
         frame.setLocationRelativeTo(null);
         frame.setContentPane(new mealsAppGui().mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -322,8 +322,34 @@ public class mealsAppGui {
         frame.setTitle("MealsApp");
         frame.getRootPane().setBorder(BorderFactory.createMatteBorder(6, 6, 6, 6, Color.DARK_GRAY));
         ImageIcon image = new ImageIcon("logo.png");
+        frame.setIconImage(image.getImage());*/
+        frame.setTitle("MealsApp");
+        ImageIcon image = new ImageIcon("logo.png");
         frame.setIconImage(image.getImage());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(900, 565);
+        frame.setLocationRelativeTo(null);
+        //frame.setLocation(350, 100);
+        frame.setResizable(false);
 
+        JPanel centerPanel = new JPanel();
+        ImageIcon icon = new ImageIcon("background.png");
+        JLabel iconLabel = new JLabel(icon);
+        centerPanel.setBackground(Color.black);
+        centerPanel.add(iconLabel);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setBackground(Color.black);
+        //bottomPanel.setPreferredSize(new Dimension(200, 200));
+        bottomPanel.add(new mealsAppGui().mainPanel);
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bottomPanel, centerPanel);
+        splitPane.setResizeWeight(1.0);
+        splitPane.setDividerLocation(0.8);
+        splitPane.setDividerSize(0);
+
+        frame.add(splitPane);
+        frame.setVisible(true);
     }
 
     private JTextArea createTextArea(String text) {
@@ -343,5 +369,4 @@ public class mealsAppGui {
         scrollPane.setPreferredSize(new Dimension(500, 25));
         return scrollPane;
     }
-
 }
