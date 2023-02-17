@@ -1,3 +1,5 @@
+package GUI;
+
 import org.database.Database;
 
 import javax.swing.*;

@@ -1,3 +1,5 @@
+package GUI;
+
 import org.database.Database;
 
 import javax.swing.*;
@@ -37,6 +39,8 @@ public void addButton1ActionListener(JButton button1) {
                 //Δημιουργία JFrame με 4 διαφορετικές JTextArea ώστε να αποθηκευτούν τα δεδομένα κατά την τροποποίηση
                 //πιο εύκολα
                 JFrame frame = new JFrame("Meal Details");
+
+                frame.getRootPane().setBorder(BorderFactory.createMatteBorder(6, 6, 6, 6, Color.BLACK));
 
                 JTextArea mealsArea = createTextArea(meal.getName());
                 JTextArea category = createTextArea(meal.getCategory());
@@ -165,7 +169,6 @@ public void addButton1ActionListener(JButton button1) {
                         }
                     }
                 });
-
                 DeleteButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -180,7 +183,6 @@ public void addButton1ActionListener(JButton button1) {
                         }
                     }
                 });
-
                 EditButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {

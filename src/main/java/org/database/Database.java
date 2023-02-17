@@ -1,8 +1,6 @@
 package org.database;
 
-
 import java.sql.*;
-
 
 public class Database {
 

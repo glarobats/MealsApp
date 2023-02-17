@@ -1,3 +1,5 @@
+package GUI;
+
 import com.google.gson.Gson;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,6 +40,7 @@ public class popUpListTree extends JFrame {
 
                 try {
                     Response response = client.newCall(request).execute();
+                    assert response.body() != null;
                     MealResponse mealResponse = GSON.fromJson(response.body().string(), MealResponse.class);
                     //Αποθήκευση των γευμάτων ανα κατηγορία
                     if (mealResponse.getMeals() != null && !mealResponse.getMeals().isEmpty()) {

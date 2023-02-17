@@ -1,3 +1,5 @@
+package GUI;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -35,12 +37,11 @@ public class mealsAppGui {
     public void JFrameMain (){
         JFrame frame = new JFrame("MainGui");
 
-     //   Διαγράφει την πάνω καρτέλα με το Χ
-        /*
-        frame.setUndecorated(true);
+        //Διαγράφει την πάνω καρτέλα με το Χ
+      /*  frame.setUndecorated(true);
         frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-         */
 
+       */
 
         frame.setTitle("MealsApp");
         ImageIcon image = new ImageIcon("logo.png");
@@ -68,6 +69,4 @@ public class mealsAppGui {
         frame.add(splitPane);
         frame.setVisible(true);
     }
-
-
 }

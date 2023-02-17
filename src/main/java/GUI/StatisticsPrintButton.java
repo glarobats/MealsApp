@@ -1,3 +1,5 @@
+package GUI;
+
 import Pdf.Chart;
 import org.database.Database;
 

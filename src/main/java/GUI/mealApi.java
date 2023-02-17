@@ -1,13 +1,11 @@
+package GUI;
+
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.Response;
 import com.google.gson.Gson;
-import java.io.IOException;
+
 import java.util.List;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-
-
 
 
 public class mealApi {
