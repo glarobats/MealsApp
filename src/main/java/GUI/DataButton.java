@@ -125,9 +125,10 @@ public void addButton1ActionListener(JButton button1) {
                 frame.pack();
                 frame.setLocationRelativeTo(null);
                 frame.setVisible(true);
-
                 buttonPanel.add(OkButton);
                 panel.add(buttonPanel,BorderLayout.SOUTH);
+                frame.getRootPane().setDefaultButton(OkButton);//Ορίζει ως default button το ΟΚ και με το άνοιγμα του
+                // παραθύρου μπορεί να πατηθεί κατευθείαν το ΟΚ χωρίς να μετακινήσουμε το ποντίκι πάνω του.
 
                 //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
                 if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
