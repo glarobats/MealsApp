@@ -6,7 +6,7 @@ import java.awt.*;
 public class mealsAppGui {
     private JPanel mainPanel;
     private JButton dataButton;
-    private JButton button4;
+    //private JButton button4;
     private JButton CategoriesButton;
     private JButton statisticsPrintButton;
     private JPanel topPanel;
