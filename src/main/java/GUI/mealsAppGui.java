@@ -37,16 +37,9 @@ public class mealsAppGui extends JFrame{
         BackGdPanel = new BackGroundPanel();
         mainPanel.add(BackGdPanel);
 
-    /*    ImageIcon icon = new ImageIcon("background.png");
+        ImageIcon icon = new ImageIcon("images/background.png");
         JLabel imageLabel = new JLabel(icon);
         startPanel.add(imageLabel);
-
-
-     */
-
-
-
-
 
 
     }
