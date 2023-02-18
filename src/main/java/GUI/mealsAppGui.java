@@ -3,19 +3,50 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class mealsAppGui {
+public class mealsAppGui extends JFrame{
     private JPanel mainPanel;
+    private JPanel BackGdPanel;
+    private BackGroundPanel backGroundPanel;
+
+    private JPanel leftSidePanel;
+    private JPanel rightSidePanel;
+    private JLabel appIcon;
+    private JLabel appTitle;
+    private JLabel dataIcon;
+    private JLabel dataTitle;
+    private JLabel statsIcon;
+    private JLabel statsTitle;
+    private JLabel exitIcon;
+    private JLabel exitTitle;
     private JButton dataButton;
-    //private JButton button4;
     private JButton CategoriesButton;
     private JButton statisticsPrintButton;
-    private JPanel topPanel;
-    private JPanel bottomPanel;
-    private JPanel centerPanel;
     private JButton ExitButton;
 
 
-    public mealsAppGui() {
+    public mealsAppGui(String title) {
+        super(title);
+        //απαλοιφή πάνω μπάρας    setUndecorated(true);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setContentPane(mainPanel);
+        this.pack();
+
+        leftSidePanel.setOpaque(false);
+        BackGdPanel.setOpaque(false);
+        BackGdPanel = new BackGroundPanel();
+        mainPanel.add(BackGdPanel);
+
+        ImageIcon icon = new ImageIcon("background.png");
+        JLabel label = new JLabel(icon);
+        rightSidePanel.add(label);
+
+
+    }
+
+
+
+
+    public void  Buttons() {
         //κουμπί προβολής δεδομένων γεύματος
         DataButton DataButton = new DataButton();
         DataButton.addButton1ActionListener(dataButton);
@@ -31,42 +62,5 @@ public class mealsAppGui {
         //κουμπί έξοδος
         EXITButton EXITButton = new EXITButton();
         EXITButton.addEXITButtonActionListener(this.ExitButton);
-    }
-
-    //ρυθμίσεις κεντρικού μενού
-    public void JFrameMain (){
-        JFrame frame = new JFrame("MainGui");
-
-        //Διαγράφει την πάνω καρτέλα με το Χ
-      /*  frame.setUndecorated(true);
-        frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-
-       */
-
-        frame.setTitle("MealsApp");
-        ImageIcon image = new ImageIcon("logo.png");
-        frame.setIconImage(image.getImage());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(900, 565);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-
-        JPanel centerPanel = new JPanel();
-        ImageIcon icon = new ImageIcon("background.png");
-        JLabel iconLabel = new JLabel(icon);
-        centerPanel.setBackground(Color.black);
-        centerPanel.add(iconLabel);
-
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(Color.black);
-        bottomPanel.add(new mealsAppGui().mainPanel);
-
-        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, bottomPanel, centerPanel);
-        splitPane.setResizeWeight(1.0);
-        splitPane.setDividerLocation(0.8);
-        splitPane.setDividerSize(0);
-
-        frame.add(splitPane);
-        frame.setVisible(true);
     }
 }
