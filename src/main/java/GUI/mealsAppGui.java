@@ -18,6 +18,7 @@ public class mealsAppGui extends JFrame{
     private JLabel statsTitle;
     private JLabel exitIcon;
     private JLabel exitTitle;
+    private JPanel startPanel;
     private JButton dataButton;
     private JButton CategoriesButton;
     private JButton statisticsPrintButton;
@@ -36,9 +37,16 @@ public class mealsAppGui extends JFrame{
         BackGdPanel = new BackGroundPanel();
         mainPanel.add(BackGdPanel);
 
-        ImageIcon icon = new ImageIcon("background.png");
-        JLabel label = new JLabel(icon);
-        rightSidePanel.add(label);
+    /*    ImageIcon icon = new ImageIcon("background.png");
+        JLabel imageLabel = new JLabel(icon);
+        startPanel.add(imageLabel);
+
+
+     */
+
+
+
+
 
 
     }
