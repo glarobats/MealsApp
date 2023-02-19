@@ -58,7 +58,6 @@ public void addDataButtonListener(JLabel dataTitle) {
 
 
 
-
      /*              frame.getRootPane().setDefaultButton(OkButton);//Ορίζει ως default button το ΟΚ και με το άνοιγμα του
 
               //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα

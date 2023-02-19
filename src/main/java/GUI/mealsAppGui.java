@@ -1,7 +1,11 @@
 package GUI;
 
+import org.database.Database;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class mealsAppGui extends JFrame{
     private static mealsAppGui instance;
@@ -73,6 +77,12 @@ public class mealsAppGui extends JFrame{
         jScrollInsrt.setVisible(false);
 
         Buttons();
+        SaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     //Χρήση singleton για την εναλλαγή JPanels
@@ -120,10 +130,23 @@ public class mealsAppGui extends JFrame{
     public void showSearchPanel() {
         rightSidePanel.removeAll();
         rightSidePanel.add(searchingPanel);
+
+        SecondBackground bgPanel = new SecondBackground();
+        bgPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+        bgPanel.setLayout(new BorderLayout());
+        bgPanel.add(jPanelForText, BorderLayout.NORTH);
+        bgPanel.add(jPanelForButtons, BorderLayout.SOUTH);
+        searchingPanel.add(bgPanel);
+
+        //searchingPanel.setLayout(new BorderLayout());
+        //searchingPanel.add(jPanelForText, BorderLayout.NORTH);
+        //searchingPanel.add(jPanelForButtons, BorderLayout.SOUTH);
         mealJLabel.setVisible(true);
         categoryJLabel.setVisible(true);
         areaJLabel.setVisible(true);
         instructionsJLabel.setVisible(true);
+        jPanelForButtons.setVisible(true);
+        jPanelForText.setVisible(true);
         jScrollInsrt.setVisible(true);
 //        jScrollInsrt.setViewportView(instructionsJLabel);
         mainPanel.revalidate();
