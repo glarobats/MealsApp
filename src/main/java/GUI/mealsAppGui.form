@@ -153,7 +153,7 @@
                   <opaque value="false"/>
                   <preferredSize width="640" height="640"/>
                   <verifyInputWhenFocusTarget value="false"/>
-                  <visible value="false"/>
+                  <visible value="true"/>
                 </properties>
                 <border type="none"/>
                 <children>
@@ -267,7 +267,7 @@
                               <lineWrap value="true"/>
                               <margin top="0" left="20" bottom="0" right="20"/>
                               <opaque value="false"/>
-                              <preferredSize width="150" height="-1"/>
+                              <preferredSize width="150" height="640"/>
                               <wrapStyleWord value="true"/>
                             </properties>
                           </component>

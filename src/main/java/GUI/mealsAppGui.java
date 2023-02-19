@@ -119,17 +119,13 @@ public class mealsAppGui extends JFrame{
 
     public void showSearchPanel() {
         rightSidePanel.removeAll();
-
         rightSidePanel.add(searchingPanel);
-
         mealJLabel.setVisible(true);
         categoryJLabel.setVisible(true);
         areaJLabel.setVisible(true);
         instructionsJLabel.setVisible(true);
         jScrollInsrt.setVisible(true);
-      //  jScrollInsrt.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollInsrt.setViewportView(instructionsJLabel);
-
+//        jScrollInsrt.setViewportView(instructionsJLabel);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
