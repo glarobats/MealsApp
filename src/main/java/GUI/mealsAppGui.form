@@ -176,6 +176,8 @@
                         </constraints>
                         <properties>
                           <editable value="false"/>
+                          <font size="16"/>
+                          <margin top="0" left="20" bottom="0" right="20"/>
                           <opaque value="false"/>
                           <text value=""/>
                         </properties>
@@ -188,6 +190,8 @@
                         </constraints>
                         <properties>
                           <editable value="false"/>
+                          <font size="16"/>
+                          <margin top="0" left="20" bottom="0" right="20"/>
                           <opaque value="false"/>
                         </properties>
                       </component>
@@ -199,6 +203,8 @@
                         </constraints>
                         <properties>
                           <editable value="false"/>
+                          <font size="16"/>
+                          <margin top="0" left="20" bottom="0" right="20"/>
                           <opaque value="false"/>
                         </properties>
                       </component>
@@ -249,7 +255,7 @@
                         <properties>
                           <horizontalScrollBarPolicy value="31"/>
                           <opaque value="false"/>
-                          <verticalScrollBarPolicy value="21"/>
+                          <verticalScrollBarPolicy value="20"/>
                         </properties>
                         <border type="none"/>
                         <children>
@@ -257,8 +263,12 @@
                             <constraints/>
                             <properties>
                               <editable value="true"/>
+                              <font size="16"/>
+                              <lineWrap value="true"/>
+                              <margin top="0" left="20" bottom="0" right="20"/>
                               <opaque value="false"/>
-                              <preferredSize width="150" height="170"/>
+                              <preferredSize width="150" height="-1"/>
+                              <wrapStyleWord value="true"/>
                             </properties>
                           </component>
                         </children>
