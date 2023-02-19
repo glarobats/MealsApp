@@ -1,7 +1,6 @@
 package GUI;
 
 import org.database.Database;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

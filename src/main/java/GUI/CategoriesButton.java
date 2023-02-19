@@ -1,14 +1,14 @@
 package GUI;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CategoriesButton {
-    public void addButton2ActionListener(JButton button2) {
-        button2.addActionListener(new ActionListener() {
+    public void addCategoriesButtonListener(JLabel categoriesTitle) {
+        categoriesTitle.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
                 popUpListTree obj = null;
                 try {
                     //εμφάνιση παραθύρου

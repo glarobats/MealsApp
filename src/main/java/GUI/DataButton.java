@@ -4,16 +4,16 @@ import org.database.Database;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class DataButton {
 
-public void addButton1ActionListener(JButton button1) {
-    button1.addActionListener(new ActionListener() {
+public void addDataButtonListener(JLabel dataTitle) {
+    dataTitle.addMouseListener(new MouseAdapter() {
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void mouseClicked(MouseEvent e) {
             //Παράθυρο για αναζήτηση
             mealApi mealApi = new mealApi();
             String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
