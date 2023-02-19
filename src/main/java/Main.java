@@ -1,7 +1,8 @@
+import java.awt.Color;
+
 import GUI.mealsAppGui;
 import org.database.Database;
 
-import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {

@@ -22,11 +22,17 @@ public class mealsAppGui extends JFrame{
     private JLabel startLabel;
     private JLabel StatsTitle;
     private JLabel statsIcon;
+    private JPanel searchPanel;
+    private JLabel searchLabel;
+    private JPanel categoriesPanel;
+    private JLabel categoriesLabel;
+    private JPanel statsPanel;
+    private JLabel statsLabel;
 
 
     public mealsAppGui(String title) {
         super(title);
-           setUndecorated(true);
+        setUndecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();

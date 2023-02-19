@@ -144,8 +144,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="d2572" binding="startPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                <margin top="0" left="0" bottom="0" right="0"/>
+              <grid id="d2572" binding="startPanel" layout-manager="CardLayout" hgap="0" vgap="0">
                 <constraints>
                   <card name="Card1"/>
                 </constraints>
@@ -154,12 +153,71 @@
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="630e4" class="javax.swing.JLabel" binding="startLabel">
+                  <component id="28f2d" class="javax.swing.JLabel" binding="startLabel">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <card name="Card1"/>
                     </constraints>
                     <properties>
-                      <background color="-5200239"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="f1ejavax.swing.JPanelhPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints>
+                  <card name="Card2"/>
+                </constraints>
+                <properties>
+                  <background color="-14619694"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="1bf00" class="javax.swing.JLabel" binding="searchLabel">
+                    <constraints>
+                      <card name="Card1"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12828863"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="adc12" binding="categoriesPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints>
+                  <card name="Card3"/>
+                </constraints>
+                <properties>
+                  <background color="-3983973"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="dfe20" class="javax.swing.JLabel" binding="categoriesLabel">
+                    <constraints>
+                      <card name="Card1"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12828863"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
+              </grid>
+              <grid id="ee409" binding="statsPanel" layout-manager="CardLayout" hgap="0" vgap="0">
+                <constraints>
+                  <card name="Card4"/>
+                </constraints>
+                <properties>
+                  <background color="-10555596"/>
+                </properties>
+                <border type="none"/>
+                <children>
+                  <component id="e85ff" class="javax.swing.JLabel" binding="statsLabel">
+                    <constraints>
+                      <card name="Card1"/>
+                    </constraints>
+                    <properties>
+                      <background color="-12828863"/>
                       <text value=""/>
                     </properties>
                   </component>
