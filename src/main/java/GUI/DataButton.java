@@ -1,19 +1,23 @@
 package GUI;
 
 import org.database.Database;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-public class DataButton {
+public class DataButton extends JPanel {
 
 public void addDataButtonListener(JLabel dataTitle) {
-    dataTitle.addMouseListener(new MouseAdapter() {
+
+
+
+        dataTitle.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
+
+
             //Παράθυρο για αναζήτηση
             mealApi mealApi = new mealApi();
             String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
@@ -25,6 +29,11 @@ public void addDataButtonListener(JLabel dataTitle) {
                 JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            //προβολή JPanel που αντιστοιχεί στην αναζήτηση και απόκρυψη των υπολοίπων
+
+
+
             //εάν δεν είναι κενό το πεδίο
             if (meal != null) {
                 if (!db.idSearch(Integer.valueOf(meal.getId()))){
@@ -33,6 +42,8 @@ public void addDataButtonListener(JLabel dataTitle) {
                     //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
                     db.incrementViews(Integer.valueOf(meal.getId()));
                 }
+
+
 
                 //Δημιουργία JFrame με 4 διαφορετικές JTextArea ώστε να αποθηκευτούν τα δεδομένα κατά την τροποποίηση
                 //πιο εύκολα

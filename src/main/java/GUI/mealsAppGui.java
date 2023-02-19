@@ -19,19 +19,20 @@ public class mealsAppGui extends JFrame{
     private JLabel exitIcon;
     private JLabel exitTitle;
     private JPanel startPanel;
-    private JLabel startLabel;
     private JLabel StatsTitle;
     private JLabel statsIcon;
-    private JPanel searchPanel;
+    private JPanel searchingPanel;
     private JLabel searchLabel;
     private JPanel categoriesPanel;
     private JLabel categoriesLabel;
     private JPanel statsPanel;
     private JLabel statsLabel;
+    private JPanel firstPanel;
+    private JLabel firstLabel;
 
 
-    public mealsAppGui(String title) {
-        super(title);
+    public mealsAppGui() {
+        super();
         setUndecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
@@ -43,17 +44,21 @@ public class mealsAppGui extends JFrame{
         mainPanel.add(BackGdPanel);
 
         appIcon.setIcon(new ImageIcon("images/logo.png"));
-        startLabel.setIcon(new ImageIcon("images/background.png"));
+        firstLabel.setIcon(new ImageIcon("images/background.png"));
+        firstPanel.setVisible(true);
         dataIcon.setIcon(new ImageIcon("images/search.png"));
         categoryIcon.setIcon(new ImageIcon("images/categorize.png"));
         statsIcon.setIcon(new ImageIcon("images/stats.png"));
         exitIcon.setIcon(new ImageIcon("images/shutdown.png"));
 
         Buttons();
+     /* Εάν βγάλεις τα σχόλια θα δεις οτι καλεί τη μέθοδο showSearchPanel() στον constructor. Η μέθοδος είναι στη γραμμή 91.
+     Ουσιαστικά αφαιρεί τα JPanel που καλύπτουν το JPanel που θέλουμε να δούμε και εμφανίζει αυτό που θέλουμε να δούμε.
+     Προσπάθησα να το βάλω στην κλάση DataButton φτιάχνοντας ένα αντικείμενο mealsAppGui αλλά παπάρια. Δε λειτουργεί.
+
+       showSearchPanel();
+      */
     }
-
-
-
 
     public void Buttons() {
 
@@ -85,4 +90,15 @@ public class mealsAppGui extends JFrame{
         exitButton.addEXITButtonMouseListener(exitTitle);
         exitButton.addEXITButtonMouseListener(exitIcon);
     }
+
+    public void showSearchPanel() {
+        rightSidePanel.remove(firstPanel);
+        rightSidePanel.remove(statsPanel);
+        rightSidePanel.remove(categoriesPanel);
+        rightSidePanel.add(searchingPanel);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+
+
 }

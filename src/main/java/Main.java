@@ -7,7 +7,7 @@ import org.database.Database;
 public class Main {
     public static void main(String[] args) {
 
-        mealsAppGui frame = new mealsAppGui("Meals App");
+        mealsAppGui frame = new mealsAppGui();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
