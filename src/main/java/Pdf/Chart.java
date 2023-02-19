@@ -27,7 +27,7 @@ import static org.database.Database.connect;
 
 public class Chart {
 
-    public void makeChart(){
+    public JPanel makeChart() {
         DefaultPieDataset dataset = new DefaultPieDataset();
         try {
             Connection connection = connect();
@@ -39,7 +39,7 @@ public class Chart {
                 int count = resultSet.getInt("Εμφανίσεις");
                 dataset.setValue(name, count);
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -49,23 +49,23 @@ public class Chart {
         StandardPieToolTipGenerator toolTipGenerator = new StandardPieToolTipGenerator("{0}: {1} ({2})", new DecimalFormat("#,##0"), new DecimalFormat("0.00%"));
         plot.setToolTipGenerator(toolTipGenerator);
 
-        ChartFrame frame = new ChartFrame("Διάγραμμα Εμφανίσεων Γευμάτων", chart);
-        JMenuBar menuBar = new JMenuBar();
-        JMenu menu = new JMenu("Εκτύπωση");
+        ChartPanel chartPanel = new ChartPanel(chart);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(chartPanel);
 
-        JMenuItem menuItem = new JMenuItem("Εκτύπωση πίνακα δεδομένων σε PDF");
-        menuItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                ViewsPDF pdf = new ViewsPDF();
-                pdf.viewPdf();
-            }
-        });
+        JButton pieButton = new JButton("Γράφημα πίτας");
+        JButton barButton = new JButton("Γράφημα Στηλών");
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(pieButton);
+        buttonPanel.add(barButton);
+        panel.add(buttonPanel, BorderLayout.SOUTH);
 
-        menu.add(menuItem);
-        JMenu chartMenu = new JMenu("Στατιστικά");
-        menuBar.add(chartMenu);
-        JMenuItem pieChart = new JMenuItem("Γράφημα Πίτας");
-        pieChart.addActionListener(new ActionListener() {
+        return panel;
+    }
+}
+/*
+
+        pieButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ex) {
                 DefaultPieDataset dataset = new DefaultPieDataset();
                 try {
@@ -125,4 +125,4 @@ public class Chart {
         ImageIcon image = new ImageIcon("logo.png");
         frame.setIconImage(image.getImage());
     }
-}
+}*/
