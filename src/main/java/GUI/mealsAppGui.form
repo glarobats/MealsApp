@@ -2,7 +2,7 @@
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="GUI.mealsAppGui">
   <grid id="27dc6" binding="mainPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
     <constraints>
-      <xy x="20" y="20" width="626" height="694"/>
+      <xy x="20" y="20" width="870" height="694"/>
     </constraints>
     <properties/>
     <border type="none"/>
@@ -151,18 +151,165 @@
                 <properties>
                   <background color="-14619694"/>
                   <opaque value="false"/>
+                  <visible value="true"/>
                 </properties>
                 <border type="none"/>
                 <children>
-                  <component id="1bf00" class="javax.swing.JLabel" binding="searchLabel">
+                  <grid id="225db" binding="jPanelForText" layout-manager="GridLayoutManager" row-count="8" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <card name="Card1"/>
                     </constraints>
                     <properties>
-                      <background color="-12828863"/>
-                      <text value=""/>
+                      <opaque value="false"/>
                     </properties>
-                  </component>
+                    <border type="none"/>
+                    <children>
+                      <component id="f55ee" class="javax.swing.JTextArea" binding="mealsArea">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="10"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <editable value="false"/>
+                          <opaque value="false"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <component id="a29d2" class="javax.swing.JTextArea" binding="categories">
+                        <constraints>
+                          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="10"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <editable value="false"/>
+                          <opaque value="false"/>
+                        </properties>
+                      </component>
+                      <component id="fc6e" class="javax.swing.JTextArea" binding="Area">
+                        <constraints>
+                          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="10"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <editable value="false"/>
+                          <opaque value="false"/>
+                        </properties>
+                      </component>
+                      <component id="2ae0e" class="javax.swing.JTextArea" binding="Instructions">
+                        <constraints>
+                          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="170"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <editable value="false"/>
+                          <opaque value="false"/>
+                        </properties>
+                      </component>
+                      <component id="dffe2" class="javax.swing.JLabel" binding="categoryJLabel">
+                        <constraints>
+                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="20" style="1"/>
+                          <opaque value="false"/>
+                          <text value="Category:"/>
+                        </properties>
+                      </component>
+                      <component id="3799b" class="javax.swing.JLabel" binding="instructionsJLabel">
+                        <constraints>
+                          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="20" style="1"/>
+                          <text value="Instructions:"/>
+                        </properties>
+                      </component>
+                      <component id="bd93" class="javax.swing.JLabel" binding="mealJLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="20" style="1"/>
+                          <text value="Meal:"/>
+                        </properties>
+                      </component>
+                      <component id="4e886" class="javax.swing.JLabel" binding="areaJLabel">
+                        <constraints>
+                          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <font size="20" style="1"/>
+                          <text value="Area:"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
+                  <grid id="be92b" binding="jPanelForButtons" layout-manager="GridLayoutManager" row-count="2" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="0" bottom="0" right="0"/>
+                    <constraints>
+                      <card name="Card2"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="fe6da" class="javax.swing.JButton" binding="SaveButton">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                          <text value="SAVE"/>
+                        </properties>
+                      </component>
+                      <vspacer id="1056d">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                      </vspacer>
+                      <component id="dbafd" class="javax.swing.JButton" binding="EditButton">
+                        <constraints>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                          <text value="EDIT"/>
+                        </properties>
+                      </component>
+                      <component id="190a6" class="javax.swing.JButton" binding="DeleteButton">
+                        <constraints>
+                          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <background color="-3991724"/>
+                          <opaque value="false"/>
+                          <text value="DELETE"/>
+                        </properties>
+                      </component>
+                      <component id="84947" class="javax.swing.JButton" binding="SaveEdited">
+                        <constraints>
+                          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                          <text value="SAVE EDITED"/>
+                        </properties>
+                      </component>
+                      <component id="7e842" class="javax.swing.JButton" binding="OkButton">
+                        <constraints>
+                          <grid row="1" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                          <text value="OK"/>
+                        </properties>
+                      </component>
+                    </children>
+                  </grid>
                 </children>
               </grid>
               <grid id="adc12" binding="categoriesPanel" layout-manager="CardLayout" hgap="0" vgap="0">

@@ -29,11 +29,9 @@ public void addDataButtonListener(JLabel dataTitle) {
                 JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-
             //προβολή JPanel που αντιστοιχεί στην αναζήτηση και απόκρυψη των υπολοίπων
-
-
-
+            mealsAppGui gui = mealsAppGui.getInstance();
+            gui.showSearchPanel();
             //εάν δεν είναι κενό το πεδίο
             if (meal != null) {
                 if (!db.idSearch(Integer.valueOf(meal.getId()))){
@@ -42,14 +40,6 @@ public void addDataButtonListener(JLabel dataTitle) {
                     //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
                     db.incrementViews(Integer.valueOf(meal.getId()));
                 }
-
-
-
-                //Δημιουργία JFrame με 4 διαφορετικές JTextArea ώστε να αποθηκευτούν τα δεδομένα κατά την τροποποίηση
-                //πιο εύκολα
-                JFrame frame = new JFrame("Meal Details");
-
-                frame.getRootPane().setBorder(BorderFactory.createMatteBorder(6, 6, 6, 6, Color.BLACK));
 
                 JTextArea mealsArea = createTextArea(meal.getName());
                 JTextArea category = createTextArea(meal.getCategory());
@@ -61,7 +51,27 @@ public void addDataButtonListener(JLabel dataTitle) {
                 JScrollPane scrollPane3 = createScrollPane(Area);
                 JScrollPane scrollPane4 = createScrollPane(Instructions);
 
+                //JPanel for text and Labels
+                JPanel panel1 = new JPanel();
+                panel1.add(scrollPane1);
+                gui.setSearchingPanel(panel1);
 
+                JPanel panel2 = new JPanel();
+                panel2.add(scrollPane2);
+                gui.setSearchingPanel(panel2);
+
+                JPanel panel3 = new JPanel();
+                panel3.add(scrollPane3);
+                gui.setSearchingPanel(panel3);
+
+                JPanel panel4 = new JPanel();
+                panel4.add(scrollPane4);
+                gui.setSearchingPanel(panel4);
+
+
+
+
+/*
                 //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρά panel στο κάτω μέρος του παραθύρου
                 JButton SaveButton = new JButton("SAVE");
                 JButton EditButton = new JButton("EDIT");
@@ -130,6 +140,8 @@ public void addDataButtonListener(JLabel dataTitle) {
                 buttonPanel.add(OkButton);
                 panel.add(buttonPanel,BorderLayout.SOUTH);
 
+ */
+/*
                 frame.setIconImage(image.getImage());
                 frame.getContentPane().add(panel, BorderLayout.CENTER);
                 frame.setResizable(true);
@@ -141,7 +153,9 @@ public void addDataButtonListener(JLabel dataTitle) {
                 frame.getRootPane().setDefaultButton(OkButton);//Ορίζει ως default button το ΟΚ και με το άνοιγμα του
                 // παραθύρου μπορεί να πατηθεί κατευθείαν το ΟΚ χωρίς να μετακινήσουμε το ποντίκι πάνω του.
 
-                //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
+ */
+
+     /*           //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
                 if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
                     EditButton.setEnabled(false);
                 }else {
@@ -169,7 +183,12 @@ public void addDataButtonListener(JLabel dataTitle) {
                 //listener κουμπιού SaveEdited
                 SaveEdited.addActionListener(new SaveEditedButtonListener(meal, SaveButton, SaveEdited, EditButton, DeleteButton, db, mealsArea, category, Instructions));
                 //listener κουμπιού OK
-                OkButton.addActionListener(new OKButtonListener(frame));
+
+      */
+
+            /*    OkButton.addActionListener(new OKButtonListener(frame));
+
+             */
                 //Τέλος listeners
             } else {
                 //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος

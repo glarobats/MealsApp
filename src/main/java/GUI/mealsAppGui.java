@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class mealsAppGui extends JFrame{
+    private static mealsAppGui instance;
+
     private JPanel mainPanel;
     private JPanel BackGdPanel;
     private BackGroundPanel backGroundPanel;
@@ -22,16 +24,30 @@ public class mealsAppGui extends JFrame{
     private JLabel StatsTitle;
     private JLabel statsIcon;
     private JPanel searchingPanel;
-    private JLabel searchLabel;
     private JPanel categoriesPanel;
     private JLabel categoriesLabel;
     private JPanel statsPanel;
     private JLabel statsLabel;
     private JPanel firstPanel;
     private JLabel firstLabel;
+    private JPanel jPanelForText;
+    private JPanel jPanelForButtons;
+    private JTextArea mealsArea;
+    private JButton SaveButton;
+    private JButton EditButton;
+    private JButton DeleteButton;
+    private JButton SaveEdited;
+    private JTextArea categories;
+    private JTextArea Area;
+    private JTextArea Instructions;
+    private JButton OkButton;
+    private JLabel categoryJLabel;
+    private JLabel areaJLabel;
+    private JLabel instructionsJLabel;
+    private JLabel mealJLabel;
 
 
-    public mealsAppGui() {
+    private mealsAppGui() {
         super();
         setUndecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -52,13 +68,18 @@ public class mealsAppGui extends JFrame{
         exitIcon.setIcon(new ImageIcon("images/shutdown.png"));
 
         Buttons();
-     /* Εάν βγάλεις τα σχόλια θα δεις οτι καλεί τη μέθοδο showSearchPanel() στον constructor. Η μέθοδος είναι στη γραμμή 91.
-     Ουσιαστικά αφαιρεί τα JPanel που καλύπτουν το JPanel που θέλουμε να δούμε και εμφανίζει αυτό που θέλουμε να δούμε.
-     Προσπάθησα να το βάλω στην κλάση DataButton φτιάχνοντας ένα αντικείμενο mealsAppGui αλλά παπάρια. Δε λειτουργεί.
-
-       showSearchPanel();
-      */
     }
+
+    //Χρήση singleton για την εναλλαγή JPanels
+    public static mealsAppGui getInstance() {
+        if (instance == null) {
+            instance = new mealsAppGui();
+        }
+        return instance;
+    }
+
+
+
 
     public void Buttons() {
 
@@ -92,13 +113,58 @@ public class mealsAppGui extends JFrame{
     }
 
     public void showSearchPanel() {
-        rightSidePanel.remove(firstPanel);
-        rightSidePanel.remove(statsPanel);
-        rightSidePanel.remove(categoriesPanel);
+        rightSidePanel.removeAll();
         rightSidePanel.add(searchingPanel);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
+    public void showCategoriesPanel() {
+        rightSidePanel.remove(firstPanel);
+        rightSidePanel.remove(statsPanel);
+        rightSidePanel.remove(searchingPanel);
+        rightSidePanel.add(categoriesPanel);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
 
+    public void showStatsPanel() {
+        rightSidePanel.remove(firstPanel);
+        rightSidePanel.remove(categoriesPanel);
+        rightSidePanel.remove(searchingPanel);
+        rightSidePanel.add(statsPanel);
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
 
+    public JPanel getSearchingPanel() {
+        return searchingPanel;
+    }
+
+    public void setSearchingPanel(JPanel searchingPanel) {
+        this.searchingPanel = searchingPanel;
+    }
+
+    public JPanel getCategoriesPanel() {
+        return categoriesPanel;
+    }
+
+    public void setCategoriesPanel(JPanel categoriesPanel) {
+        this.categoriesPanel = categoriesPanel;
+    }
+
+    public JPanel getStatsPanel() {
+        return statsPanel;
+    }
+
+    public void setStatsPanel(JPanel statsPanel) {
+        this.statsPanel = statsPanel;
+    }
+
+    public JPanel getFirstPanel() {
+        return firstPanel;
+    }
+
+    public void setFirstPanel(JPanel firstPanel) {
+        this.firstPanel = firstPanel;
+    }
 }
