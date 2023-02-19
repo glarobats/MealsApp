@@ -59,7 +59,42 @@ public void addDataButtonListener(JLabel dataTitle) {
 
 
 
+     /*              frame.getRootPane().setDefaultButton(OkButton);//Ορίζει ως default button το ΟΚ και με το άνοιγμα του
 
+              //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
+                if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                    EditButton.setEnabled(false);
+                }else {
+                    EditButton.setEnabled(true);
+                }
+
+                //ενεργοποίηση ή απενεργοποίηση του κουμπιού DELETE ανάλογα εάν είναι αποθηκευμένο το γεύμα
+                if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+                    DeleteButton.setEnabled(false);
+                }else {
+                    DeleteButton.setEnabled(true);
+                }
+
+                //απενεργοποίηση κουμπιού SAVE EDITED
+                SaveEdited.setEnabled(false);
+                //Τέλος, προσθήκης κουμπιών
+
+
+                //listener κουμπιού SAVEbutton
+                SaveButton.addActionListener(new SaveButtonListener(meal, SaveButton, EditButton, DeleteButton, db));
+                //listener κουμπιού DeleteButton
+                DeleteButton.addActionListener(new DeleteButtonListener(meal, EditButton, DeleteButton,SaveButton, db));
+                //listener κουμπιού EditButton
+                EditButton.addActionListener(new EditButtonListener(meal, SaveButton, SaveEdited, EditButton, DeleteButton, db, mealsArea, category, Area, Instructions));
+                //listener κουμπιού SaveEdited
+                SaveEdited.addActionListener(new SaveEditedButtonListener(meal, SaveButton, SaveEdited, EditButton, DeleteButton, db, mealsArea, category, Instructions));
+                //listener κουμπιού OK
+
+      */
+
+            /*    OkButton.addActionListener(new OKButtonListener(frame));
+
+             */
                 //Τέλος listeners
             } else {
                 //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος

@@ -5,13 +5,45 @@ import java.awt.*;
 
 public class mealsAppGui extends JFrame{
     private static mealsAppGui instance;
+
+    private JPanel mainPanel;
+    private JPanel BackGdPanel;
     private BackGroundPanel backGroundPanel;
-    private JPanel mainPanel,BackGdPanel,leftSidePanel,rightSidePanel,startPanel,searchingPanel,categoriesPanel,statsPanel,
-            firstPanel,jPanelForButtons,jPanelForText;
-    private JLabel appIcon,appTitle,dataIcon,dataTitle,categoryIcon,categoryTitle,exitIcon,exitTitle,StatsTitle,statsIcon,
-            categoriesLabel,statsLabel,firstLabel,categoryJLabel,areaJLabel,instructionsJLabel,mealJLabel;
-    private JTextArea mealsName,categories,Area,Instructions;
-    private JButton SaveButton,EditButton,DeleteButton,SaveEdited,OkButton;
+
+    private JPanel leftSidePanel;
+    private JPanel rightSidePanel;
+    private JLabel appIcon;
+    private JLabel appTitle;
+    private JLabel dataIcon;
+    private JLabel dataTitle;
+    private JLabel categoryIcon;
+    private JLabel categoryTitle;
+    private JLabel exitIcon;
+    private JLabel exitTitle;
+    private JPanel startPanel;
+    private JLabel StatsTitle;
+    private JLabel statsIcon;
+    private JPanel searchingPanel;
+    private JPanel categoriesPanel;
+    private JLabel categoriesLabel;
+    private JPanel statsPanel;
+    private JPanel firstPanel;
+    private JLabel firstLabel;
+    private JPanel jPanelForText;
+    private JPanel jPanelForButtons;
+    private JTextArea mealsName;
+    private JButton SaveButton;
+    private JButton EditButton;
+    private JButton DeleteButton;
+    private JButton SaveEdited;
+    private JTextArea categories;
+    private JTextArea Area;
+    private JTextArea Instructions;
+    private JButton OkButton;
+    private JLabel categoryJLabel;
+    private JLabel areaJLabel;
+    private JLabel instructionsJLabel;
+    private JLabel mealJLabel;
     private JScrollPane jScrollInsrt;
 
 
@@ -51,6 +83,9 @@ public class mealsAppGui extends JFrame{
         return instance;
     }
 
+
+
+
     public void Buttons() {
 
         //κουμπί προβολής δεδομένων γεύματος
@@ -84,12 +119,17 @@ public class mealsAppGui extends JFrame{
 
     public void showSearchPanel() {
         rightSidePanel.removeAll();
+
         rightSidePanel.add(searchingPanel);
+
         mealJLabel.setVisible(true);
         categoryJLabel.setVisible(true);
         areaJLabel.setVisible(true);
         instructionsJLabel.setVisible(true);
         jScrollInsrt.setVisible(true);
+      //  jScrollInsrt.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollInsrt.setViewportView(instructionsJLabel);
+
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -102,25 +142,105 @@ public class mealsAppGui extends JFrame{
         mainPanel.repaint();
     }
 
-    public void showStatsPanel() {
+    public void showStatsPanel(JPanel statsPanel) {
         rightSidePanel.remove(firstPanel);
         rightSidePanel.remove(categoriesPanel);
         rightSidePanel.remove(searchingPanel);
-        rightSidePanel.add(statsPanel);
+        rightSidePanel.add(this.statsPanel);
         mainPanel.revalidate();
         mainPanel.repaint();
+    }
+
+    public JPanel getSearchingPanel() {
+        return searchingPanel;
+    }
+
+    public void setSearchingPanel(JPanel searchingPanel) {
+        this.searchingPanel = searchingPanel;
+    }
+
+    public JPanel getCategoriesPanel() {
+        return categoriesPanel;
+    }
+
+    public void setCategoriesPanel(String text) {
+        this.categoriesPanel = categoriesPanel;
+    }
+
+    public JPanel getStatsPanel() {
+        return statsPanel;
+    }
+
+    public void setStatsPanel(JPanel statsPanel) {
+        this.statsPanel = statsPanel;
+    }
+
+    public JPanel getFirstPanel() {
+        return firstPanel;
+    }
+
+    public void setFirstPanel(JPanel firstPanel) {
+        this.firstPanel = firstPanel;
+    }
+
+    public JTextArea getMealsName() {
+        return mealsName;
     }
 
     public void setMealsName(String text) {
         mealsName.setText(text);
     }
 
+    public JButton getSaveButton() {
+        return SaveButton;
+    }
+
+    public void setSaveButton(JButton saveButton) {
+        SaveButton = saveButton;
+    }
+
+    public JButton getEditButton() {
+        return EditButton;
+    }
+
+    public void setEditButton(JButton editButton) {
+        EditButton = editButton;
+    }
+
+    public JButton getDeleteButton() {
+        return DeleteButton;
+    }
+
+    public void setDeleteButton(JButton deleteButton) {
+        DeleteButton = deleteButton;
+    }
+
+    public JButton getSaveEdited() {
+        return SaveEdited;
+    }
+
+    public void setSaveEdited(JButton saveEdited) {
+        SaveEdited = saveEdited;
+    }
+
+    public JTextArea getCategories() {
+        return categories;
+    }
+
     public void setCategories(String text) {
         categories.setText(text);
     }
 
+    public JTextArea getArea() {
+        return Area;
+    }
+
     public void setArea(String text) {
         Area.setText(text);
+    }
+
+    public JTextArea getInstructions() {
+        return Instructions;
     }
 
     public void setInstructions(String text) {
