@@ -19,8 +19,8 @@ public class BackGroundPanel extends JPanel {
 
         // Define the gradient start and end points
         GradientPaint gradient = new GradientPaint(
-                0, 0, new Color(139, 69, 19), // Start point and color (brown)
-                0, height, Color.WHITE // End point and color (white)
+                0, 0, new Color(132, 52, 4), // Start point and color (brown)
+                0, height, new Color(176,166,145) // End point and color (white)
         );
 
         // Fill the panel with the gradient

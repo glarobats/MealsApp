@@ -30,7 +30,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="Label"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="2733a" class="javax.swing.JLabel" binding="dataIcon">
@@ -40,7 +40,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="Label"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="92e04" class="javax.swing.JLabel" binding="statsIcon">
@@ -50,7 +50,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="Label"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="76522" class="javax.swing.JLabel" binding="exitIcon">
@@ -60,7 +60,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="Label"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="e7911" class="javax.swing.JLabel" binding="appTitle">
@@ -71,6 +71,7 @@
                 </constraints>
                 <properties>
                   <font size="36"/>
+                  <foreground color="-1"/>
                   <text value="Meals DB"/>
                 </properties>
               </component>
@@ -81,6 +82,8 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <font size="22"/>
+                  <foreground color="-1"/>
                   <text value="Search"/>
                 </properties>
               </component>
@@ -91,6 +94,8 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <font size="22"/>
+                  <foreground color="-1"/>
                   <text value="Categories"/>
                 </properties>
               </component>
@@ -101,6 +106,8 @@
                   </grid>
                 </constraints>
                 <properties>
+                  <font size="22"/>
+                  <foreground color="-1"/>
                   <text value="Exit"/>
                 </properties>
               </component>
@@ -119,10 +126,20 @@
                   <card name="Card1"/>
                 </constraints>
                 <properties>
-                  <background color="-10555596"/>
+                  <background color="-2238916"/>
                 </properties>
                 <border type="none"/>
-                <children/>
+                <children>
+                  <component id="630e4" class="javax.swing.JLabel" binding="startLabel">
+                    <constraints>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                    </constraints>
+                    <properties>
+                      <background color="-5200239"/>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                </children>
               </grid>
             </children>
           </grid>

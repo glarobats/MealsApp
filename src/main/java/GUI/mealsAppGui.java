@@ -19,6 +19,7 @@ public class mealsAppGui extends JFrame{
     private JLabel exitIcon;
     private JLabel exitTitle;
     private JPanel startPanel;
+    private JLabel startLabel;
     private JButton dataButton;
     private JButton CategoriesButton;
     private JButton statisticsPrintButton;
@@ -27,7 +28,7 @@ public class mealsAppGui extends JFrame{
 
     public mealsAppGui(String title) {
         super(title);
-        //απαλοιφή πάνω μπάρας    setUndecorated(true);
+           setUndecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
@@ -37,9 +38,8 @@ public class mealsAppGui extends JFrame{
         BackGdPanel = new BackGroundPanel();
         mainPanel.add(BackGdPanel);
 
-        ImageIcon icon = new ImageIcon("images/background.png");
-        JLabel imageLabel = new JLabel(icon);
-        startPanel.add(imageLabel);
+
+        startLabel.setIcon(new ImageIcon("images/background.png"));
 
 
     }
