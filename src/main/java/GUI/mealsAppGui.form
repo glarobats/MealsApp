@@ -151,6 +151,8 @@
                 <properties>
                   <background color="-14619694"/>
                   <opaque value="false"/>
+                  <preferredSize width="640" height="640"/>
+                  <verifyInputWhenFocusTarget value="false"/>
                   <visible value="true"/>
                 </properties>
                 <border type="none"/>
@@ -162,10 +164,11 @@
                     </constraints>
                     <properties>
                       <opaque value="false"/>
+                      <preferredSize width="640" height="620"/>
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="f55ee" class="javax.swing.JTextArea" binding="mealsArea">
+                      <component id="f55ee" class="javax.swing.JTextArea" binding="mealsName">
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="10"/>
@@ -199,17 +202,6 @@
                           <opaque value="false"/>
                         </properties>
                       </component>
-                      <component id="2ae0e" class="javax.swing.JTextArea" binding="Instructions">
-                        <constraints>
-                          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="170"/>
-                          </grid>
-                        </constraints>
-                        <properties>
-                          <editable value="false"/>
-                          <opaque value="false"/>
-                        </properties>
-                      </component>
                       <component id="dffe2" class="javax.swing.JLabel" binding="categoryJLabel">
                         <constraints>
                           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -226,6 +218,7 @@
                         </constraints>
                         <properties>
                           <font size="20" style="1"/>
+                          <labelFor value="2ae0e"/>
                           <text value="Instructions:"/>
                         </properties>
                       </component>
@@ -247,6 +240,29 @@
                           <text value="Area:"/>
                         </properties>
                       </component>
+                      <scrollpane id="51ce2" binding="jScrollInsrt">
+                        <constraints>
+                          <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="150" height="170"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <horizontalScrollBarPolicy value="31"/>
+                          <opaque value="false"/>
+                          <verticalScrollBarPolicy value="21"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="2ae0e" class="javax.swing.JTextArea" binding="Instructions">
+                            <constraints/>
+                            <properties>
+                              <editable value="true"/>
+                              <opaque value="false"/>
+                              <preferredSize width="150" height="170"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </scrollpane>
                     </children>
                   </grid>
                   <grid id="be92b" binding="jPanelForButtons" layout-manager="GridLayoutManager" row-count="2" column-count="5" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">

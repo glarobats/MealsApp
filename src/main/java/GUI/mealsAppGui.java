@@ -32,7 +32,7 @@ public class mealsAppGui extends JFrame{
     private JLabel firstLabel;
     private JPanel jPanelForText;
     private JPanel jPanelForButtons;
-    private JTextArea mealsArea;
+    private JTextArea mealsName;
     private JButton SaveButton;
     private JButton EditButton;
     private JButton DeleteButton;
@@ -45,6 +45,7 @@ public class mealsAppGui extends JFrame{
     private JLabel areaJLabel;
     private JLabel instructionsJLabel;
     private JLabel mealJLabel;
+    private JScrollPane jScrollInsrt;
 
 
     private mealsAppGui() {
@@ -66,6 +67,11 @@ public class mealsAppGui extends JFrame{
         categoryIcon.setIcon(new ImageIcon("images/categorize.png"));
         statsIcon.setIcon(new ImageIcon("images/stats.png"));
         exitIcon.setIcon(new ImageIcon("images/shutdown.png"));
+        mealJLabel.setVisible(false);
+        categoryJLabel.setVisible(false);
+        areaJLabel.setVisible(false);
+        instructionsJLabel.setVisible(false);
+        jScrollInsrt.setVisible(false);
 
         Buttons();
     }
@@ -114,7 +120,17 @@ public class mealsAppGui extends JFrame{
 
     public void showSearchPanel() {
         rightSidePanel.removeAll();
+
         rightSidePanel.add(searchingPanel);
+
+        mealJLabel.setVisible(true);
+        categoryJLabel.setVisible(true);
+        areaJLabel.setVisible(true);
+        instructionsJLabel.setVisible(true);
+        jScrollInsrt.setVisible(true);
+      //  jScrollInsrt.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jScrollInsrt.setViewportView(instructionsJLabel);
+
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -148,7 +164,7 @@ public class mealsAppGui extends JFrame{
         return categoriesPanel;
     }
 
-    public void setCategoriesPanel(JPanel categoriesPanel) {
+    public void setCategoriesPanel(String text) {
         this.categoriesPanel = categoriesPanel;
     }
 
@@ -166,5 +182,69 @@ public class mealsAppGui extends JFrame{
 
     public void setFirstPanel(JPanel firstPanel) {
         this.firstPanel = firstPanel;
+    }
+
+    public JTextArea getMealsName() {
+        return mealsName;
+    }
+
+    public void setMealsName(String text) {
+        mealsName.setText(text);
+    }
+
+    public JButton getSaveButton() {
+        return SaveButton;
+    }
+
+    public void setSaveButton(JButton saveButton) {
+        SaveButton = saveButton;
+    }
+
+    public JButton getEditButton() {
+        return EditButton;
+    }
+
+    public void setEditButton(JButton editButton) {
+        EditButton = editButton;
+    }
+
+    public JButton getDeleteButton() {
+        return DeleteButton;
+    }
+
+    public void setDeleteButton(JButton deleteButton) {
+        DeleteButton = deleteButton;
+    }
+
+    public JButton getSaveEdited() {
+        return SaveEdited;
+    }
+
+    public void setSaveEdited(JButton saveEdited) {
+        SaveEdited = saveEdited;
+    }
+
+    public JTextArea getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String text) {
+        categories.setText(text);
+    }
+
+    public JTextArea getArea() {
+        return Area;
+    }
+
+    public void setArea(String text) {
+        Area.setText(text);
+    }
+
+    public JTextArea getInstructions() {
+        return Instructions;
+    }
+
+    public void setInstructions(String text) {
+        Instructions.setText(text);
     }
 }

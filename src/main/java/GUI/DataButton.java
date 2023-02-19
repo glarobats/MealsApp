@@ -30,8 +30,7 @@ public void addDataButtonListener(JLabel dataTitle) {
                 return;
             }
             //προβολή JPanel που αντιστοιχεί στην αναζήτηση και απόκρυψη των υπολοίπων
-            mealsAppGui gui = mealsAppGui.getInstance();
-            gui.showSearchPanel();
+
             //εάν δεν είναι κενό το πεδίο
             if (meal != null) {
                 if (!db.idSearch(Integer.valueOf(meal.getId()))){
@@ -41,121 +40,28 @@ public void addDataButtonListener(JLabel dataTitle) {
                     db.incrementViews(Integer.valueOf(meal.getId()));
                 }
 
-                JTextArea mealsArea = createTextArea(meal.getName());
-                JTextArea category = createTextArea(meal.getCategory());
-                JTextArea Area = createTextArea(meal.getArea());
-                JTextArea Instructions = createTextArea(meal.getInstructions());
-
-                JScrollPane scrollPane1 = createScrollPane(mealsArea);
-                JScrollPane scrollPane2 = createScrollPane(category);
-                JScrollPane scrollPane3 = createScrollPane(Area);
-                JScrollPane scrollPane4 = createScrollPane(Instructions);
+                mealsAppGui gui = mealsAppGui.getInstance();
+                gui.showSearchPanel();
 
                 //JPanel for text and Labels
-                JPanel panel1 = new JPanel();
-                panel1.add(scrollPane1);
-                gui.setSearchingPanel(panel1);
+                String mealName = meal.getName();
+                String categoryName = meal.getCategory();
+                String areaName = meal.getArea();
+                String instructionsName = meal.getInstructions();
 
-                JPanel panel2 = new JPanel();
-                panel2.add(scrollPane2);
-                gui.setSearchingPanel(panel2);
-
-                JPanel panel3 = new JPanel();
-                panel3.add(scrollPane3);
-                gui.setSearchingPanel(panel3);
-
-                JPanel panel4 = new JPanel();
-                panel4.add(scrollPane4);
-                gui.setSearchingPanel(panel4);
+                gui.setMealsName(mealName);
+                gui.setCategories(categoryName);
+                gui.setArea(areaName);
+                gui.setInstructions(instructionsName);
 
 
 
 
-/*
-                //Προσθήκη κουμπιών SAVE-EXIT-DELETE-CLOSE στο εξτρά panel στο κάτω μέρος του παραθύρου
-                JButton SaveButton = new JButton("SAVE");
-                JButton EditButton = new JButton("EDIT");
-                JButton DeleteButton = new JButton("DELETE");
-                DeleteButton.setBackground(Color.pink);
-                JButton SaveEdited = new JButton("SAVE EDITED");
-                JButton OkButton = new JButton("OK");
 
-                JPanel panel = new JPanel();
-                panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
 
-                panel.add(scrollPane1);
-                panel.add(scrollPane2);
-                panel.add(scrollPane3);
-                panel.add(scrollPane4);
+     /*              frame.getRootPane().setDefaultButton(OkButton);//Ορίζει ως default button το ΟΚ και με το άνοιγμα του
 
-                JPanel buttonPanel = new JPanel();
-                buttonPanel.add(SaveButton);
-                buttonPanel.add(EditButton);
-                buttonPanel.add(DeleteButton);
-                buttonPanel.add(SaveEdited);
-                buttonPanel.add(OkButton);
-
-                scrollPane1.setPreferredSize(new Dimension(500, 25));
-                scrollPane2.setPreferredSize(new Dimension(500, 25));
-                scrollPane3.setPreferredSize(new Dimension(500, 25));
-                scrollPane4.setPreferredSize(new Dimension(500, 430));
-
-                ImageIcon image = new ImageIcon("logo.png");
-
-                Font font = mealsArea.getFont();
-                font = font.deriveFont(16f); // Αλλαγή γραμματοσειράς σε 16
-                mealsArea.setFont(font);
-                category.setFont(font);
-                Area.setFont(font);
-
-                //JLabel
-                JLabel label = new JLabel("Meal:");
-                label.setFont(font);
-                JPanel labelPanel = new JPanel();
-                labelPanel.add(label, BorderLayout.WEST);
-                panel.add(labelPanel, BorderLayout.WEST);
-                panel.add(scrollPane1, BorderLayout.WEST);
-
-                label = new JLabel("Category:");
-                label.setFont(font);
-                labelPanel = new JPanel();
-                labelPanel.add(label, BorderLayout.WEST);
-                panel.add(labelPanel, BorderLayout.WEST);
-                panel.add(scrollPane2, BorderLayout.WEST);
-
-                label = new JLabel("Area:");
-                label.setFont(font);
-                labelPanel = new JPanel();
-                labelPanel.add(label, BorderLayout.WEST);
-                panel.add(labelPanel, BorderLayout.WEST);
-                panel.add(scrollPane3, BorderLayout.WEST);
-
-                label = new JLabel("Instructions:");
-                label.setFont(font);
-                labelPanel = new JPanel();
-                labelPanel.add(label, BorderLayout.WEST);
-                panel.add(labelPanel, BorderLayout.WEST);
-                panel.add(scrollPane4, BorderLayout.WEST);
-
-                buttonPanel.add(OkButton);
-                panel.add(buttonPanel,BorderLayout.SOUTH);
-
- */
-/*
-                frame.setIconImage(image.getImage());
-                frame.getContentPane().add(panel, BorderLayout.CENTER);
-                frame.setResizable(true);
-                frame.pack();
-                frame.setLocationRelativeTo(null);
-                frame.setVisible(true);
-                buttonPanel.add(OkButton);
-                panel.add(buttonPanel,BorderLayout.SOUTH);
-                frame.getRootPane().setDefaultButton(OkButton);//Ορίζει ως default button το ΟΚ και με το άνοιγμα του
-                // παραθύρου μπορεί να πατηθεί κατευθείαν το ΟΚ χωρίς να μετακινήσουμε το ποντίκι πάνω του.
-
- */
-
-     /*           //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
+              //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
                 if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
                     EditButton.setEnabled(false);
                 }else {
