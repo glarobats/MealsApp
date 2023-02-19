@@ -50,7 +50,8 @@ public class mealsAppGui extends JFrame{
 
 
     public void Buttons() {
-          //κουμπί προβολής δεδομένων γεύματος
+
+        //κουμπί προβολής δεδομένων γεύματος
         DataButton dataButton = new DataButton();
         dataTitle.setCursor(new Cursor(Cursor.HAND_CURSOR));
         dataIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
