@@ -102,22 +102,4 @@ public void addDataButtonListener(JLabel dataTitle) {
         }
     });
 }
-
-    private JTextArea createTextArea(String text) {
-        JTextArea area = new JTextArea();
-        area.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
-                BorderFactory.createEmptyBorder(0,0,0,0)));
-        area.setText(text);
-        area.setLineWrap(true);
-        area.setWrapStyleWord(true);
-        area.setEditable(false);
-        area.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
-        return area;
-    }
-    private JScrollPane createScrollPane(JTextArea area) {
-        JScrollPane scrollPane = new JScrollPane(area);
-        scrollPane.setPreferredSize(new Dimension(500, 25));
-        return scrollPane;
-    }
 }

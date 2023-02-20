@@ -134,7 +134,7 @@ public class mealsAppGui extends JFrame{
     public void showSearchPanel() {
         rightSidePanel.removeAll();
         rightSidePanel.add(searchingPanel);
-
+/*
         SecondBackground bgPanel = new SecondBackground();
         bgPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
         bgPanel.setLayout(new BorderLayout());
@@ -142,6 +142,8 @@ public class mealsAppGui extends JFrame{
         bgPanel.add(jPanelForButtons, BorderLayout.SOUTH);
         searchingPanel.add(bgPanel);
 
+
+ */
         //searchingPanel.setLayout(new BorderLayout());
         //searchingPanel.add(jPanelForText, BorderLayout.NORTH);
         //searchingPanel.add(jPanelForButtons, BorderLayout.SOUTH);
@@ -152,7 +154,7 @@ public class mealsAppGui extends JFrame{
         jPanelForButtons.setVisible(true);
         jPanelForText.setVisible(true);
         jScrollInsrt.setVisible(true);
-//        jScrollInsrt.setViewportView(instructionsJLabel);
+        //jScrollInsrt.setViewportView(instructionsJLabel);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
