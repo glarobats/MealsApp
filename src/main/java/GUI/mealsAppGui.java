@@ -49,6 +49,10 @@ public class mealsAppGui extends JFrame{
     private JLabel instructionsJLabel;
     private JLabel mealJLabel;
     private JScrollPane jScrollInsrt;
+    private JPanel JPanelForCharts;
+    private JPanel JPanelForButChar;
+    private JLabel Pie;
+    private JLabel Bar;
 
 
     private mealsAppGui() {
@@ -161,11 +165,12 @@ public class mealsAppGui extends JFrame{
         mainPanel.repaint();
     }
 
-    public void showStatsPanel(JPanel statsPanel) {
+    public void showStatsPanel() {
+
         rightSidePanel.remove(firstPanel);
         rightSidePanel.remove(categoriesPanel);
         rightSidePanel.remove(searchingPanel);
-        rightSidePanel.add(this.statsPanel);
+        rightSidePanel.add(statsPanel);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -264,5 +269,9 @@ public class mealsAppGui extends JFrame{
 
     public void setInstructions(String text) {
         Instructions.setText(text);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }
