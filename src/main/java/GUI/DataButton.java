@@ -61,7 +61,6 @@ public class DataButton extends JPanel {
                 gui.getMainPanel().revalidate();
                 gui.getMainPanel().repaint();
 
-
                 //JPanel for text and Labels
                 String mealName = meal.getName();
                 String categoryName = meal.getCategory();
@@ -72,8 +71,6 @@ public class DataButton extends JPanel {
                 gui.setCategories(categoryName);
                 gui.setArea(areaName);
                 gui.setInstructions(instructionsName);
-
-
 
               //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
                 if(!db.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
@@ -104,12 +101,6 @@ public class DataButton extends JPanel {
                 mealsappgui.getSaveEdited().addActionListener(new SaveEditedButtonListener(meal, mealsappgui.getSaveButton(),
                         mealsappgui.getSaveEdited(), mealsappgui.getEditButton(), mealsappgui.getDeleteButton(),
                         db, gui.getMealsName(), gui.getCategories(), gui.getInstructions()));
-                //listener κουμπιού OK
-
-
-
-
-
                 //Τέλος listeners
             } else {
                 //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος
