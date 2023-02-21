@@ -12,8 +12,5 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setBackground(new Color(0,0,0,0));
-
-        Database db = Database.getInstance();
-        db.startDB();
     }
 }

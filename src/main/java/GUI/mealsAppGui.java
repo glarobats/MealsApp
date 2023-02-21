@@ -11,58 +11,26 @@ import java.awt.event.ComponentAdapter;
 
 public class mealsAppGui extends JFrame{
     private static mealsAppGui instance;
-    private JPanel mainPanel;
-    private JPanel BackGdPanel;
+    private JPanel mainPanel,leftSidePanel,rightSidePanel,BackGdPanel,startPanel,searchingPanel,categoriesPanel,statsPanel,
+            firstPanel,jPanelForText,jPanelForButtons,JPanelForCharts,JPanelForButChar;
+    private JLabel appIcon,appTitle,dataIcon,dataTitle,categoryIcon,categoryTitle,exitTitle,exitIcon,StatsTitle,statsIcon,
+            categoriesLabel,firstLabel,categoryJLabel,areaJLabel,instructionsJLabel,mealJLabel,Pie,Bar;
+    private JTextArea mealsName,categories,Area,Instructions;
+    private JButton SaveButton,EditButton,DeleteButton,SaveEdited;
+    private JScrollPane jScrollInsrt;
     private BackGroundPanel backGroundPanel;
 
-    private JPanel leftSidePanel;
-    private JPanel rightSidePanel;
-    private JLabel appIcon;
-    private JLabel appTitle;
-    private JLabel dataIcon;
-    private JLabel dataTitle;
-    private JLabel categoryIcon;
-    private JLabel categoryTitle;
-    private JLabel exitIcon;
-    private JLabel exitTitle;
-    private JPanel startPanel;
-    private JLabel StatsTitle;
-    private JLabel statsIcon;
-    private JPanel searchingPanel;
-    private JPanel categoriesPanel;
-    private JLabel categoriesLabel;
-    private JPanel statsPanel;
-    private JPanel firstPanel;
-    private JLabel firstLabel;
-    private JPanel jPanelForText;
-    private JPanel jPanelForButtons;
-    private JTextArea mealsName;
-    private JButton SaveButton;
-    private JButton EditButton;
-    private JButton DeleteButton;
-    private JButton SaveEdited;
-    private JTextArea categories;
-    private JTextArea Area;
-    private JTextArea Instructions;
-    private JButton OkButton;
-    private JLabel categoryJLabel;
-    private JLabel areaJLabel;
-    private JLabel instructionsJLabel;
-    private JLabel mealJLabel;
-    private JScrollPane jScrollInsrt;
-    private JPanel JPanelForCharts;
-    private JPanel JPanelForButChar;
-    private JLabel Pie;
-    private JLabel Bar;
 
 
     private mealsAppGui() {
         super();
-        setUndecorated(true);
+        //setUndecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setContentPane(mainPanel);
         this.pack();
 
+        Database db = Database.getInstance();
+        db.startDB();
         leftSidePanel.setOpaque(false);
         BackGdPanel.setOpaque(false);
         BackGdPanel = new BackGroundPanel();
@@ -80,9 +48,7 @@ public class mealsAppGui extends JFrame{
         areaJLabel.setVisible(false);
         instructionsJLabel.setVisible(false);
         jScrollInsrt.setVisible(false);
-
         Buttons();
-
     }
 
     //Χρήση singleton για την εναλλαγή JPanels
@@ -92,9 +58,6 @@ public class mealsAppGui extends JFrame{
         }
         return instance;
     }
-
-
-
 
     public void Buttons() {
 
@@ -127,22 +90,8 @@ public class mealsAppGui extends JFrame{
         exitButton.addEXITButtonMouseListener(exitIcon);
     }
 
-    public void showSearchPanel() {
-        rightSidePanel.removeAll();
-        rightSidePanel.add(searchingPanel);
-        searchingPanel.setLayout(new BorderLayout());
-        searchingPanel.add(jPanelForText, BorderLayout.NORTH);
-        searchingPanel.add(jPanelForButtons, BorderLayout.SOUTH);
-        mealJLabel.setVisible(true);
-        categoryJLabel.setVisible(true);
-        areaJLabel.setVisible(true);
-        instructionsJLabel.setVisible(true);
-        jPanelForButtons.setVisible(true);
-        jPanelForText.setVisible(true);
-        jScrollInsrt.setVisible(true);
-        mainPanel.revalidate();
-        mainPanel.repaint();
-    }
+
+
     public void showCategoriesPanel() {
         rightSidePanel.remove(firstPanel);
         rightSidePanel.remove(statsPanel);
@@ -166,6 +115,261 @@ public class mealsAppGui extends JFrame{
         Bar.setVisible(true);
         mainPanel.revalidate();
         mainPanel.repaint();
+    }
+    public static void setInstance(mealsAppGui instance) {
+        mealsAppGui.instance = instance;
+    }
+
+    public JPanel getMainPanel() {
+        return mainPanel;
+    }
+
+    public void setMainPanel(JPanel mainPanel) {
+        this.mainPanel = mainPanel;
+    }
+
+    public JPanel getBackGdPanel() {
+        return BackGdPanel;
+    }
+
+    public void setBackGdPanel(JPanel backGdPanel) {
+        BackGdPanel = backGdPanel;
+    }
+
+    public BackGroundPanel getBackGroundPanel() {
+        return backGroundPanel;
+    }
+
+    public void setBackGroundPanel(BackGroundPanel backGroundPanel) {
+        this.backGroundPanel = backGroundPanel;
+    }
+
+    public JPanel getLeftSidePanel() {
+        return leftSidePanel;
+    }
+
+    public void setLeftSidePanel(JPanel leftSidePanel) {
+        this.leftSidePanel = leftSidePanel;
+    }
+
+    public JPanel getRightSidePanel() {
+        return rightSidePanel;
+    }
+
+    public void setRightSidePanel(JPanel rightSidePanel) {
+        this.rightSidePanel = rightSidePanel;
+    }
+
+    public JLabel getAppIcon() {
+        return appIcon;
+    }
+
+    public void setAppIcon(JLabel appIcon) {
+        this.appIcon = appIcon;
+    }
+
+    public JLabel getAppTitle() {
+        return appTitle;
+    }
+
+    public void setAppTitle(JLabel appTitle) {
+        this.appTitle = appTitle;
+    }
+
+    public JLabel getDataIcon() {
+        return dataIcon;
+    }
+
+    public void setDataIcon(JLabel dataIcon) {
+        this.dataIcon = dataIcon;
+    }
+
+    public JLabel getDataTitle() {
+        return dataTitle;
+    }
+
+    public void setDataTitle(JLabel dataTitle) {
+        this.dataTitle = dataTitle;
+    }
+
+    public JLabel getCategoryIcon() {
+        return categoryIcon;
+    }
+
+    public void setCategoryIcon(JLabel categoryIcon) {
+        this.categoryIcon = categoryIcon;
+    }
+
+    public JLabel getCategoryTitle() {
+        return categoryTitle;
+    }
+
+    public void setCategoryTitle(JLabel categoryTitle) {
+        this.categoryTitle = categoryTitle;
+    }
+
+    public JLabel getExitIcon() {
+        return exitIcon;
+    }
+
+    public void setExitIcon(JLabel exitIcon) {
+        this.exitIcon = exitIcon;
+    }
+
+    public JLabel getExitTitle() {
+        return exitTitle;
+    }
+
+    public void setExitTitle(JLabel exitTitle) {
+        this.exitTitle = exitTitle;
+    }
+
+    public JPanel getStartPanel() {
+        return startPanel;
+    }
+
+    public void setStartPanel(JPanel startPanel) {
+        this.startPanel = startPanel;
+    }
+
+    public JLabel getStatsTitle() {
+        return StatsTitle;
+    }
+
+    public void setStatsTitle(JLabel statsTitle) {
+        StatsTitle = statsTitle;
+    }
+
+    public JLabel getStatsIcon() {
+        return statsIcon;
+    }
+
+    public void setStatsIcon(JLabel statsIcon) {
+        this.statsIcon = statsIcon;
+    }
+
+    public void setCategoriesPanel(JPanel categoriesPanel) {
+        this.categoriesPanel = categoriesPanel;
+    }
+
+    public JLabel getCategoriesLabel() {
+        return categoriesLabel;
+    }
+
+    public void setCategoriesLabel(JLabel categoriesLabel) {
+        this.categoriesLabel = categoriesLabel;
+    }
+
+    public JLabel getFirstLabel() {
+        return firstLabel;
+    }
+
+    public void setFirstLabel(JLabel firstLabel) {
+        this.firstLabel = firstLabel;
+    }
+
+    public JPanel getjPanelForText() {
+        return jPanelForText;
+    }
+
+    public void setjPanelForText(JPanel jPanelForText) {
+        this.jPanelForText = jPanelForText;
+    }
+
+    public JPanel getjPanelForButtons() {
+        return jPanelForButtons;
+    }
+
+    public void setjPanelForButtons(JPanel jPanelForButtons) {
+        this.jPanelForButtons = jPanelForButtons;
+    }
+
+    public void setMealsName(JTextArea mealsName) {
+        this.mealsName = mealsName;
+    }
+
+    public void setCategories(JTextArea categories) {
+        this.categories = categories;
+    }
+
+    public void setArea(JTextArea area) {
+        Area = area;
+    }
+
+    public void setInstructions(JTextArea instructions) {
+        Instructions = instructions;
+    }
+
+    public JLabel getCategoryJLabel() {
+        return categoryJLabel;
+    }
+
+    public void setCategoryJLabel(JLabel categoryJLabel) {
+        this.categoryJLabel = categoryJLabel;
+    }
+
+    public JLabel getAreaJLabel() {
+        return areaJLabel;
+    }
+
+    public void setAreaJLabel(JLabel areaJLabel) {
+        this.areaJLabel = areaJLabel;
+    }
+
+    public JLabel getInstructionsJLabel() {
+        return instructionsJLabel;
+    }
+
+    public void setInstructionsJLabel(JLabel instructionsJLabel) {
+        this.instructionsJLabel = instructionsJLabel;
+    }
+
+    public JLabel getMealJLabel() {
+        return mealJLabel;
+    }
+
+    public void setMealJLabel(JLabel mealJLabel) {
+        this.mealJLabel = mealJLabel;
+    }
+
+    public JScrollPane getjScrollInsrt() {
+        return jScrollInsrt;
+    }
+
+    public void setjScrollInsrt(JScrollPane jScrollInsrt) {
+        this.jScrollInsrt = jScrollInsrt;
+    }
+
+    public JPanel getJPanelForCharts() {
+        return JPanelForCharts;
+    }
+
+    public void setJPanelForCharts(JPanel JPanelForCharts) {
+        this.JPanelForCharts = JPanelForCharts;
+    }
+
+    public JPanel getJPanelForButChar() {
+        return JPanelForButChar;
+    }
+
+    public void setJPanelForButChar(JPanel JPanelForButChar) {
+        this.JPanelForButChar = JPanelForButChar;
+    }
+
+    public JLabel getPie() {
+        return Pie;
+    }
+
+    public void setPie(JLabel pie) {
+        Pie = pie;
+    }
+
+    public JLabel getBar() {
+        return Bar;
+    }
+
+    public void setBar(JLabel bar) {
+        Bar = bar;
     }
 
     public JPanel getSearchingPanel() {

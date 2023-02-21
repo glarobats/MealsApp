@@ -25,7 +25,6 @@ public class StatisticsPrintButton extends JPanel{
                 statsTitle.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-
                         ViewsPDF print= new ViewsPDF();
                         print.viewPdf();
             }
