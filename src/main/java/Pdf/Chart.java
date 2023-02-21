@@ -50,15 +50,10 @@ public class Chart {
         plot.setToolTipGenerator(toolTipGenerator);
 
         ChartPanel chartPanel = new ChartPanel(chart);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.add(chartPanel);
+        chartPanel.setPreferredSize(new Dimension(500, 500));
 
-        JButton pieButton = new JButton("Γράφημα πίτας");
-        JButton barButton = new JButton("Γράφημα Στηλών");
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(pieButton);
-        buttonPanel.add(barButton);
-        panel.add(buttonPanel, BorderLayout.SOUTH);
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.add(chartPanel, BorderLayout.CENTER);
 
         return panel;
     }

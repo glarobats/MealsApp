@@ -61,6 +61,7 @@ public class popUpListTree extends JFrame {
             });
         }
 
+
         //Κλείσιμο του executor αφού έχουν ολοκληρωθεί όλες οι παραπάνω εργασίες
         executor.shutdown();
         executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);

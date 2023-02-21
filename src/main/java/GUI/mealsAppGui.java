@@ -1,15 +1,16 @@
 package GUI;
 
+import Pdf.Chart;
 import org.database.Database;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 
 public class mealsAppGui extends JFrame{
     private static mealsAppGui instance;
-
     private JPanel mainPanel;
     private JPanel BackGdPanel;
     private BackGroundPanel backGroundPanel;
@@ -81,12 +82,7 @@ public class mealsAppGui extends JFrame{
         jScrollInsrt.setVisible(false);
 
         Buttons();
-        SaveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
 
-            }
-        });
     }
 
     //Χρήση singleton για την εναλλαγή JPanels
@@ -134,17 +130,9 @@ public class mealsAppGui extends JFrame{
     public void showSearchPanel() {
         rightSidePanel.removeAll();
         rightSidePanel.add(searchingPanel);
-
-        SecondBackground bgPanel = new SecondBackground();
-        bgPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
-        bgPanel.setLayout(new BorderLayout());
-        bgPanel.add(jPanelForText, BorderLayout.NORTH);
-        bgPanel.add(jPanelForButtons, BorderLayout.SOUTH);
-        searchingPanel.add(bgPanel);
-
-        //searchingPanel.setLayout(new BorderLayout());
-        //searchingPanel.add(jPanelForText, BorderLayout.NORTH);
-        //searchingPanel.add(jPanelForButtons, BorderLayout.SOUTH);
+        searchingPanel.setLayout(new BorderLayout());
+        searchingPanel.add(jPanelForText, BorderLayout.NORTH);
+        searchingPanel.add(jPanelForButtons, BorderLayout.SOUTH);
         mealJLabel.setVisible(true);
         categoryJLabel.setVisible(true);
         areaJLabel.setVisible(true);
@@ -152,7 +140,6 @@ public class mealsAppGui extends JFrame{
         jPanelForButtons.setVisible(true);
         jPanelForText.setVisible(true);
         jScrollInsrt.setVisible(true);
-//        jScrollInsrt.setViewportView(instructionsJLabel);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -166,11 +153,17 @@ public class mealsAppGui extends JFrame{
     }
 
     public void showStatsPanel() {
-
-        rightSidePanel.remove(firstPanel);
-        rightSidePanel.remove(categoriesPanel);
-        rightSidePanel.remove(searchingPanel);
+        rightSidePanel.removeAll();
         rightSidePanel.add(statsPanel);
+        SecondBackground stPanel = new SecondBackground();
+        stPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
+        statsPanel.setLayout(new BorderLayout());
+        statsPanel.add(JPanelForCharts, BorderLayout.NORTH);
+        statsPanel.add(JPanelForButChar, BorderLayout.SOUTH);
+        JPanelForCharts.setVisible(true);
+        JPanelForButChar.setVisible(true);
+        Pie.setVisible(true);
+        Bar.setVisible(true);
         mainPanel.revalidate();
         mainPanel.repaint();
     }
@@ -204,6 +197,14 @@ public class mealsAppGui extends JFrame{
     }
 
     public void setFirstPanel(JPanel firstPanel) {
+        this.firstPanel = firstPanel;
+    }
+
+    public JPanel JPanelForCharts() {
+        return firstPanel;
+    }
+
+    public void JPanelForCharts(JPanel firstPanel) {
         this.firstPanel = firstPanel;
     }
 
