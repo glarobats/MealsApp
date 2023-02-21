@@ -155,8 +155,6 @@ public class mealsAppGui extends JFrame{
     public void showStatsPanel() {
         rightSidePanel.removeAll();
         rightSidePanel.add(statsPanel);
-        SecondBackground stPanel = new SecondBackground();
-        stPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK,1));
         statsPanel.setLayout(new BorderLayout());
         statsPanel.add(JPanelForCharts, BorderLayout.NORTH);
         statsPanel.add(JPanelForButChar, BorderLayout.SOUTH);

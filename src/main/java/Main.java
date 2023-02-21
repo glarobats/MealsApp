@@ -3,6 +3,8 @@ import java.awt.Color;
 import GUI.mealsAppGui;
 import org.database.Database;
 
+import javax.swing.*;
+
 
 public class Main {
     public static void main(String[] args) {
@@ -12,7 +14,8 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setBackground(new Color(0,0,0,0));
-
+        ImageIcon image = new ImageIcon("images/loo.png");
+        frame.setIconImage(image.getImage());
         Database db = Database.getInstance();
         db.startDB();
     }
