@@ -13,10 +13,10 @@ public class Main {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
-        frame.setBackground(new Color(0,0,0,0));
+
+        //frame.setBackground(new Color(0,0,0,0));
+        frame.setTitle("MealsApp");
         ImageIcon image = new ImageIcon("images/loo.png");
         frame.setIconImage(image.getImage());
-        Database db = Database.getInstance();
-        db.startDB();
     }
 }

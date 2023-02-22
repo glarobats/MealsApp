@@ -10,6 +10,7 @@ public class SaveButtonListener implements ActionListener {
     private JButton editButton, deleteButton, saveButton;
     private Database db;
 
+
     public SaveButtonListener(Meal meal,JButton saveButton, JButton editButton, JButton deleteButton, Database db) {
         this.meal = meal;
         this.editButton = editButton;
@@ -17,7 +18,7 @@ public class SaveButtonListener implements ActionListener {
         this.saveButton = saveButton;
         this.db = db;
     }
-
+    mealsAppGui mealsappgui = mealsAppGui.getInstance();
     @Override
     public void actionPerformed(ActionEvent e) {
             if (!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
@@ -28,6 +29,7 @@ public class SaveButtonListener implements ActionListener {
                     editButton.setEnabled(true);
                     deleteButton.setEnabled(true);
                     saveButton.setEnabled(false);
+
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);

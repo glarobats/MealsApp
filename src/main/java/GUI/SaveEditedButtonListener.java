@@ -14,8 +14,10 @@ public class SaveEditedButtonListener implements ActionListener {
     private JTextArea mealsArea, category, Area, Instructions;
     private Database db;
 
+
     public SaveEditedButtonListener(Meal meal, JButton saveButton, JButton saveEdited, JButton editButton,
-                                    JButton deleteButton, Database db, JTextArea mealsArea, JTextArea category,JTextArea Instructions) {
+                                    JButton deleteButton, Database db, JTextArea mealsArea, JTextArea category,
+                                    JTextArea Instructions) {
         this.meal = meal;
         this.editButton = editButton;
         this.deleteButton = deleteButton;
@@ -27,12 +29,18 @@ public class SaveEditedButtonListener implements ActionListener {
         this.Instructions = Instructions;
     }
 
+    mealsAppGui mealsappgui = mealsAppGui.getInstance();
     @Override
     public void actionPerformed(ActionEvent e) {
         int ID = Integer.valueOf(meal.getId());
         try {
             //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
+
             saveEdited.setEnabled(false);
+            mealsappgui.getInstructions().setEditable(false);
+            mealsappgui.getMealsName().setEditable(false);
+            mealsappgui.getCategories().setEditable(false);
+            mealsappgui.getArea().setEditable(false);
             Connection connection = db.connect();
             Statement stmt = (Statement) connection.createStatement();
             String modifiedFields = "UPDATE SAVED SET "
@@ -47,6 +55,7 @@ public class SaveEditedButtonListener implements ActionListener {
             saveButton.setEnabled(false);
             editButton.setEnabled(true);
             deleteButton.setEnabled(true);
+
         } catch (SQLException exception) {
             System.out.println(exception.getLocalizedMessage());
         }

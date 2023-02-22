@@ -9,14 +9,16 @@ import java.awt.event.MouseEvent;
 
 public class DataButton extends JPanel {
 
-public void addDataButtonListener(JLabel dataTitle) {
 
 
+    public void addDataButtonListener(JLabel dataTitle) {
 
-        dataTitle.addMouseListener(new MouseAdapter() {
+    dataTitle.addMouseListener(new MouseAdapter() {
         @Override
         public void mouseClicked(MouseEvent e) {
 
+
+            mealsAppGui mealsappgui =  mealsAppGui.getInstance();
 
             //Παράθυρο για αναζήτηση
             mealApi mealApi = new mealApi();
@@ -41,7 +43,23 @@ public void addDataButtonListener(JLabel dataTitle) {
                 }
 
                 mealsAppGui gui = mealsAppGui.getInstance();
-                gui.showSearchPanel();
+
+                gui.getRightSidePanel().removeAll();
+                gui.getRightSidePanel().add(gui.getSearchingPanel());
+                gui.getSearchingPanel().setLayout(new BorderLayout());
+                gui.getSearchingPanel().add(gui.getjPanelForText(), BorderLayout.NORTH);
+                gui.getSearchingPanel().add(gui.getjPanelForButtons(), BorderLayout.SOUTH);
+                JViewport viewport = gui.getjScrollInsrt().getViewport();
+                viewport.setViewPosition(new Point(0,0));
+                gui.getMealJLabel().setVisible(true);
+                gui.getCategoryJLabel().setVisible(true);
+                gui.getAreaJLabel().setVisible(true);
+                gui.getInstructionsJLabel().setVisible(true);
+                gui.getjPanelForButtons().setVisible(true);
+                gui.getjPanelForText().setVisible(true);
+                gui.getjScrollInsrt().setVisible(true);
+                gui.getMainPanel().revalidate();
+                gui.getMainPanel().repaint();
 
                 //JPanel for text and Labels
                 String mealName = meal.getName();
@@ -54,46 +72,35 @@ public void addDataButtonListener(JLabel dataTitle) {
                 gui.setArea(areaName);
                 gui.setInstructions(instructionsName);
 
-
-
-
-
-     /*              frame.getRootPane().setDefaultButton(OkButton);//Ορίζει ως default button το ΟΚ και με το άνοιγμα του
-
               //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
-                if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-                    EditButton.setEnabled(false);
+                if(!db.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
+                    mealsappgui.getEditButton().setEnabled(false);
                 }else {
-                    EditButton.setEnabled(true);
+                    mealsappgui.getEditButton().setEnabled(true);
                 }
 
                 //ενεργοποίηση ή απενεργοποίηση του κουμπιού DELETE ανάλογα εάν είναι αποθηκευμένο το γεύμα
-                if(!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-                    DeleteButton.setEnabled(false);
+                if(!db.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
+                    mealsappgui.getDeleteButton().setEnabled(false);
                 }else {
-                    DeleteButton.setEnabled(true);
+                    mealsappgui.getDeleteButton().setEnabled(true);
                 }
-
-                //απενεργοποίηση κουμπιού SAVE EDITED
-                SaveEdited.setEnabled(false);
                 //Τέλος, προσθήκης κουμπιών
 
-
                 //listener κουμπιού SAVEbutton
-                SaveButton.addActionListener(new SaveButtonListener(meal, SaveButton, EditButton, DeleteButton, db));
+                mealsappgui.getSaveButton().addActionListener(new SaveButtonListener(meal,mealsappgui.getSaveButton(),
+                        mealsappgui.getEditButton(),mealsappgui.getDeleteButton(),db));
                 //listener κουμπιού DeleteButton
-                DeleteButton.addActionListener(new DeleteButtonListener(meal, EditButton, DeleteButton,SaveButton, db));
+                mealsappgui.getDeleteButton().addActionListener(new DeleteButtonListener(meal, mealsappgui.getEditButton(),
+                        mealsappgui.getDeleteButton(),mealsappgui.getSaveButton(), db));
                 //listener κουμπιού EditButton
-                EditButton.addActionListener(new EditButtonListener(meal, SaveButton, SaveEdited, EditButton, DeleteButton, db, mealsArea, category, Area, Instructions));
+                mealsappgui.getEditButton().addActionListener(new EditButtonListener(meal, mealsappgui.getSaveButton(),
+                        mealsappgui.getSaveEdited(), mealsappgui.getEditButton(), mealsappgui.getDeleteButton(),
+                        db, gui.getMealsName(), gui.getCategories() , gui.getArea(), gui.getInstructions()));
                 //listener κουμπιού SaveEdited
-                SaveEdited.addActionListener(new SaveEditedButtonListener(meal, SaveButton, SaveEdited, EditButton, DeleteButton, db, mealsArea, category, Instructions));
-                //listener κουμπιού OK
-
-      */
-
-            /*    OkButton.addActionListener(new OKButtonListener(frame));
-
-             */
+                mealsappgui.getSaveEdited().addActionListener(new SaveEditedButtonListener(meal, mealsappgui.getSaveButton(),
+                        mealsappgui.getSaveEdited(), mealsappgui.getEditButton(), mealsappgui.getDeleteButton(),
+                        db, gui.getMealsName(), gui.getCategories(), gui.getInstructions()));
                 //Τέλος listeners
             } else {
                 //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος
@@ -102,22 +109,4 @@ public void addDataButtonListener(JLabel dataTitle) {
         }
     });
 }
-
-    private JTextArea createTextArea(String text) {
-        JTextArea area = new JTextArea();
-        area.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createMatteBorder(0,4,0,4,Color.WHITE),
-                BorderFactory.createEmptyBorder(0,0,0,0)));
-        area.setText(text);
-        area.setLineWrap(true);
-        area.setWrapStyleWord(true);
-        area.setEditable(false);
-        area.setAlignmentX(JTextArea.CENTER_ALIGNMENT);
-        return area;
-    }
-    private JScrollPane createScrollPane(JTextArea area) {
-        JScrollPane scrollPane = new JScrollPane(area);
-        scrollPane.setPreferredSize(new Dimension(500, 25));
-        return scrollPane;
-    }
 }
