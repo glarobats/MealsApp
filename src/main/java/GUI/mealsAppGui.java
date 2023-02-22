@@ -72,12 +72,6 @@ public class mealsAppGui extends JFrame{
                 JPanelForCharts.add(statistika.makePieChart());
                 JPanelForCharts.setVisible(true);
                 JPanelForButChar.setVisible(true);
-                Pie.setVisible(true);
-                Pie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                Bar.setVisible(true);
-                Bar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                Print.setVisible(true);
-                Print.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 mainPanel.revalidate();
                 mainPanel.repaint();
             }
@@ -98,12 +92,6 @@ public class mealsAppGui extends JFrame{
                 JPanelForCharts.add(statistika.makeBarChart());
                 JPanelForCharts.setVisible(true);
                 JPanelForButChar.setVisible(true);
-                Pie.setVisible(true);
-                Pie.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                Bar.setVisible(true);
-                Bar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                Print.setVisible(true);
-                Print.setCursor(new Cursor(Cursor.HAND_CURSOR));
                 mainPanel.revalidate();
                 mainPanel.repaint();
             }
@@ -430,7 +418,7 @@ public class mealsAppGui extends JFrame{
     }
 
     public JLabel getPrint() {
-        return Pie;
+        return Print;
     }
 
     public void setPrint(JLabel print) {

@@ -38,10 +38,16 @@ public class StatisticsPrintButton extends JPanel{
                         gui.getJPanelForButChar().setVisible(true);
                         gui.getPie().setVisible(true);
                         gui.getPie().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        gui.getPie().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                        gui.getPie().setFont(new Font("Calibri",Font.BOLD,16));
                         gui.getBar().setVisible(true);
                         gui.getBar().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        gui.getBar().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                        gui.getBar().setFont(new Font("Calibri",Font.BOLD,16));
                         gui.getPrint().setVisible(true);
                         gui.getPrint().setCursor(new Cursor(Cursor.HAND_CURSOR));
+                        gui.getPrint().setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+                        gui.getPrint().setFont(new Font("Calibri",Font.BOLD,16));
                         gui.getJPanelForCharts().add(statistika.makePieChart());
                         gui.getMainPanel().revalidate();
                         gui.getMainPanel().repaint();

@@ -15,7 +15,7 @@ public class Main {
         frame.setResizable(false);
 
         //frame.setBackground(new Color(0,0,0,0));
-        frame.setTitle("MealsApp");
+        frame.setTitle("Meals App");
         ImageIcon image = new ImageIcon("images/loo.png");
         frame.setIconImage(image.getImage());
     }

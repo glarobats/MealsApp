@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class CategoriesButton {
+public class CategoriesButton extends JPanel{
     public void addCategoriesButtonListener(JLabel categoriesTitle) {
         categoriesTitle.addMouseListener(new MouseAdapter() {
             @Override
