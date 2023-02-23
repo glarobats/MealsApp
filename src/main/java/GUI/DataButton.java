@@ -14,9 +14,7 @@ public class DataButton extends JPanel {
         return mealId;
     }
 
-    public void setMealId(int mealId) {
-        this.mealId = mealId;
-    }
+
 
     public void addDataButtonListener(JLabel dataTitle) {
 
@@ -90,23 +88,6 @@ public class DataButton extends JPanel {
                     }else {
                         gui.getDeleteButton().setEnabled(true);
                     }
-                    //Τέλος, προσθήκης κουμπιών
-
-                    //listener κουμπιού SAVEbutton
-           //         gui.getSaveButton().addActionListener(new SaveButtonListener(meal,gui.getSaveButton(),
-           //                gui.getEditButton(),gui.getDeleteButton()));
-                    //listener κουμπιού DeleteButton
-                    gui.getDeleteButton().addActionListener(new DeleteButtonListener(meal, gui.getEditButton(),
-                            gui.getDeleteButton(),gui.getSaveButton()));
-                    //listener κουμπιού EditButton
-                    gui.getEditButton().addActionListener(new EditButtonListener(meal, gui.getSaveButton(),
-                            gui.getSaveEdited(), gui.getEditButton(), gui.getDeleteButton(),
-                             gui.getMealsName(), gui.getCategories() , gui.getArea(), gui.getInstructions()));
-                    //listener κουμπιού SaveEdited
-                    gui.getSaveEdited().addActionListener(new SaveEditedButtonListener(meal, gui.getSaveButton(),
-                            gui.getSaveEdited(), gui.getEditButton(), gui.getDeleteButton(),
-                             gui.getMealsName(), gui.getCategories(), gui.getInstructions()));
-                    //Τέλος listeners
                 } else {
                     //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος
                     JOptionPane.showMessageDialog(null, "Το Γεύμα που εισάγατε δεν υπάρχει", "Error", JOptionPane.ERROR_MESSAGE);

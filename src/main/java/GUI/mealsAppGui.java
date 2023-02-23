@@ -7,6 +7,9 @@ import org.database.Database;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class mealsAppGui extends JFrame {
     private static mealsAppGui instance;
@@ -111,10 +114,6 @@ public class mealsAppGui extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!Database.idSearchInSAVED(dataButton.getMealId())) {
-                    System.out.println(dataButton.getMealId()+" εδώ σου βγαινει πολλες φορες εαν εχεις πατησει" +
-                            " το SAVE γινεται μαλακια.\n" +
-                            "πρεπει να κανεις search πολλα γευματα και μετα να πατησεις SAVE");
-                    System.out.println(Database.idSearchInSAVED(dataButton.getMealId()));
                     int save = JOptionPane.showConfirmDialog(null,
                             "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
                     if (save == JOptionPane.YES_NO_OPTION) {
@@ -129,8 +128,70 @@ public class mealsAppGui extends JFrame {
                 }
             }
         });
-    }
+        EditButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int edit = JOptionPane.showConfirmDialog(null,
+                        "Είσαι σίγουρος οτι θέλεις να τροποποιήσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+                if (edit == JOptionPane.YES_NO_OPTION) {
+                    //απενεργοποίηση κουμπιών και ενεργοποίηση των πεδίων προς τροποποίηση
+                    SaveEdited.setEnabled(true);
+                    SaveButton.setEnabled(false);
+                    EditButton.setEnabled(false);
+                    DeleteButton.setEnabled(false);
+                    mealsName.setEditable(true);
+                    categories.setEditable(true);
+                    Area.setEditable(true);
+                    Instructions.setEditable(true);
+                }
+            }
+        });
+        DeleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (Database.idSearchInSAVED(Integer.valueOf(dataButton.getMealId()))) {
+                    Database.deleteSavedTable(Integer.valueOf(dataButton.getMealId()));
+                    DeleteButton.setEnabled(false);
+                    EditButton.setEnabled(false);
+                    SaveEdited.setEnabled(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                    DeleteButton.setEnabled(false);
+                }
+            }
+        });
+        SaveEdited.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int ID = Integer.valueOf(dataButton.getMealId());
+                try {
+                    //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
 
+                    SaveEdited.setEnabled(false);
+                    Instructions.setEditable(false);
+                    mealsName.setEditable(false);
+                    categories.setEditable(false);
+                    Area.setEditable(false);
+                    Connection connection = Database.connect();
+                    Statement stmt = (Statement) connection.createStatement();
+                    String modifiedFields = "UPDATE SAVED SET "
+                            + "Όνομα = '" + mealsName.getText() + "', "
+                            + "Κατηγορία = '" + categories.getText() + "', "
+                            + "Περιοχή = '" + Area.getText() + "', "
+                            + "Οδηγίες = '" + Instructions.getText() + "' "
+                            + "WHERE ID = " + ID;
+                    stmt.executeUpdate(modifiedFields);
+                    connection.commit();
+                    Area.setEditable(false);
+                    SaveButton.setEnabled(false);
+                    EditButton.setEnabled(true);
+                    DeleteButton.setEnabled(true);
+                } catch (SQLException exception) {
+                    System.out.println(exception.getLocalizedMessage());
+                }
+            }
+        });
+    }
 
 
     public void Buttons() {
@@ -165,368 +226,67 @@ public class mealsAppGui extends JFrame {
     public JPanel getMainPanel() {
         return mainPanel;
     }
-
-    public void setMainPanel(JPanel mainPanel) {
-        this.mainPanel = mainPanel;
-    }
-
-    public JPanel getBackGdPanel() {
-        return BackGdPanel;
-    }
-
-    public void setBackGdPanel(JPanel backGdPanel) {
-        BackGdPanel = backGdPanel;
-    }
-
-    public BackGroundPanel getBackGroundPanel() {
-        return backGroundPanel;
-    }
-
-    public void setBackGroundPanel(BackGroundPanel backGroundPanel) {
-        this.backGroundPanel = backGroundPanel;
-    }
-
-    public JPanel getLeftSidePanel() {
-        return leftSidePanel;
-    }
-
-    public void setLeftSidePanel(JPanel leftSidePanel) {
-        this.leftSidePanel = leftSidePanel;
-    }
-
     public JPanel getRightSidePanel() {
         return rightSidePanel;
     }
-
-    public void setRightSidePanel(JPanel rightSidePanel) {
-        this.rightSidePanel = rightSidePanel;
-    }
-
-    public JLabel getAppIcon() {
-        return appIcon;
-    }
-
-    public void setAppIcon(JLabel appIcon) {
-        this.appIcon = appIcon;
-    }
-
-    public JLabel getAppTitle() {
-        return appTitle;
-    }
-
-    public void setAppTitle(JLabel appTitle) {
-        this.appTitle = appTitle;
-    }
-
-    public JLabel getDataIcon() {
-        return dataIcon;
-    }
-
-    public void setDataIcon(JLabel dataIcon) {
-        this.dataIcon = dataIcon;
-    }
-
-    public JLabel getDataTitle() {
-        return dataTitle;
-    }
-
-    public void setDataTitle(JLabel dataTitle) {
-        this.dataTitle = dataTitle;
-    }
-
-    public JLabel getCategoryIcon() {
-        return categoryIcon;
-    }
-
-    public void setCategoryIcon(JLabel categoryIcon) {
-        this.categoryIcon = categoryIcon;
-    }
-
-    public JLabel getCategoryTitle() {
-        return categoryTitle;
-    }
-
-    public void setCategoryTitle(JLabel categoryTitle) {
-        this.categoryTitle = categoryTitle;
-    }
-
-    public JLabel getExitIcon() {
-        return exitIcon;
-    }
-
-    public void setExitIcon(JLabel exitIcon) {
-        this.exitIcon = exitIcon;
-    }
-
-    public JLabel getExitTitle() {
-        return exitTitle;
-    }
-
-    public void setExitTitle(JLabel exitTitle) {
-        this.exitTitle = exitTitle;
-    }
-
-    public JPanel getStartPanel() {
-        return startPanel;
-    }
-
-    public void setStartPanel(JPanel startPanel) {
-        this.startPanel = startPanel;
-    }
-
-    public JLabel getStatsTitle() {
-        return StatsTitle;
-    }
-
-    public void setStatsTitle(JLabel statsTitle) {
-        StatsTitle = statsTitle;
-    }
-
-    public JLabel getStatsIcon() {
-        return statsIcon;
-    }
-
-    public void setStatsIcon(JLabel statsIcon) {
-        this.statsIcon = statsIcon;
-    }
-
-    public void setCategoriesPanel(JPanel categoriesPanel) {
-        this.categoriesPanel = categoriesPanel;
-    }
-
-    public JLabel getCategoriesLabel() {
-        return categoriesLabel;
-    }
-
-    public void setCategoriesLabel(JLabel categoriesLabel) {
-        this.categoriesLabel = categoriesLabel;
-    }
-
-    public JLabel getFirstLabel() {
-        return firstLabel;
-    }
-
-    public void setFirstLabel(JLabel firstLabel) {
-        this.firstLabel = firstLabel;
-    }
-
     public JPanel getjPanelForText() {
         return jPanelForText;
     }
-
-    public void setjPanelForText(JPanel jPanelForText) {
-        this.jPanelForText = jPanelForText;
-    }
-
     public JPanel getjPanelForButtons() {
         return jPanelForButtons;
     }
-
-    public void setjPanelForButtons(JPanel jPanelForButtons) {
-        this.jPanelForButtons = jPanelForButtons;
-    }
-
-    public void setMealsName(JTextArea mealsName) {
-        this.mealsName = mealsName;
-    }
-
-    public void setCategories(JTextArea categories) {
-        this.categories = categories;
-    }
-
-    public void setArea(JTextArea area) {
-        Area = area;
-    }
-
-    public void setInstructions(JTextArea instructions) {
-        Instructions = instructions;
-    }
-
     public JLabel getCategoryJLabel() {
         return categoryJLabel;
     }
-
-    public void setCategoryJLabel(JLabel categoryJLabel) {
-        this.categoryJLabel = categoryJLabel;
-    }
-
     public JLabel getAreaJLabel() {
         return areaJLabel;
     }
-
-    public void setAreaJLabel(JLabel areaJLabel) {
-        this.areaJLabel = areaJLabel;
-    }
-
     public JLabel getInstructionsJLabel() {
         return instructionsJLabel;
     }
-
-    public void setInstructionsJLabel(JLabel instructionsJLabel) {
-        this.instructionsJLabel = instructionsJLabel;
-    }
-
     public JLabel getMealJLabel() {
         return mealJLabel;
     }
-
-    public void setMealJLabel(JLabel mealJLabel) {
-        this.mealJLabel = mealJLabel;
-    }
-
     public JScrollPane getjScrollInsrt() {
         return jScrollInsrt;
     }
-
-    public void setjScrollInsrt(JScrollPane jScrollInsrt) {
-        this.jScrollInsrt = jScrollInsrt;
-    }
-
     public JPanel getJPanelForCharts() {
         return JPanelForCharts;
     }
-
-    public void setJPanelForCharts(JPanel JPanelForCharts) {
-        this.JPanelForCharts = JPanelForCharts;
-    }
-
     public JPanel getJPanelForButChar() {
         return JPanelForButChar;
     }
-
-    public void setJPanelForButChar(JPanel JPanelForButChar) {
-        this.JPanelForButChar = JPanelForButChar;
-    }
-
     public JLabel getPie() {
         return Pie;
     }
-
-    public void setPie(JLabel pie) {
-        Pie = pie;
-    }
-
     public JLabel getBar() {
         return Bar;
     }
-
-    public void setBar(JLabel bar) {
-        Bar = bar;
-    }
-
     public JLabel getPrint() {
         return Print;
     }
-
-    public void setPrint(JLabel print) {
-        Print = Print;
-    }
-
     public JPanel getSearchingPanel() {
         return searchingPanel;
     }
-
-    public void setSearchingPanel(JPanel searchingPanel) {
-        this.searchingPanel = searchingPanel;
-    }
-
-    public JPanel getCategoriesPanel() {
-        return categoriesPanel;
-    }
-
-    public void setCategoriesPanel(String text) {
-        this.categoriesPanel = categoriesPanel;
-    }
-
     public JPanel getStatsPanel() {
         return statsPanel;
     }
-
-    public void setStatsPanel(JPanel statsPanel) {
-        this.statsPanel = statsPanel;
-    }
-
-    public JPanel getFirstPanel() {
-        return firstPanel;
-    }
-
-    public void setFirstPanel(JPanel firstPanel) {
-        this.firstPanel = firstPanel;
-    }
-
-    public JPanel JPanelForCharts() {
-        return firstPanel;
-    }
-
-    public void JPanelForCharts(JPanel firstPanel) {
-        this.firstPanel = firstPanel;
-    }
-
-    public JTextArea getMealsName() {
-        return mealsName;
-    }
-
     public void setMealsName(String text) {
         mealsName.setText(text);
     }
-
-    public JButton getSaveButton() {
-        return SaveButton;
-    }
-
-    public void setSaveButton(JButton saveButton) {
-        SaveButton = saveButton;
-    }
-
     public JButton getEditButton() {
         return EditButton;
     }
-
-    public void setEditButton(JButton editButton) {
-        EditButton = editButton;
-    }
-
     public JButton getDeleteButton() {
         return DeleteButton;
     }
-
-    public void setDeleteButton(JButton deleteButton) {
-        DeleteButton = deleteButton;
-    }
-
-    public JButton getSaveEdited() {
-        return SaveEdited;
-    }
-
-    public void setSaveEdited(JButton saveEdited) {
-        SaveEdited = saveEdited;
-    }
-
-    public JTextArea getCategories() {
-        return categories;
-    }
-
     public void setCategories(String text) {
         categories.setText(text);
     }
-
-    public JTextArea getArea() {
-        return Area;
-    }
-
     public void setArea(String text) {
         Area.setText(text);
     }
-
-    public JTextArea getInstructions() {
-        return Instructions;
-    }
-
     public void setInstructions(String text) {
         Instructions.setText(text);
-    }
-
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
     }
 }
