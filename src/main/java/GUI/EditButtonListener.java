@@ -9,15 +9,13 @@ public class EditButtonListener implements ActionListener {
     private Meal meal;
     private JButton editButton, deleteButton, saveButton, saveEdited;
     private JTextArea mealsArea, category, Area, Instructions;
-    private Database db;
 
-    public EditButtonListener(Meal meal, JButton saveButton, JButton saveEdited, JButton editButton, JButton deleteButton, Database db,JTextArea mealsArea, JTextArea category, JTextArea Area, JTextArea Instuctions) {
+    public EditButtonListener(Meal meal, JButton saveButton, JButton saveEdited, JButton editButton, JButton deleteButton, JTextArea mealsArea, JTextArea category, JTextArea Area, JTextArea Instuctions) {
         this.meal = meal;
         this.editButton = editButton;
         this.deleteButton = deleteButton;
         this.saveButton = saveButton;
         this.saveEdited = saveEdited;
-        this.db = db;
         this.mealsArea = mealsArea;
         this.category = category;
         this.Area = Area;

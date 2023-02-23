@@ -12,18 +12,16 @@ public class SaveEditedButtonListener implements ActionListener {
     private Meal meal;
     private JButton editButton, deleteButton, saveButton, saveEdited;
     private JTextArea mealsArea, category, Area, Instructions;
-    private Database db;
 
 
     public SaveEditedButtonListener(Meal meal, JButton saveButton, JButton saveEdited, JButton editButton,
-                                    JButton deleteButton, Database db, JTextArea mealsArea, JTextArea category,
+                                    JButton deleteButton, JTextArea mealsArea, JTextArea category,
                                     JTextArea Instructions) {
         this.meal = meal;
         this.editButton = editButton;
         this.deleteButton = deleteButton;
         this.saveButton = saveButton;
         this.saveEdited = saveEdited;
-        this.db = db;
         this.mealsArea = mealsArea;
         this.category = category;
         this.Instructions = Instructions;
@@ -41,7 +39,7 @@ public class SaveEditedButtonListener implements ActionListener {
             mealsappgui.getMealsName().setEditable(false);
             mealsappgui.getCategories().setEditable(false);
             mealsappgui.getArea().setEditable(false);
-            Connection connection = db.connect();
+            Connection connection = Database.connect();
             Statement stmt = (Statement) connection.createStatement();
             String modifiedFields = "UPDATE SAVED SET "
                     + "Όνομα = '" + mealsArea.getText() + "', "

@@ -8,24 +8,25 @@ import java.awt.event.ActionListener;
 public class SaveButtonListener implements ActionListener {
     private Meal meal;
     private JButton editButton, deleteButton, saveButton;
-    private Database db;
 
 
-    public SaveButtonListener(Meal meal,JButton saveButton, JButton editButton, JButton deleteButton, Database db) {
+    public SaveButtonListener(Meal meal,JButton saveButton, JButton editButton, JButton deleteButton) {
         this.meal = meal;
         this.editButton = editButton;
         this.deleteButton = deleteButton;
         this.saveButton = saveButton;
-        this.db = db;
     }
-    mealsAppGui mealsappgui = mealsAppGui.getInstance();
     @Override
     public void actionPerformed(ActionEvent e) {
-            if (!db.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
+            if (!Database.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
+                System.out.println(meal.getId()+" εδώ σου βγαινει πολλες φορες εαν εχεις πατησει" +
+                        " το SAVE γινεται μαλακια.\n" +
+                        " O αριθμος ειναι το id του φαγητου\n" +
+                        "πρεπει να κανεις search πολλα γευματα και μετα να πατησεις SAVE");
                 int save = JOptionPane.showConfirmDialog(null,
                         "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
                 if (save == JOptionPane.YES_NO_OPTION) {
-                    db.saveToNewTable(Integer.parseInt(meal.getId()));
+                    Database.saveToNewTable(Integer.parseInt(meal.getId()));
                     editButton.setEnabled(true);
                     deleteButton.setEnabled(true);
                     saveButton.setEnabled(false);

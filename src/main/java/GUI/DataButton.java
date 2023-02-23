@@ -18,14 +18,12 @@ public class DataButton extends JPanel {
         public void mouseClicked(MouseEvent e) {
 
 
-            mealsAppGui mealsappgui =  mealsAppGui.getInstance();
 
             //Παράθυρο για αναζήτηση
             mealApi mealApi = new mealApi();
             String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
             Meal meal = mealApi.searchByName(searchTerm);
 
-            Database db = Database.getInstance();
             //εάν είναι κενό το πεδίο και πατήσεις ΟΚ
             if (searchTerm == null || searchTerm.trim().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "Δεν δόθηκε κανένας όρος αναζήτησης", "Error", JOptionPane.ERROR_MESSAGE);
@@ -35,11 +33,11 @@ public class DataButton extends JPanel {
 
             //εάν δεν είναι κενό το πεδίο
             if (meal != null) {
-                if (!db.idSearch(Integer.parseInt(meal.getId()))){
-                    db.insMeal(Integer.parseInt(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                if (!Database.idSearch(Integer.parseInt(meal.getId()))){
+                    Database.insMeal(Integer.parseInt(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                 }else {
                     //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
-                    db.incrementViews(Integer.parseInt(meal.getId()));
+                    Database.incrementViews(Integer.parseInt(meal.getId()));
                 }
 
                 mealsAppGui gui = mealsAppGui.getInstance();
@@ -73,34 +71,34 @@ public class DataButton extends JPanel {
                 gui.setInstructions(instructionsName);
 
               //ενεργοποίηση ή απενεργοποίηση του κουμπιού EDIT ανάλογα εάν είναι αποθηκευμένο το γεύμα
-                if(!db.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
-                    mealsappgui.getEditButton().setEnabled(false);
+                if(!Database.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
+                    gui.getEditButton().setEnabled(false);
                 }else {
-                    mealsappgui.getEditButton().setEnabled(true);
+                    gui.getEditButton().setEnabled(true);
                 }
 
                 //ενεργοποίηση ή απενεργοποίηση του κουμπιού DELETE ανάλογα εάν είναι αποθηκευμένο το γεύμα
-                if(!db.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
-                    mealsappgui.getDeleteButton().setEnabled(false);
+                if(!Database.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
+                    gui.getDeleteButton().setEnabled(false);
                 }else {
-                    mealsappgui.getDeleteButton().setEnabled(true);
+                    gui.getDeleteButton().setEnabled(true);
                 }
                 //Τέλος, προσθήκης κουμπιών
 
                 //listener κουμπιού SAVEbutton
-                mealsappgui.getSaveButton().addActionListener(new SaveButtonListener(meal,mealsappgui.getSaveButton(),
-                        mealsappgui.getEditButton(),mealsappgui.getDeleteButton(),db));
+                gui.getSaveButton().addActionListener(new SaveButtonListener(meal,gui.getSaveButton(),
+                        gui.getEditButton(),gui.getDeleteButton()));
                 //listener κουμπιού DeleteButton
-                mealsappgui.getDeleteButton().addActionListener(new DeleteButtonListener(meal, mealsappgui.getEditButton(),
-                        mealsappgui.getDeleteButton(),mealsappgui.getSaveButton(), db));
+                gui.getDeleteButton().addActionListener(new DeleteButtonListener(meal, gui.getEditButton(),
+                        gui.getDeleteButton(),gui.getSaveButton()));
                 //listener κουμπιού EditButton
-                mealsappgui.getEditButton().addActionListener(new EditButtonListener(meal, mealsappgui.getSaveButton(),
-                        mealsappgui.getSaveEdited(), mealsappgui.getEditButton(), mealsappgui.getDeleteButton(),
-                        db, gui.getMealsName(), gui.getCategories() , gui.getArea(), gui.getInstructions()));
+                gui.getEditButton().addActionListener(new EditButtonListener(meal, gui.getSaveButton(),
+                        gui.getSaveEdited(), gui.getEditButton(), gui.getDeleteButton(),
+                         gui.getMealsName(), gui.getCategories() , gui.getArea(), gui.getInstructions()));
                 //listener κουμπιού SaveEdited
-                mealsappgui.getSaveEdited().addActionListener(new SaveEditedButtonListener(meal, mealsappgui.getSaveButton(),
-                        mealsappgui.getSaveEdited(), mealsappgui.getEditButton(), mealsappgui.getDeleteButton(),
-                        db, gui.getMealsName(), gui.getCategories(), gui.getInstructions()));
+                gui.getSaveEdited().addActionListener(new SaveEditedButtonListener(meal, gui.getSaveButton(),
+                        gui.getSaveEdited(), gui.getEditButton(), gui.getDeleteButton(),
+                         gui.getMealsName(), gui.getCategories(), gui.getInstructions()));
                 //Τέλος listeners
             } else {
                 //εάν δεν υπάρχει το γεύμα στο API τότε εμφάνιση μηνύματος

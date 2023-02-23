@@ -125,7 +125,7 @@ public class Database {
     }
 
     //αναζήτηση του γεύματος στη ΒΔ
-    public boolean idSearch(int id){
+    public static boolean idSearch(int id){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
@@ -161,7 +161,7 @@ public class Database {
     }//end deleteDB
 
     //αντιγραφή του πίνακα CENTRAL στον πίνακα SAVED
-    public void saveToNewTable(int id) {
+    public static void saveToNewTable(int id) {
         try {
             ResultSet res = null;
             Connection connection = connect();
@@ -187,7 +187,7 @@ public class Database {
     }//end saveToNewTable
 
     //διαγραφή του πίνακα που έχει σωθεί
-    public void deleteSavedTable(int id) {
+    public static void deleteSavedTable(int id) {
         try {
             Connection connection = connect();
             String deleteTable = "DELETE FROM SAVED WHERE ID = ?";
@@ -201,7 +201,7 @@ public class Database {
     }//end deleteSavedTable
 
     //αναζήτηση στον πίνακα SAVED εάν υπάρχει το ID που αναζητούμε
-    public boolean idSearchInSAVED(int id){
+    public static boolean idSearchInSAVED(int id){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();

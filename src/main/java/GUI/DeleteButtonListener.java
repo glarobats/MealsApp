@@ -8,20 +8,18 @@ import java.awt.event.ActionListener;
 public class DeleteButtonListener implements ActionListener {
     private Meal meal;
     private JButton editButton, deleteButton, saveButton;
-    private Database db;
 
-    public DeleteButtonListener(Meal meal, JButton editButton, JButton deleteButton, JButton saveButton, Database db) {
+    public DeleteButtonListener(Meal meal, JButton editButton, JButton deleteButton, JButton saveButton) {
         this.meal = meal;
         this.editButton = editButton;
         this.deleteButton = deleteButton;
         this.saveButton = saveButton;
-        this.db = db;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-            db.deleteSavedTable(Integer.valueOf(meal.getId()));
+        if (Database.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+            Database.deleteSavedTable(Integer.valueOf(meal.getId()));
             deleteButton.setEnabled(false);
             editButton.setEnabled(false);
             saveButton.setEnabled(true);
