@@ -35,11 +35,11 @@ public class DataButton extends JPanel {
 
             //εάν δεν είναι κενό το πεδίο
             if (meal != null) {
-                if (!db.idSearch(Integer.valueOf(meal.getId()))){
-                    db.insMeal(Integer.valueOf(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
+                if (!db.idSearch(Integer.parseInt(meal.getId()))){
+                    db.insMeal(Integer.parseInt(meal.getId()), meal.getName(), meal.getCategory(), meal.getArea(), meal.getInstructions());
                 }else {
                     //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
-                    db.incrementViews(Integer.valueOf(meal.getId()));
+                    db.incrementViews(Integer.parseInt(meal.getId()));
                 }
 
                 mealsAppGui gui = mealsAppGui.getInstance();

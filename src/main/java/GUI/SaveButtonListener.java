@@ -21,11 +21,11 @@ public class SaveButtonListener implements ActionListener {
     mealsAppGui mealsappgui = mealsAppGui.getInstance();
     @Override
     public void actionPerformed(ActionEvent e) {
-            if (!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
+            if (!db.idSearchInSAVED(Integer.parseInt(meal.getId()))) {
                 int save = JOptionPane.showConfirmDialog(null,
                         "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
                 if (save == JOptionPane.YES_NO_OPTION) {
-                    db.saveToNewTable(Integer.valueOf(meal.getId()));
+                    db.saveToNewTable(Integer.parseInt(meal.getId()));
                     editButton.setEnabled(true);
                     deleteButton.setEnabled(true);
                     saveButton.setEnabled(false);
