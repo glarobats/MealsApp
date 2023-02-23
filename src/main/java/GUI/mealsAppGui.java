@@ -16,14 +16,15 @@ public class mealsAppGui extends JFrame {
     private JPanel mainPanel,leftSidePanel,rightSidePanel,BackGdPanel,startPanel,searchingPanel,categoriesPanel,statsPanel,
             firstPanel,jPanelForText,jPanelForButtons,JPanelForCharts,JPanelForButChar;
     private JLabel appIcon,appTitle,dataIcon,dataTitle,categoryIcon,categoryTitle,exitTitle,exitIcon,StatsTitle,statsIcon,
-            categoriesLabel,firstLabel,categoryJLabel,areaJLabel,instructionsJLabel,mealJLabel,Pie,Bar;
+            firstLabel,categoryJLabel,areaJLabel,instructionsJLabel,mealJLabel,Pie,Bar;
     private JTextArea mealsName,categories,Area,Instructions;
     private JButton SaveButton,EditButton,DeleteButton,SaveEdited;
     private JScrollPane jScrollInsrt;
     private JLabel Print;
+    private JTree categoriesTree;
+    private JScrollPane jTreeScrollPane;
     private BackGroundPanel backGroundPanel;
     DataButton dataButton = new DataButton();
-
 
     //Χρήση singleton για την εναλλαγή JPanels
     public static mealsAppGui getInstance() {
@@ -32,7 +33,6 @@ public class mealsAppGui extends JFrame {
         }
         return instance;
     }
-
 
     private mealsAppGui() {
         super();
@@ -94,7 +94,6 @@ public class mealsAppGui extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
                 Chart statistika = new Chart();
                 rightSidePanel.removeAll();
                 JPanelForCharts.removeAll();
@@ -149,8 +148,8 @@ public class mealsAppGui extends JFrame {
         DeleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Database.idSearchInSAVED(Integer.valueOf(dataButton.getMealId()))) {
-                    Database.deleteSavedTable(Integer.valueOf(dataButton.getMealId()));
+                if (Database.idSearchInSAVED(dataButton.getMealId())) {
+                    Database.deleteSavedTable(dataButton.getMealId());
                     DeleteButton.setEnabled(false);
                     EditButton.setEnabled(false);
                     SaveEdited.setEnabled(true);
@@ -163,7 +162,7 @@ public class mealsAppGui extends JFrame {
         SaveEdited.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                int ID = Integer.valueOf(dataButton.getMealId());
+                int ID = dataButton.getMealId();
                 try {
                     //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
 
@@ -288,5 +287,11 @@ public class mealsAppGui extends JFrame {
     }
     public void setInstructions(String text) {
         Instructions.setText(text);
+    }
+    public JTree getCategoriesTree() {
+        return categoriesTree;
+    }
+    public JPanel getCategoriesPanel() {
+        return categoriesPanel;
     }
 }

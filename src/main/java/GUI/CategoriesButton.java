@@ -9,15 +9,14 @@ public class CategoriesButton extends JPanel{
         categoriesTitle.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                popUpListTree obj = null;
+                CategoriesTreeCall call = null;
                 try {
-                    //εμφάνιση παραθύρου
-                    obj = popUpListTree.getInstance();
+                    call = CategoriesTreeCall.getInstance();
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }
-                obj.popUpWindow();
             }
         });
     }
 }
+

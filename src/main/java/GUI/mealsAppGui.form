@@ -347,7 +347,29 @@
                   <opaque value="false"/>
                 </properties>
                 <border type="none"/>
-                <children/>
+                <children>
+                  <scrollpane id="887f" binding="jTreeScrollPane">
+                    <constraints>
+                      <card name="Card1"/>
+                    </constraints>
+                    <properties/>
+                    <border type="none"/>
+                    <children>
+                      <component id="d8ad7" class="javax.swing.JTree" binding="categoriesTree">
+                        <constraints/>
+                        <properties>
+                          <font size="16"/>
+                          <opaque value="false"/>
+                          <rootVisible value="true"/>
+                          <showsRootHandles value="true"/>
+                        </properties>
+                        <clientProperties>
+                          <JTree.lineStyle class="java.lang.String" value=""/>
+                        </clientProperties>
+                      </component>
+                    </children>
+                  </scrollpane>
+                </children>
               </grid>
               <grid id="ee409" binding="statsPanel" layout-manager="CardLayout" hgap="0" vgap="0">
                 <constraints>
