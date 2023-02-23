@@ -19,6 +19,7 @@ public class mealsAppGui extends JFrame {
     private JScrollPane jScrollInsrt;
     private JLabel Print;
     private BackGroundPanel backGroundPanel;
+    DataButton dataButton = new DataButton();
 
 
     //Χρήση singleton για την εναλλαγή JPanels
@@ -56,6 +57,7 @@ public class mealsAppGui extends JFrame {
         instructionsJLabel.setVisible(false);
         jScrollInsrt.setVisible(false);
         Buttons();
+
 
 
         Print.addMouseListener(new MouseAdapter() {
@@ -105,13 +107,34 @@ public class mealsAppGui extends JFrame {
                 mainPanel.repaint();
             }
         });
+        SaveButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!Database.idSearchInSAVED(dataButton.getMealId())) {
+                    System.out.println(dataButton.getMealId()+" εδώ σου βγαινει πολλες φορες εαν εχεις πατησει" +
+                            " το SAVE γινεται μαλακια.\n" +
+                            "πρεπει να κανεις search πολλα γευματα και μετα να πατησεις SAVE");
+                    System.out.println(Database.idSearchInSAVED(dataButton.getMealId()));
+                    int save = JOptionPane.showConfirmDialog(null,
+                            "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+                    if (save == JOptionPane.YES_NO_OPTION) {
+                        Database.saveToNewTable(dataButton.getMealId());
+                        EditButton.setEnabled(true);
+                        DeleteButton.setEnabled(true);
+                        SaveButton.setEnabled(false);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
+                    EditButton.setEnabled(true);
+                }
+            }
+        });
     }
 
 
 
     public void Buttons() {
         //κουμπί προβολής δεδομένων γεύματος
-        DataButton dataButton = new DataButton();
         dataTitle.setCursor(new Cursor(Cursor.HAND_CURSOR));
         dataIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
         dataButton.addDataButtonListener(dataTitle);
