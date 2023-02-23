@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database {
 
-    public void startDB() {
+    public static void startDB() {
         createTables();
     }
     //Singleton για να υπάρχει μόνο ένα στιγμιότυπο της ΒΔ

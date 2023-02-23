@@ -61,7 +61,6 @@ public class popUpListTree extends JFrame {
             });
         }
 
-
         //Κλείσιμο του executor αφού έχουν ολοκληρωθεί όλες οι παραπάνω εργασίες
         executor.shutdown();
         executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
@@ -77,18 +76,29 @@ public class popUpListTree extends JFrame {
                 categoryNode.add(mealNode);
             }
         }
-            //Δημιουργία JTree
-            JTree tree = new JTree(root);
-            //Αλλαγή μεγέθους γραμμτοσειράς
-            Font font = tree.getFont();
-            font = font.deriveFont(16f); // change the font size to 16
-            tree.setFont(font);
-            mealsAppGui gui = mealsAppGui.getInstance();
+        //Δημιουργία JTree
+        JTree tree = new JTree(root);
+        //Αλλαγή μεγέθους γραμμτοσειράς
+        Font font = tree.getFont();
+        font = font.deriveFont(16f); // change the font size to 16
+        tree.setFont(font);
+        // Δημιούργησε popup ώστε να εμφανιστεί στο JTree
+        JFrame frame = new JFrame("Meals");
+        ImageIcon image = new ImageIcon("logo.png");
+        frame.setIconImage(image.getImage());
+        frame.add(new JScrollPane(tree));
+        frame.setSize(370, 600);
+        frame.setLocation(1155,108);
+        frame.setVisible(true);
+        frame.setAlwaysOnTop(true);
 
-            gui.getCategoriesPanel().add(tree);
-
-
-
+        //έλεγχος εαν το popUpWindow είναι ανοιχτό
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                closePopUpWindow();
+            }
+        });
     }
 
     //singleton pattern for popUp window μαζί με exception για την κλήση με τα threads

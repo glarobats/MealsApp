@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class mealsAppGui extends JFrame{
+public class mealsAppGui extends JFrame {
     private static mealsAppGui instance;
     private JPanel mainPanel,leftSidePanel,rightSidePanel,BackGdPanel,startPanel,searchingPanel,categoriesPanel,statsPanel,
             firstPanel,jPanelForText,jPanelForButtons,JPanelForCharts,JPanelForButChar;
@@ -21,6 +21,14 @@ public class mealsAppGui extends JFrame{
     private BackGroundPanel backGroundPanel;
 
 
+    //Χρήση singleton για την εναλλαγή JPanels
+    public static mealsAppGui getInstance() {
+        if (instance == null) {
+            instance = new mealsAppGui();
+        }
+        return instance;
+    }
+
 
     private mealsAppGui() {
         super();
@@ -29,8 +37,7 @@ public class mealsAppGui extends JFrame{
         this.setContentPane(mainPanel);
         this.pack();
 
-        Database db = Database.getInstance();
-        db.startDB();
+        Database.startDB();
         leftSidePanel.setOpaque(false);
         BackGdPanel.setOpaque(false);
         BackGdPanel = new BackGroundPanel();
@@ -49,6 +56,8 @@ public class mealsAppGui extends JFrame{
         instructionsJLabel.setVisible(false);
         jScrollInsrt.setVisible(false);
         Buttons();
+
+
         Print.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -98,16 +107,9 @@ public class mealsAppGui extends JFrame{
         });
     }
 
-    //Χρήση singleton για την εναλλαγή JPanels
-    public static mealsAppGui getInstance() {
-        if (instance == null) {
-            instance = new mealsAppGui();
-        }
-        return instance;
-    }
+
 
     public void Buttons() {
-
         //κουμπί προβολής δεδομένων γεύματος
         DataButton dataButton = new DataButton();
         dataTitle.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -135,34 +137,6 @@ public class mealsAppGui extends JFrame{
         exitIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
         exitButton.addEXITButtonMouseListener(exitTitle);
         exitButton.addEXITButtonMouseListener(exitIcon);
-    }
-
-
-
-    public void showCategoriesPanel() {
-        rightSidePanel.remove(firstPanel);
-        rightSidePanel.remove(statsPanel);
-        rightSidePanel.remove(searchingPanel);
-        rightSidePanel.add(categoriesPanel);
-        mainPanel.revalidate();
-        mainPanel.repaint();
-    }
-
-    public void showStatsPanel() {
-        rightSidePanel.removeAll();
-        rightSidePanel.add(statsPanel);
-        statsPanel.setLayout(new BorderLayout());
-        statsPanel.add(JPanelForCharts, BorderLayout.NORTH);
-        statsPanel.add(JPanelForButChar, BorderLayout.SOUTH);
-        JPanelForCharts.setVisible(true);
-        JPanelForButChar.setVisible(true);
-        Pie.setVisible(true);
-        Bar.setVisible(true);
-        mainPanel.revalidate();
-        mainPanel.repaint();
-    }
-    public static void setInstance(mealsAppGui instance) {
-        mealsAppGui.instance = instance;
     }
 
     public JPanel getMainPanel() {

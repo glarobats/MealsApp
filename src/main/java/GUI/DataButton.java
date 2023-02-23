@@ -9,8 +9,6 @@ import java.awt.event.MouseEvent;
 
 public class DataButton extends JPanel {
 
-
-
     public void addDataButtonListener(JLabel dataTitle) {
 
     dataTitle.addMouseListener(new MouseAdapter() {
