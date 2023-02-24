@@ -52,7 +52,7 @@ public class Chart {
             e.printStackTrace();
         }
 
-        JFreeChart chart = ChartFactory.createPieChart3D("Εμφανίσεις Γευμάτων", dataset, true, true, false);
+        JFreeChart chart = ChartFactory.createPieChart3D("Meal Appearances", dataset, true, true, false);
         TextTitle title = chart.getTitle();
         Font font = new Font("Calibri", Font.BOLD, 20);
         title.setFont(font);
@@ -87,7 +87,7 @@ public class Chart {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        JFreeChart chart = ChartFactory.createBarChart3D("Εμφανίσεις Γευμάτων", "Γεύμα", "Εμφανίσεις", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart chart = ChartFactory.createBarChart3D("Meal Appearances", "Meal", "Views", dataset, PlotOrientation.VERTICAL, true, true, false);
         TextTitle title = chart.getTitle();
         Font font = new Font("Calibri", Font.BOLD, 20);
         title.setFont(font);
