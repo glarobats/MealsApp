@@ -18,7 +18,7 @@ public class mealsAppGui extends JFrame {
     private JLabel appIcon,appTitle,dataIcon,dataTitle,categoryIcon,categoryTitle,exitTitle,exitIcon,StatsTitle,statsIcon,
             firstLabel,categoryJLabel,areaJLabel,instructionsJLabel,mealJLabel,Pie,Bar;
     private JTextArea mealsName,categories,Area,Instructions;
-    private JButton SaveButton,EditButton,DeleteButton,SaveEdited;
+    private JLabel SaveButton,EditButton,DeleteButton,SaveEdited;
     private JScrollPane jScrollInsrt;
     private JLabel Print;
     private JTree categoriesTree;
@@ -85,12 +85,13 @@ public class mealsAppGui extends JFrame {
                 statsPanel.setLayout(new BorderLayout());
                 statsPanel.add(JPanelForButChar, BorderLayout.SOUTH);
                 statsPanel.add(JPanelForCharts, BorderLayout.NORTH);
-                JPanelForButChar.setBackground(new Color(176,166,145));
                 JPanelForCharts.add(statistika.makePieChart());
                 JPanelForCharts.setVisible(true);
                 JPanelForButChar.setVisible(true);
                 mainPanel.revalidate();
                 mainPanel.repaint();
+                Pie.setEnabled(false);
+                Bar.setEnabled(true);
             }
         });
         Bar.addMouseListener(new MouseAdapter() {
@@ -104,35 +105,39 @@ public class mealsAppGui extends JFrame {
                 statsPanel.setLayout(new BorderLayout());
                 statsPanel.add(JPanelForButChar, BorderLayout.SOUTH);
                 statsPanel.add(JPanelForCharts, BorderLayout.NORTH);
-                JPanelForButChar.setBackground(new Color(176,166,145));
                 JPanelForCharts.add(statistika.makeBarChart());
                 JPanelForCharts.setVisible(true);
                 JPanelForButChar.setVisible(true);
                 mainPanel.revalidate();
                 mainPanel.repaint();
+                Pie.setEnabled(true);
+                Bar.setEnabled(false);
             }
         });
-        SaveButton.addActionListener(new ActionListener() {
+
+        SaveButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!Database.idSearchInSAVED(dataButton.getMealId())) {
-                    int save = JOptionPane.showConfirmDialog(null,
-                            "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-                    if (save == JOptionPane.YES_NO_OPTION) {
-                        Database.saveToNewTable(dataButton.getMealId());
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                    if (!Database.idSearchInSAVED(dataButton.getMealId())) {
+                        int save = JOptionPane.showConfirmDialog(null,
+                                "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+                        if (save == JOptionPane.YES_NO_OPTION) {
+                            Database.saveToNewTable(dataButton.getMealId());
+                            EditButton.setEnabled(true);
+                            DeleteButton.setEnabled(true);
+                            SaveButton.setEnabled(false);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
                         EditButton.setEnabled(true);
-                        DeleteButton.setEnabled(true);
-                        SaveButton.setEnabled(false);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-                    EditButton.setEnabled(true);
                 }
-            }
         });
-        EditButton.addActionListener(new ActionListener() {
+        EditButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 int edit = JOptionPane.showConfirmDialog(null,
                         "Είσαι σίγουρος οτι θέλεις να τροποποιήσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
                 if (edit == JOptionPane.YES_NO_OPTION) {
@@ -148,9 +153,10 @@ public class mealsAppGui extends JFrame {
                 }
             }
         });
-        DeleteButton.addActionListener(new ActionListener() {
+        DeleteButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 if (Database.idSearchInSAVED(dataButton.getMealId())) {
                     Database.deleteSavedTable(dataButton.getMealId());
                     DeleteButton.setEnabled(false);
@@ -162,9 +168,10 @@ public class mealsAppGui extends JFrame {
                 }
             }
         });
-        SaveEdited.addActionListener(new ActionListener() {
+        SaveEdited.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
                 int ID = dataButton.getMealId();
                 try {
                     //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
@@ -276,10 +283,10 @@ public class mealsAppGui extends JFrame {
     public void setMealsName(String text) {
         mealsName.setText(text);
     }
-    public JButton getEditButton() {
+    public JLabel getEditButton() {
         return EditButton;
     }
-    public JButton getDeleteButton() {
+    public JLabel getDeleteButton() {
         return DeleteButton;
     }
     public void setCategories(String text) {
@@ -298,9 +305,10 @@ public class mealsAppGui extends JFrame {
         return categoriesPanel;
     }
 
-    public JButton getSaveButton() {
+    public JLabel getSaveButton() {
         return SaveButton;
     }
-
-
+    public JLabel getSaveEdited() {
+        return SaveEdited;
+    }
 }

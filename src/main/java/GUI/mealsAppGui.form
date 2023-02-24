@@ -290,9 +290,9 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="fe6da" class="javax.swing.JButton" binding="SaveButton">
+                      <component id="10e3" class="javax.swing.JLabel" binding="SaveButton">
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <opaque value="false"/>
@@ -304,9 +304,9 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
                         </constraints>
                       </vspacer>
-                      <component id="dbafd" class="javax.swing.JButton" binding="EditButton">
+                      <component id="a9452" class="javax.swing.JLabel" binding="EditButton">
                         <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <enabled value="false"/>
@@ -314,9 +314,9 @@
                           <text value="EDIT"/>
                         </properties>
                       </component>
-                      <component id="190a6" class="javax.swing.JButton" binding="DeleteButton">
+                      <component id="d742e" class="javax.swing.JLabel" binding="DeleteButton">
                         <constraints>
-                          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <background color="-3991724"/>
@@ -327,9 +327,9 @@
                           <text value="DELETE"/>
                         </properties>
                       </component>
-                      <component id="84947" class="javax.swing.JButton" binding="SaveEdited">
+                      <component id="7fd5a" class="javax.swing.JLabel" binding="SaveEdited">
                         <constraints>
-                          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <enabled value="false"/>
