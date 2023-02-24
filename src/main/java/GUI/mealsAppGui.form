@@ -153,7 +153,7 @@
                   <opaque value="false"/>
                   <preferredSize width="640" height="640"/>
                   <verifyInputWhenFocusTarget value="false"/>
-                  <visible value="false"/>
+                  <visible value="true"/>
                 </properties>
                 <border type="none"/>
                 <children>
@@ -253,7 +253,8 @@
                       <scrollpane id="51ce2" binding="jScrollInsrt">
                         <constraints>
                           <grid row="7" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                            <preferred-size width="150" height="170"/>
+                            <preferred-size width="150" height="400"/>
+                            <maximum-size width="-1" height="640"/>
                           </grid>
                         </constraints>
                         <properties>
@@ -273,7 +274,7 @@
                               <lineWrap value="true"/>
                               <margin top="0" left="20" bottom="0" right="20"/>
                               <opaque value="false"/>
-                              <preferredSize width="150" height="640"/>
+                              <preferredSize width="150" height="800"/>
                               <wrapStyleWord value="true"/>
                             </properties>
                           </component>

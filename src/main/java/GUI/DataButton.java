@@ -1,5 +1,6 @@
 package GUI;
 
+import com.google.gson.annotations.JsonAdapter;
 import org.database.Database;
 import javax.swing.*;
 import java.awt.*;
