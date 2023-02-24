@@ -153,7 +153,7 @@
                   <opaque value="false"/>
                   <preferredSize width="640" height="640"/>
                   <verifyInputWhenFocusTarget value="false"/>
-                  <visible value="true"/>
+                  <visible value="false"/>
                 </properties>
                 <border type="none"/>
                 <children>
@@ -292,7 +292,9 @@
                     <children>
                       <component id="10e3" class="javax.swing.JLabel" binding="SaveButton">
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <minimum-size width="-1" height="30"/>
+                          </grid>
                         </constraints>
                         <properties>
                           <opaque value="false"/>
@@ -306,7 +308,9 @@
                       </vspacer>
                       <component id="a9452" class="javax.swing.JLabel" binding="EditButton">
                         <constraints>
-                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <minimum-size width="-1" height="30"/>
+                          </grid>
                         </constraints>
                         <properties>
                           <enabled value="false"/>
@@ -316,7 +320,9 @@
                       </component>
                       <component id="d742e" class="javax.swing.JLabel" binding="DeleteButton">
                         <constraints>
-                          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <minimum-size width="-1" height="30"/>
+                          </grid>
                         </constraints>
                         <properties>
                           <background color="-3991724"/>
@@ -329,7 +335,9 @@
                       </component>
                       <component id="7fd5a" class="javax.swing.JLabel" binding="SaveEdited">
                         <constraints>
-                          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                          <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                            <minimum-size width="-1" height="30"/>
+                          </grid>
                         </constraints>
                         <properties>
                           <enabled value="false"/>
@@ -355,17 +363,33 @@
                     <constraints>
                       <card name="Card1"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <foreground color="-5200239"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="d8ad7" class="javax.swing.JTree" binding="categoriesTree">
                         <constraints/>
                         <properties>
+                          <autoscrolls value="false"/>
+                          <background color="-5200239"/>
+                          <doubleBuffered value="false"/>
+                          <dragEnabled value="false"/>
+                          <expandsSelectedPaths value="true"/>
+                          <focusCycleRoot value="false"/>
+                          <focusTraversalPolicyProvider value="false"/>
+                          <focusable value="true"/>
                           <font size="20"/>
-                          <foreground color="-1118482"/>
-                          <opaque value="false"/>
-                          <rootVisible value="true"/>
-                          <showsRootHandles value="true"/>
+                          <foreground color="-5200239"/>
+                          <inheritsPopupMenu value="false"/>
+                          <invokesStopCellEditing value="false"/>
+                          <largeModel value="false"/>
+                          <opaque value="true"/>
+                          <requestFocusEnabled value="true"/>
+                          <rootVisible value="false"/>
+                          <showsRootHandles value="false"/>
+                          <verifyInputWhenFocusTarget value="true"/>
+                          <visible value="true"/>
                         </properties>
                         <clientProperties>
                           <JTree.lineStyle class="java.lang.String" value=""/>

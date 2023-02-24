@@ -7,6 +7,7 @@ import okhttp3.Response;
 
 import javax.swing.*;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeCellRenderer;
 import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.io.IOException;
@@ -110,6 +111,8 @@ public class CategoriesTreeCall extends JFrame {
         gui.getCategoriesTree().setVisible(true);
         JScrollPane scrollPane = new JScrollPane(gui.getCategoriesTree());
         gui.getRightSidePanel().add(scrollPane);
+        DefaultTreeCellRenderer renderer = (DefaultTreeCellRenderer) gui.getCategoriesTree().getCellRenderer();
+        renderer.setBackgroundNonSelectionColor(new Color(176,166,145));
 
     }
 
