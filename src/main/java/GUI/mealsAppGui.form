@@ -153,7 +153,7 @@
                   <opaque value="false"/>
                   <preferredSize width="640" height="640"/>
                   <verifyInputWhenFocusTarget value="false"/>
-                  <visible value="false"/>
+                  <visible value="true"/>
                 </properties>
                 <border type="none"/>
                 <children>
@@ -267,6 +267,7 @@
                           <component id="2ae0e" class="javax.swing.JTextArea" binding="Instructions">
                             <constraints/>
                             <properties>
+                              <caretColor color="-5200239"/>
                               <editable value="false"/>
                               <enabled value="true"/>
                               <font size="16"/>
