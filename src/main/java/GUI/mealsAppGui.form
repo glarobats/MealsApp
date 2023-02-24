@@ -322,7 +322,7 @@
                           <background color="-3991724"/>
                           <enabled value="false"/>
                           <focusable value="true"/>
-                          <foreground color="-4473925"/>
+                          <foreground color="-16777216"/>
                           <opaque value="false"/>
                           <text value="DELETE"/>
                         </properties>

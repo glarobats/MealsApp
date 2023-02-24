@@ -49,13 +49,13 @@ public class mealsAppGui extends JFrame {
         BackGdPanel.setOpaque(false);
         BackGdPanel = new BackGroundPanel();
         mainPanel.add(BackGdPanel);
-        appIcon.setIcon(new ImageIcon("src/resources/logo.png"));
-        firstLabel.setIcon(new ImageIcon("src/resources/background.png"));
+        appIcon.setIcon(new ImageIcon("src/resources/images/logo.png"));
+        firstLabel.setIcon(new ImageIcon("src/resources/images/background.png"));
         firstPanel.setVisible(true);
-        dataIcon.setIcon(new ImageIcon("src/resources/search.png"));
-        categoryIcon.setIcon(new ImageIcon("src/resources/categorize.png"));
-        statsIcon.setIcon(new ImageIcon("src/resources/stats.png"));
-        exitIcon.setIcon(new ImageIcon("src/resources/shutdown.png"));
+        dataIcon.setIcon(new ImageIcon("src/resources/images/search.png"));
+        categoryIcon.setIcon(new ImageIcon("src/resources/images/categorize.png"));
+        statsIcon.setIcon(new ImageIcon("src/resources/images/stats.png"));
+        exitIcon.setIcon(new ImageIcon("src/resources/images/shutdown.png"));
         DeleteButton.setBackground(Color.RED);
         mealJLabel.setVisible(false);
         categoryJLabel.setVisible(false);
@@ -301,4 +301,6 @@ public class mealsAppGui extends JFrame {
     public JButton getSaveButton() {
         return SaveButton;
     }
+
+
 }
