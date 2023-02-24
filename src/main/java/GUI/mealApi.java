@@ -96,9 +96,6 @@ class MealData {
 
     public String getIdMeal() { return idMeal; }
 
-   // public void setStrId(String idMeal) {
-    //    this.idMeal = idMeal;
-   // }
 
     public String getStrId() {
         return idMeal;

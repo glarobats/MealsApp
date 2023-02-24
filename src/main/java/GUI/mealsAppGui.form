@@ -320,6 +320,8 @@
                         <properties>
                           <background color="-3991724"/>
                           <enabled value="false"/>
+                          <focusable value="true"/>
+                          <foreground color="-4473925"/>
                           <opaque value="false"/>
                           <text value="DELETE"/>
                         </properties>
@@ -358,13 +360,15 @@
                       <component id="d8ad7" class="javax.swing.JTree" binding="categoriesTree">
                         <constraints/>
                         <properties>
-                          <font size="16"/>
+                          <font size="20"/>
+                          <foreground color="-1118482"/>
                           <opaque value="false"/>
                           <rootVisible value="true"/>
                           <showsRootHandles value="true"/>
                         </properties>
                         <clientProperties>
                           <JTree.lineStyle class="java.lang.String" value=""/>
+                          <html.disable class="java.lang.Boolean" value="false"/>
                         </clientProperties>
                       </component>
                     </children>
@@ -449,7 +453,7 @@
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Label"/>
+                      <text value=""/>
                     </properties>
                   </component>
                 </children>

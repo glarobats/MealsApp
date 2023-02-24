@@ -4,9 +4,12 @@ import Pdf.Chart;
 import Pdf.ViewsPDF;
 import org.database.Database;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,24 +39,27 @@ public class mealsAppGui extends JFrame {
 
     private mealsAppGui() {
         super();
-        //setUndecorated(true);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setUndecorated(true);
         this.setContentPane(mainPanel);
         this.pack();
+        FrameDragListaner.FrameDragListener frameDragListener = new FrameDragListaner.FrameDragListener(this);
+        this.addMouseListener(frameDragListener);
+        this.addMouseMotionListener(frameDragListener);
 
         Database.startDB();
         leftSidePanel.setOpaque(false);
         BackGdPanel.setOpaque(false);
         BackGdPanel = new BackGroundPanel();
         mainPanel.add(BackGdPanel);
-
-        appIcon.setIcon(new ImageIcon("images/logo.png"));
-        firstLabel.setIcon(new ImageIcon("images/background.png"));
+        appIcon.setIcon(new ImageIcon("resources/logo.png"));
+        firstLabel.setIcon(new ImageIcon("resources/background.png"));
         firstPanel.setVisible(true);
-        dataIcon.setIcon(new ImageIcon("images/search.png"));
-        categoryIcon.setIcon(new ImageIcon("images/categorize.png"));
-        statsIcon.setIcon(new ImageIcon("images/stats.png"));
-        exitIcon.setIcon(new ImageIcon("images/shutdown.png"));
+        dataIcon.setIcon(new ImageIcon("resources/search.png"));
+        categoryIcon.setIcon(new ImageIcon("resources/categorize.png"));
+        statsIcon.setIcon(new ImageIcon("resources/stats.png"));
+        exitIcon.setIcon(new ImageIcon("resources/shutdown.png"));
+        DeleteButton.setBackground(Color.RED);
         mealJLabel.setVisible(false);
         categoryJLabel.setVisible(false);
         areaJLabel.setVisible(false);
@@ -152,7 +158,7 @@ public class mealsAppGui extends JFrame {
                     Database.deleteSavedTable(dataButton.getMealId());
                     DeleteButton.setEnabled(false);
                     EditButton.setEnabled(false);
-                    SaveEdited.setEnabled(true);
+                    SaveButton.setEnabled(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
                     DeleteButton.setEnabled(false);
@@ -293,5 +299,9 @@ public class mealsAppGui extends JFrame {
     }
     public JPanel getCategoriesPanel() {
         return categoriesPanel;
+    }
+
+    public JButton getSaveButton() {
+        return SaveButton;
     }
 }

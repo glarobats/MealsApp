@@ -17,8 +17,20 @@ import java.util.concurrent.TimeUnit;
 
 public class CategoriesTreeCall extends JFrame {
     private static CategoriesTreeCall instance;
+    public static CategoriesTreeCall getInstance() throws InterruptedException {
+        if (instance == null) {
+            instance = new CategoriesTreeCall();
+        }
+        return instance;
+    }
+
 
     private CategoriesTreeCall() throws InterruptedException {
+        treeCreate();
+    }
+
+    public void treeCreate() {
+
         final String API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?f=";
         final Gson GSON = new Gson();
 
@@ -63,7 +75,11 @@ public class CategoriesTreeCall extends JFrame {
         }
         //Κλείσιμο του executor αφού έχουν ολοκληρωθεί όλες οι παραπάνω εργασίες
         executor.shutdown();
-        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
 
         mealsAppGui gui = mealsAppGui.getInstance();
@@ -77,25 +93,25 @@ public class CategoriesTreeCall extends JFrame {
                 categoryNode.add(mealNode);
             }
         }
-        gui.getCategoriesTree().setModel(new DefaultTreeModel(root));
 
-        //Δημιουργία JTree
+        gui.getCategoriesTree().setModel(new DefaultTreeModel(root));
         DefaultTreeModel model = new DefaultTreeModel(root);
-        gui.getRightSidePanel().removeAll();
         gui.getCategoriesTree().setModel(model);
+        gui.getJPanelForButChar().setVisible(false);
+        gui.getJPanelForCharts().setVisible(false);
+        gui.getSearchingPanel().setVisible(false);
+        gui.getjPanelForText().setVisible(false);
+        gui.getjPanelForButtons().setVisible(false);
+
+        gui.getRightSidePanel().removeAll();
         gui.getRightSidePanel().setVisible(true);
         gui.getCategoriesPanel().setVisible(true);
         gui.getCategoriesTree().setVisible(true);
         JScrollPane scrollPane = new JScrollPane(gui.getCategoriesTree());
         gui.getRightSidePanel().add(scrollPane);
+
     }
 
-    public static CategoriesTreeCall getInstance() throws InterruptedException {
-        if (instance == null) {
-            instance = new CategoriesTreeCall();
-        }
-        return instance;
-    }
 }
 
 

@@ -27,7 +27,6 @@ public class DataButton extends JPanel {
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
                 Meal meal = mealApi.searchByName(searchTerm);
 
-                mealId = Integer.parseInt(meal.getId());
 
                 //εάν είναι κενό το πεδίο και πατήσεις ΟΚ
                 if (searchTerm == null || searchTerm.trim().isEmpty()) {
@@ -44,6 +43,7 @@ public class DataButton extends JPanel {
                         //διαφορετικά ενημέρωση του πίνακα VIEWS με αύξηση κατά 1 του κελιού εμφανίσεις
                         Database.incrementViews(Integer.parseInt(meal.getId()));
                     }
+                    mealId = Integer.parseInt(meal.getId());
 
                     mealsAppGui gui = mealsAppGui.getInstance();
 
@@ -61,6 +61,7 @@ public class DataButton extends JPanel {
                     gui.getjPanelForButtons().setVisible(true);
                     gui.getjPanelForText().setVisible(true);
                     gui.getjScrollInsrt().setVisible(true);
+                    gui.getSaveButton().setEnabled(true);
                     gui.getMainPanel().revalidate();
                     gui.getMainPanel().repaint();
 

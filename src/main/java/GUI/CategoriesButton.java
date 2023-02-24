@@ -12,6 +12,7 @@ public class CategoriesButton extends JPanel{
                 CategoriesTreeCall call = null;
                 try {
                     call = CategoriesTreeCall.getInstance();
+                    call.treeCreate();
                 } catch (InterruptedException ex) {
                     throw new RuntimeException(ex);
                 }

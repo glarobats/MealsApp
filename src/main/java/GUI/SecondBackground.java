@@ -17,13 +17,13 @@ public class SecondBackground extends JPanel {
         int width = getWidth();
         int height = getHeight();
 
-        // Define the gradient start and end points
+        // Όρισε που θα αρχίσει και που θα τελειώσει το σβήσιμο
         GradientPaint gradient = new GradientPaint(
                 0, 0, new Color(166, 136, 116),
                 0, height, new Color(208, 204, 199)
         );
 
-        // Fill the panel with the gradient
+        // Γέμισε με χρώμα
         g2d.setPaint(gradient);
         g2d.fillRect(0, 0, width, height);
     }
