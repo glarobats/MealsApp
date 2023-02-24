@@ -13,7 +13,7 @@ public class Main {
         frame.setResizable(false);
         //frame.setBackground(new Color(0,0,0,0));
         frame.setTitle("Meals App");
-        ImageIcon image = new ImageIcon("resources/loo.png");
+        ImageIcon image = new ImageIcon("src/resources/loo.png");
         frame.setIconImage(image.getImage());
     }
 }
