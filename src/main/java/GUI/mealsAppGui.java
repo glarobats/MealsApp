@@ -1,15 +1,10 @@
 package GUI;
 
-import Pdf.Chart;
-import Pdf.ViewsPDF;
 import org.database.Database;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+
 
 public class mealsAppGui extends JFrame {
     private static mealsAppGui instance;
@@ -64,142 +59,30 @@ public class mealsAppGui extends JFrame {
         jScrollInsrt.setVisible(false);
         Buttons();
 
+        //Κλήση κουμπιών (τα οποία είναι JLabel) που είναι bound με το .form
+        Print.addMouseListener(new PrintListener());
 
+        PieListener pieListener = new PieListener(rightSidePanel, statsPanel, JPanelForButChar,
+                JPanelForCharts, Pie, Bar, mainPanel);
+        Pie.addMouseListener(pieListener);
 
-        Print.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                ViewsPDF statistika = new ViewsPDF();
-                statistika.viewPdf();
-            }
-        });
-        Pie.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                Chart statistika = new Chart();
-                rightSidePanel.removeAll();
-                JPanelForCharts.removeAll();
-                rightSidePanel.add(statsPanel);
-                statsPanel.setLayout(new BorderLayout());
-                statsPanel.add(JPanelForButChar, BorderLayout.SOUTH);
-                statsPanel.add(JPanelForCharts, BorderLayout.NORTH);
-                JPanelForCharts.add(statistika.makePieChart());
-                JPanelForCharts.setVisible(true);
-                JPanelForButChar.setVisible(true);
-                mainPanel.revalidate();
-                mainPanel.repaint();
-                Pie.setEnabled(false);
-                Bar.setEnabled(true);
-            }
-        });
-        Bar.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                Chart statistika = new Chart();
-                rightSidePanel.removeAll();
-                JPanelForCharts.removeAll();
-                rightSidePanel.add(statsPanel);
-                statsPanel.setLayout(new BorderLayout());
-                statsPanel.add(JPanelForButChar, BorderLayout.SOUTH);
-                statsPanel.add(JPanelForCharts, BorderLayout.NORTH);
-                JPanelForCharts.add(statistika.makeBarChart());
-                JPanelForCharts.setVisible(true);
-                JPanelForButChar.setVisible(true);
-                mainPanel.revalidate();
-                mainPanel.repaint();
-                Pie.setEnabled(true);
-                Bar.setEnabled(false);
-            }
-        });
+        BarListener barListener = new BarListener(rightSidePanel, statsPanel, JPanelForButChar,
+                JPanelForCharts, Pie, Bar, mainPanel);
+        Bar.addMouseListener(barListener);
 
-        SaveButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                    if (!Database.idSearchInSAVED(dataButton.getMealId())) {
-                        int save = JOptionPane.showConfirmDialog(null,
-                                "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-                        if (save == JOptionPane.YES_NO_OPTION) {
-                            Database.saveToNewTable(dataButton.getMealId());
-                            EditButton.setEnabled(true);
-                            DeleteButton.setEnabled(true);
-                            SaveButton.setEnabled(false);
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-                        EditButton.setEnabled(true);
-                    }
-                }
-        });
-        EditButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int edit = JOptionPane.showConfirmDialog(null,
-                        "Είσαι σίγουρος οτι θέλεις να τροποποιήσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-                if (edit == JOptionPane.YES_NO_OPTION) {
-                    //απενεργοποίηση κουμπιών και ενεργοποίηση των πεδίων προς τροποποίηση
-                    SaveEdited.setEnabled(true);
-                    SaveButton.setEnabled(false);
-                    EditButton.setEnabled(false);
-                    DeleteButton.setEnabled(false);
-                    mealsName.setEditable(true);
-                    categories.setEditable(true);
-                    Area.setEditable(true);
-                    Instructions.setEditable(true);
-                }
-            }
-        });
-        DeleteButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                if (Database.idSearchInSAVED(dataButton.getMealId())) {
-                    Database.deleteSavedTable(dataButton.getMealId());
-                    DeleteButton.setEnabled(false);
-                    EditButton.setEnabled(false);
-                    SaveButton.setEnabled(true);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-                    DeleteButton.setEnabled(false);
-                }
-            }
-        });
-        SaveEdited.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                int ID = dataButton.getMealId();
-                try {
-                    //αποθήκευση στη ΒΔ και συγκεκριμένα στον πίνακα SAVED την τροποποίηση
+        SaveButtonListener saveButtonListener = new SaveButtonListener(SaveButton, EditButton, DeleteButton, dataButton);
+        SaveButton.addMouseListener(saveButtonListener);
 
-                    SaveEdited.setEnabled(false);
-                    Instructions.setEditable(false);
-                    mealsName.setEditable(false);
-                    categories.setEditable(false);
-                    Area.setEditable(false);
-                    Connection connection = Database.connect();
-                    Statement stmt = (Statement) connection.createStatement();
-                    String modifiedFields = "UPDATE SAVED SET "
-                            + "Όνομα = '" + mealsName.getText() + "', "
-                            + "Κατηγορία = '" + categories.getText() + "', "
-                            + "Περιοχή = '" + Area.getText() + "', "
-                            + "Οδηγίες = '" + Instructions.getText() + "' "
-                            + "WHERE ID = " + ID;
-                    stmt.executeUpdate(modifiedFields);
-                    connection.commit();
-                    Area.setEditable(false);
-                    SaveButton.setEnabled(false);
-                    EditButton.setEnabled(true);
-                    DeleteButton.setEnabled(true);
-                } catch (SQLException exception) {
-                    System.out.println(exception.getLocalizedMessage());
-                }
-            }
-        });
+        EditButtonListener editButtonListener = new EditButtonListener(EditButton, SaveButton, DeleteButton, SaveEdited,
+                mealsName, categories, Area, Instructions);
+        EditButton.addMouseListener(editButtonListener);
+
+        DeleteButtonListener deleteListener = new DeleteButtonListener(DeleteButton, EditButton, SaveButton, dataButton);
+        DeleteButton.addMouseListener(deleteListener);
+
+        SaveEditedListener saveEditedListener = new SaveEditedListener(dataButton, Instructions, mealsName, categories,
+                Area, SaveButton, EditButton, DeleteButton);
+        SaveEdited.addMouseListener(saveEditedListener);
     }
 
 
@@ -304,7 +187,6 @@ public class mealsAppGui extends JFrame {
     public JPanel getCategoriesPanel() {
         return categoriesPanel;
     }
-
     public JLabel getSaveButton() {
         return SaveButton;
     }

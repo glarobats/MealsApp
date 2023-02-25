@@ -153,7 +153,7 @@
                   <opaque value="false"/>
                   <preferredSize width="640" height="640"/>
                   <verifyInputWhenFocusTarget value="false"/>
-                  <visible value="true"/>
+                  <visible value="false"/>
                 </properties>
                 <border type="none"/>
                 <children>
@@ -417,6 +417,7 @@
                     </constraints>
                     <properties>
                       <minimumSize width="-1" height="-1"/>
+                      <preferredSize width="640" height="610"/>
                     </properties>
                     <border type="none"/>
                     <children/>
