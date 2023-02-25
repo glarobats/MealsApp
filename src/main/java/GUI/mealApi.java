@@ -8,8 +8,6 @@ import okhttp3.OkHttpClient;
 
 
 public class mealApi {
-
-
     private static final Gson gson = new Gson();
     private static final OkHttpClient client = new OkHttpClient();
 
@@ -44,11 +42,11 @@ public class mealApi {
 
 class Meal {
 
-    private String id;
-    private String name;
-    private String category;
-    private String area;
-    private String instructions;
+    private final String id;
+    private final String name;
+    private final String category;
+    private final String area;
+    private final String instructions;
 
     public Meal(String id,String name, String category, String area, String instructions) {
         this.id = id;

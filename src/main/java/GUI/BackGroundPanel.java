@@ -17,13 +17,13 @@ public class BackGroundPanel extends JPanel {
         int width = getWidth();
         int height = getHeight();
 
-        // Define the gradient start and end points
+        // Όρισε που θα αρχίσει και που θα τελειώσει το σβήσιμο
         GradientPaint gradient = new GradientPaint(
                 0, 0, new Color(159, 100, 69), // Start point and color (rust)
                 0, height, new Color(176,166,145) // End point and color (beige)
         );
 
-        // Fill the panel with the gradient
+        // Γέμισε με χρώμα
         g2d.setPaint(gradient);
         g2d.fillRect(0, 0, width, height);
     }
