@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -13,8 +12,6 @@ import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import org.database.Database;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 

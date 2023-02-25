@@ -1,7 +1,6 @@
 package Pdf;
 
 import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.CategoryAxis;
@@ -9,28 +8,19 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.labels.StandardCategoryToolTipGenerator;
-import org.jfree.chart.labels.StandardPieToolTipGenerator;
 import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PiePlot;
 import org.jfree.chart.plot.PiePlot3D;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.chart.title.TextTitle;
-import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.util.Rotation;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.DecimalFormat;
 
 import static org.database.Database.connect;
 
@@ -96,8 +86,6 @@ public class Chart {
         plot.setBackgroundPaint(new Color(166, 136, 116));
         NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
-        CategoryAxis domainAxis = plot.getDomainAxis();
-        ValueAxis rangeAxis3D = plot.getRangeAxis();
         BarRenderer3D renderer = new BarRenderer3D();
         renderer.setBaseToolTipGenerator(new StandardCategoryToolTipGenerator());
         renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
@@ -113,5 +101,3 @@ public class Chart {
         return panel;
     }
 }
-
-
