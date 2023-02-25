@@ -32,7 +32,7 @@ public class mealsAppGui extends JFrame {
     private mealsAppGui() {
         super();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        //this.setUndecorated(true);
+        this.setUndecorated(true);
         this.setContentPane(mainPanel);
         this.pack();
         FrameDragListaner.FrameDragListener frameDragListener = new FrameDragListaner.FrameDragListener(this);
