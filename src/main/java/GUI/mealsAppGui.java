@@ -80,7 +80,7 @@ public class mealsAppGui extends JFrame {
         DeleteButtonListener deleteListener = new DeleteButtonListener(DeleteButton, EditButton, SaveButton, dataButton);
         DeleteButton.addMouseListener(deleteListener);
 
-        SaveEditedListener saveEditedListener = new SaveEditedListener(dataButton, Instructions, mealsName, categories,
+        SaveEditedListener saveEditedListener = new SaveEditedListener(SaveEdited, dataButton, Instructions, mealsName, categories,
                 Area, SaveButton, EditButton, DeleteButton);
         SaveEdited.addMouseListener(saveEditedListener);
     }

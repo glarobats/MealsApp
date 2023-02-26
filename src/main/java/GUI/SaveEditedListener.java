@@ -18,9 +18,11 @@ public class SaveEditedListener extends MouseAdapter {
     private final JLabel saveButton;
     private final JLabel editButton;
     private final JLabel deleteButton;
+    private final JLabel SaveEdited;
 
-    public SaveEditedListener(DataButton dataButton, JTextArea instructions, JTextArea mealsName, JTextArea categories,
+    public SaveEditedListener(JLabel SaveEdited, DataButton dataButton, JTextArea instructions, JTextArea mealsName, JTextArea categories,
                               JTextArea area, JLabel saveButton, JLabel editButton, JLabel deleteButton) {
+        this.SaveEdited = SaveEdited;
         this.dataButton = dataButton;
         this.instructions = instructions;
         this.mealsName = mealsName;
@@ -57,6 +59,7 @@ public class SaveEditedListener extends MouseAdapter {
             saveButton.setEnabled(false);
             editButton.setEnabled(true);
             deleteButton.setEnabled(true);
+            SaveEdited.setEnabled(false);
         } catch (SQLException exception) {
             System.out.println(exception.getLocalizedMessage());
         }
