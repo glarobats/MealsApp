@@ -5,14 +5,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class EditButtonListener extends MouseAdapter {
-    private final JLabel EditButton;
-    private final JLabel SaveButton;
-    private final JLabel DeleteButton;
-    private final JLabel SaveEdited;
-    private final JTextArea mealsName;
-    private final JTextArea categories;
-    private final JTextArea Area;
-    private final JTextArea Instructions;
+    private final JLabel EditButton, SaveButton, DeleteButton, SaveEdited;
+    private final JTextArea mealsName, categories, Area, Instructions;
+
 
     public EditButtonListener(JLabel EditButton, JLabel SaveButton, JLabel DeleteButton, JLabel SaveEdited,
                               JTextArea mealsName, JTextArea categories, JTextArea Area, JTextArea Instructions) {

@@ -217,25 +217,6 @@ public class Database {
             return false;
         }
     }//end idSearch
-
-    //Ταξινόμηση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
-    public void orderBy() {
-        Connection connection = connect();
-        String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
-        String print = "SELECT * FROM VIEWS";
-        try {
-            PreparedStatement statement = connection.prepareStatement(orderDesc);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString("ID") + "\t" + resultSet.getString("Εμφανίσεις"));
-            }
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println(e.getLocalizedMessage());
-        }
-    }//end orderBy
 }//end databaseNew
 
 

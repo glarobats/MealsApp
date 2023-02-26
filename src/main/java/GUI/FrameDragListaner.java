@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 //κώδικας για να μπορεί να κάνει float το παράθυρο της εφαρμογής
 public class FrameDragListaner {
     public static class FrameDragListener extends MouseAdapter {
-
         private final JFrame frame;
         private Point mouseDownCompCoords = null;
 

@@ -7,9 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class DeleteButtonListener extends MouseAdapter {
-    private final JLabel DeleteButton;
-    private final JLabel EditButton;
-    private final JLabel SaveButton;
+    private final JLabel DeleteButton, EditButton, SaveButton;
     private final DataButton dataButton;
 
     public DeleteButtonListener(JLabel DeleteButton, JLabel EditButton, JLabel SaveButton, DataButton dataButton) {
