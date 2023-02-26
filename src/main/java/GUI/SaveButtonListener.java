@@ -31,9 +31,6 @@ public class SaveButtonListener extends MouseAdapter {
                 DeleteButton.setEnabled(true);
                 SaveButton.setEnabled(false);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-            EditButton.setEnabled(true);
         }
     }
 }

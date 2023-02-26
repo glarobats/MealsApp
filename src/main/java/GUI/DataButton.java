@@ -1,6 +1,5 @@
 package GUI;
 
-import com.google.gson.annotations.JsonAdapter;
 import org.database.Database;
 import javax.swing.*;
 import java.awt.*;
@@ -75,7 +74,12 @@ public class DataButton extends JPanel {
                     gui.getSaveEdited().setForeground(Color.WHITE);
                     gui.getjPanelForText().setVisible(true);
                     gui.getjScrollInsrt().setVisible(true);
-                    gui.getSaveButton().setEnabled(true);
+                    //ενεργοποίηση ή απενεργοποίηση κουμπιού SAVE εάν το γεύμα υπάρχει ήδη σωσμένο στη ΒΔ
+                    if(Database.idSearchInSAVED(Integer.parseInt(meal.getId())))
+                        gui.getSaveButton().setEnabled(false);
+                    else
+                        gui.getSaveButton().setEnabled(true);
+
                     gui.getMainPanel().revalidate();
                     gui.getMainPanel().repaint();
 
