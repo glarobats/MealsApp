@@ -41,12 +41,7 @@ public class mealApi {
 
 
 class Meal {
-
-    private final String id;
-    private final String name;
-    private final String category;
-    private final String area;
-    private final String instructions;
+    private final String id, name, category, area, instructions;
 
     public Meal(String id,String name, String category, String area, String instructions) {
         this.id = id;
@@ -85,15 +80,9 @@ class Meal {
 
 
 class MealData {
-    private String idMeal;
-    private String strMeal;
-    private String strCategory;
-    private String strArea;
-    private String strInstructions;
-
+    private String idMeal, strMeal, strCategory, strArea, strInstructions;
 
     public String getIdMeal() { return idMeal; }
-
 
     public String getStrId() {
         return idMeal;

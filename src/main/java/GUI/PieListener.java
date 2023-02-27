@@ -8,13 +8,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PieListener extends MouseAdapter {
-    private final JPanel rightSidePanel;
-    private final JPanel statsPanel;
-    private final JPanel JPanelForButChar;
-    private final JPanel JPanelForCharts;
-    private final JLabel Pie;
-    private final JLabel Bar;
-    private final JPanel mainPanel;
+    private final JPanel rightSidePanel, statsPanel, JPanelForButChar, JPanelForCharts, mainPanel;
+    private final JLabel Pie, Bar;
 
     public PieListener(JPanel rightSidePanel, JPanel statsPanel, JPanel JPanelForButChar,
                        JPanel JPanelForCharts, JLabel Pie, JLabel Bar, JPanel mainPanel) {

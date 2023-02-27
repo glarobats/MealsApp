@@ -11,17 +11,12 @@ import java.sql.Statement;
 
 public class SaveEditedListener extends MouseAdapter {
     private final DataButton dataButton;
-    private final JTextArea instructions;
-    private final JTextArea mealsName;
-    private final JTextArea categories;
-    private final JTextArea area;
-    private final JLabel saveButton;
-    private final JLabel editButton;
-    private final JLabel deleteButton;
-    private final JLabel SaveEdited;
+    private final JTextArea instructions, mealsName, categories, area;
+    private final JLabel saveButton, editButton, deleteButton, SaveEdited;
 
-    public SaveEditedListener(JLabel SaveEdited, DataButton dataButton, JTextArea instructions, JTextArea mealsName, JTextArea categories,
-                              JTextArea area, JLabel saveButton, JLabel editButton, JLabel deleteButton) {
+
+    public SaveEditedListener(JLabel SaveEdited, DataButton dataButton, JTextArea instructions, JTextArea mealsName,
+                              JTextArea categories,JTextArea area, JLabel saveButton, JLabel editButton, JLabel deleteButton) {
         this.SaveEdited = SaveEdited;
         this.dataButton = dataButton;
         this.instructions = instructions;
@@ -45,16 +40,17 @@ public class SaveEditedListener extends MouseAdapter {
             mealsName.setEditable(false);
             categories.setEditable(false);
             area.setEditable(false);
-            Connection connection = Database.connect();
-            Statement stmt = (Statement) connection.createStatement();
-            String modifiedFields = "UPDATE SAVED SET "
-                    + "Όνομα = '" + mealsName.getText() + "', "
-                    + "Κατηγορία = '" + categories.getText() + "', "
-                    + "Περιοχή = '" + area.getText() + "', "
-                    + "Οδηγίες = '" + instructions.getText() + "' "
-                    + "WHERE ID = " + ID;
-            stmt.executeUpdate(modifiedFields);
-            connection.commit();
+            try (Connection connection = Database.connect()) {
+                Statement stmt = (Statement) connection.createStatement();
+                String modifiedFields = "UPDATE SAVED SET "
+                        + "Όνομα = '" + mealsName.getText() + "', "
+                        + "Κατηγορία = '" + categories.getText() + "', "
+                        + "Περιοχή = '" + area.getText() + "', "
+                        + "Οδηγίες = '" + instructions.getText() + "' "
+                        + "WHERE ID = " + ID;
+                stmt.executeUpdate(modifiedFields);
+                connection.commit();
+            }
             area.setEditable(false);
             saveButton.setEnabled(false);
             editButton.setEnabled(true);
