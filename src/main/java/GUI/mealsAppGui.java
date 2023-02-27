@@ -5,7 +5,6 @@ import org.database.Database;
 import javax.swing.*;
 import java.awt.*;
 
-
 public class mealsAppGui extends JFrame {
     private static mealsAppGui instance;
     private JPanel mainPanel,leftSidePanel,rightSidePanel,BackGdPanel,startPanel,searchingPanel,categoriesPanel,statsPanel,
@@ -44,13 +43,14 @@ public class mealsAppGui extends JFrame {
         BackGdPanel.setOpaque(false);
         BackGdPanel = new BackGroundPanel();
         mainPanel.add(BackGdPanel);
-        appIcon.setIcon(new ImageIcon("src/resources/images/logo.png"));
-        firstLabel.setIcon(new ImageIcon("src/resources/images/background.png"));
+
+        appIcon.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo.png"))));
+        firstLabel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/background.png"))));
         firstPanel.setVisible(true);
-        dataIcon.setIcon(new ImageIcon("src/resources/images/search.png"));
-        categoryIcon.setIcon(new ImageIcon("src/resources/images/categorize.png"));
-        statsIcon.setIcon(new ImageIcon("src/resources/images/stats.png"));
-        exitIcon.setIcon(new ImageIcon("src/resources/images/shutdown.png"));
+        dataIcon.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/search.png"))));
+        categoryIcon.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/categorize.png"))));
+        statsIcon.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/stats.png"))));
+        exitIcon.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/shutdown.png"))));
         DeleteButton.setBackground(Color.RED);
         mealJLabel.setVisible(false);
         categoryJLabel.setVisible(false);

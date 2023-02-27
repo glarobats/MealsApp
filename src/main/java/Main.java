@@ -1,6 +1,7 @@
 import GUI.mealsAppGui;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,7 +11,7 @@ public class Main {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setTitle("Meals App");
-        ImageIcon image = new ImageIcon("src/resources/images/loo.png");
+        ImageIcon image = new ImageIcon(Toolkit.getDefaultToolkit().getImage(Main.class.getResource("/loo.png")));
         frame.setIconImage(image.getImage());
     }
 }
