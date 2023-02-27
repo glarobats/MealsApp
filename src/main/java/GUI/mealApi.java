@@ -13,23 +13,19 @@ public class mealApi {
 
     public static Meal searchByName(String name) {
         try {
-            // Create a request object
+            // Φτιάξε ένα ανικείμενο request
             Call call = mealClient.getSearch(name);
 
-            // Execute the request using the OkHttp
+            // Εκτέλεσε το request χρησιμοποιώντας OkHttp
             Response response = call.execute();
 
-            // Get the response body as a string
+            // Αποθήκευσε σε String
             String responseString = response.body().string();
-
-            // Use Gson to deserialize
             MealSearchResult result = gson.fromJson(responseString, MealSearchResult.class);
 
-            // Check if the result contains any meals
+            // Έλεγχος εάν είναι κενό
             if (result.getMeals() != null && result.getMeals().size() > 0) {
-                // Get the first meal from the result
                 MealData mealData = result.getMeals().get(0);
-                // Return a new Meal object created using the data from the first meal
                 return new Meal(mealData.getIdMeal(),mealData.getStrMeal(), mealData.getStrCategory(), mealData.getStrArea(), mealData.getStrInstructions());
             }
         } catch (Exception e) {

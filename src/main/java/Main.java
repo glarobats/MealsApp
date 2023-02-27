@@ -6,6 +6,7 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
 
+        //δημιουργία του κεντρικού παραθύρου
         mealsAppGui frame = mealsAppGui.getInstance();
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);

@@ -25,6 +25,7 @@ public class BarListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //Εφόσον πατηθεί το κουμπί "κλείνουν" τα πάνελ και ανοίγουν μόνο αυτά που χρειάζονται
         super.mouseClicked(e);
         Chart statistika = new Chart();
         rightSidePanel.removeAll();

@@ -31,9 +31,10 @@ public class mealsAppGui extends JFrame {
     private mealsAppGui() {
         super();
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setUndecorated(true);
+        this.setUndecorated(true);  //απενεργοποίηση πάνω μπάρας τίτλου
         this.setContentPane(mainPanel);
         this.pack();
+        //μετακίνηση παραθύρου με drag
         FrameDragListaner.FrameDragListener frameDragListener = new FrameDragListaner.FrameDragListener(this);
         this.addMouseListener(frameDragListener);
         this.addMouseMotionListener(frameDragListener);
@@ -44,6 +45,7 @@ public class mealsAppGui extends JFrame {
         BackGdPanel = new BackGroundPanel();
         mainPanel.add(BackGdPanel);
 
+        //χρήση εικόνων που είναι στον φάκελο resources
         appIcon.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/logo.png"))));
         firstLabel.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("/background.png"))));
         firstPanel.setVisible(true);
@@ -115,6 +117,7 @@ public class mealsAppGui extends JFrame {
         exitButton.addEXITButtonMouseListener(exitIcon);
     }
 
+    //απαραίτητοι getters and setters
     public JPanel getMainPanel() {
         return mainPanel;
     }

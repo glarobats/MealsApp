@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 public class StatisticsPrintButton extends JPanel{
         public void addStatisticsPrintButtonListener(JLabel statsTitle) {
+            //κλείσιμο και ανοιγμα απαραίτητων πανελ για εμφάνιση στατιστικών και εκτύπωσης αρχείου .pdf
                 statsTitle.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {

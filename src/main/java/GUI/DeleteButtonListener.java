@@ -19,15 +19,13 @@ public class DeleteButtonListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //Εάν πατηθεί το κουμπί τότε διαγράφεται απο τον πίνακα SAVED
         super.mouseClicked(e);
         if (Database.idSearchInSAVED(dataButton.getMealId())) {
             Database.deleteSavedTable(dataButton.getMealId());
             DeleteButton.setEnabled(false);
             EditButton.setEnabled(false);
             SaveButton.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-            DeleteButton.setEnabled(false);
         }
     }
 }

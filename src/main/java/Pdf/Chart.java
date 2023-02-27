@@ -62,7 +62,7 @@ public class Chart {
         return panel;
     }
 
-    //μέθοδος για την δημιουργία διαγράμματος στηλών
+    //μέθοδος για τη δημιουργία διαγράμματος στηλών
     public JPanel makeBarChart(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         try {

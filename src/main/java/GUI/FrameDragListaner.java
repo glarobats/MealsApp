@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 
-//κώδικας για να μπορεί να κάνει float το παράθυρο της εφαρμογής
+//κώδικας για να μπορεί να κινήται το παράθυρο της εφαρμογής με drag
 public class FrameDragListaner {
     public static class FrameDragListener extends MouseAdapter {
         private final JFrame frame;

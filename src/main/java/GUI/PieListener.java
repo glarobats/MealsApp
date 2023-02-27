@@ -24,6 +24,7 @@ public class PieListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //Εάν πατηθεί το κουμπί τότε κλείνουν όλα τα πάνελ και ανοίγει το διάγραμμα πίτας
         super.mouseClicked(e);
         Chart statistika = new Chart();
         rightSidePanel.removeAll();

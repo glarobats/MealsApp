@@ -25,7 +25,7 @@ public class DataButton extends JPanel {
                 //Παράθυρο για αναζήτηση
                 mealApi mealApi = new mealApi();
                 String searchTerm = JOptionPane.showInputDialog("Αναζητήστε το Γεύμα που θέλετε: ");
-                Meal meal = mealApi.searchByName(searchTerm);
+                Meal meal = GUI.mealApi.searchByName(searchTerm);
 
 
                 //εάν είναι κενό το πεδίο και πατήσεις ΟΚ
@@ -46,7 +46,7 @@ public class DataButton extends JPanel {
                     mealId = Integer.parseInt(meal.getId());
 
                     mealsAppGui gui = mealsAppGui.getInstance();
-
+                    //Εφόσον πατηθεί το κουμπί "κλείνουν" τα πάνελ και ανοίγουν μόνο αυτά που χρειάζονται
                     gui.getRightSidePanel().removeAll();
                     gui.getRightSidePanel().add(gui.getSearchingPanel());
                     gui.getSearchingPanel().setLayout(new BorderLayout());
@@ -83,7 +83,7 @@ public class DataButton extends JPanel {
                     gui.getMainPanel().revalidate();
                     gui.getMainPanel().repaint();
 
-                    //JPanel for text and Labels
+                    //JPanel για Labels
                     String mealName = meal.getName();
                     String categoryName = meal.getCategory();
                     String areaName = meal.getArea();

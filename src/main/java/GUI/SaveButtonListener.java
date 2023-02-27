@@ -19,6 +19,8 @@ public class SaveButtonListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        //Εάν πατηθεί το κουμπί τότε έλεγχος εάν υπάρχει ήδη στη ΒΔ και μετά χρήση της μεθόδου για σώσιμο στον
+        //πίνακα SAVED
         super.mouseClicked(e);
         if (!Database.idSearchInSAVED(dataButton.getMealId())) {
             int save = JOptionPane.showConfirmDialog(null,
