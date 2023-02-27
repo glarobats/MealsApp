@@ -52,7 +52,7 @@ public class ViewsPDF {
                 table.setSpacingBefore(10f);
                 table.setSpacingAfter(10f);
 
-                // Φτιάξε επικεφαλίδα
+                // Φτιάξε επικεφαλίδες στην πρώτη γραμμή του πίνακα
                 PdfPCell headerCell1 = new PdfPCell(new Phrase("Meal",new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)));
                 headerCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
                 headerCell1.setVerticalAlignment(Element.ALIGN_MIDDLE);

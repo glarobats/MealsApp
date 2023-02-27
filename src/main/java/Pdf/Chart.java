@@ -24,6 +24,7 @@ import static org.database.Database.connect;
 
 public class Chart {
 
+    //μέθοδος για την δημιουργία διαγράμματος πίτας
     public JPanel makePieChart() {
         DefaultPieDataset dataset = new DefaultPieDataset();
         try {
@@ -44,6 +45,7 @@ public class Chart {
         TextTitle title = chart.getTitle();
         Font font = new Font("Calibri", Font.BOLD, 20);
         title.setFont(font);
+
         //ποσοστό και εμφανίσεις πάνω στην πίτα
         PiePlot3D plot = (PiePlot3D) chart.getPlot();
         plot.setBackgroundPaint(new Color(166, 136, 116));
@@ -59,7 +61,8 @@ public class Chart {
 
         return panel;
     }
-    
+
+    //μέθοδος για την δημιουργία διαγράμματος στηλών
     public JPanel makeBarChart(){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         try {
@@ -79,6 +82,7 @@ public class Chart {
         TextTitle title = chart.getTitle();
         Font font = new Font("Calibri", Font.BOLD, 20);
         title.setFont(font);
+
         //ακέραιοι στον άξονα τον εμφανίσεων
         CategoryPlot plot = (CategoryPlot) chart.getPlot();
         plot.setBackgroundPaint(new Color(166, 136, 116));
