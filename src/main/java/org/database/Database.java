@@ -218,5 +218,3 @@ public class Database {
         }
     }//end idSearch
 }//end databaseNew
-
-
