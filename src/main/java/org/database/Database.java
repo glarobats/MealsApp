@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class Database {
 
-    public void startDB() {
+    public static void startDB() {
         createTables();
     }
     //Singleton για να υπάρχει μόνο ένα στιγμιότυπο της ΒΔ
@@ -36,9 +36,9 @@ public class Database {
             /*
             Κατασκευάστηκαν 3 πίνακες. Ο πίνακας CENTRAL και ο πίνακας SAVED ναι μεν είναι ίδιοι αλλά επειδή ο πίνακας SAVED
             μπορεί να δεχτεί τροποποιήσεις απο τον χρήστη καλό είναι να κρατάμε και τις αρχικές τιμές που ανακτήθηκαν απο
-            το API σε περίπτωση που θα τις χρειαστούμε επίσης ο πίνακας CENTRAL χρειάζεται για τα στατιστικά καθώς αυτά δημιουργούνται
-            απο τα γεύματα που έχουν προβληθεί, ένα γεύμα που έχει τροποποιηθεί ή σωθεί, έχει προβληθεί αλλά ένα γεύμα που έχει προβληθεί
-            δεν είναι δεδομένο ότι έχει τροποποιηθεί ή σωθεί.
+            το API σε περίπτωση που θα τις χρειαστούμε επίσης ο πίνακας CENTRAL χρειάζεται για τα στατιστικά καθώς αυτά
+            δημιουργούνται απο τα γεύματα που έχουν προβληθεί, ένα γεύμα που έχει τροποποιηθεί ή σωθεί, έχει προβληθεί
+            αλλά ένα γεύμα που έχει προβληθεί δεν είναι δεδομένο ότι έχει τροποποιηθεί ή σωθεί.
              */
 
             Connection connection = connect();
@@ -125,7 +125,7 @@ public class Database {
     }
 
     //αναζήτηση του γεύματος στη ΒΔ
-    public boolean idSearch(int id){
+    public static boolean idSearch(int id){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
@@ -161,7 +161,7 @@ public class Database {
     }//end deleteDB
 
     //αντιγραφή του πίνακα CENTRAL στον πίνακα SAVED
-    public void saveToNewTable(int id) {
+    public static void saveToNewTable(int id) {
         try {
             ResultSet res = null;
             Connection connection = connect();
@@ -187,7 +187,7 @@ public class Database {
     }//end saveToNewTable
 
     //διαγραφή του πίνακα που έχει σωθεί
-    public void deleteSavedTable(int id) {
+    public static void deleteSavedTable(int id) {
         try {
             Connection connection = connect();
             String deleteTable = "DELETE FROM SAVED WHERE ID = ?";
@@ -201,7 +201,7 @@ public class Database {
     }//end deleteSavedTable
 
     //αναζήτηση στον πίνακα SAVED εάν υπάρχει το ID που αναζητούμε
-    public boolean idSearchInSAVED(int id){
+    public static boolean idSearchInSAVED(int id){
         try{
             Connection connection = connect();
             Statement statement = connection.createStatement();
@@ -217,25 +217,4 @@ public class Database {
             return false;
         }
     }//end idSearch
-
-    //Ταξινόμηση πίνακα VIEWS απο τις περισσότερες εμφανίσεις στις λιγότερες
-    public void orderBy() {
-        Connection connection = connect();
-        String orderDesc = "SELECT * FROM VIEWS ORDER BY Εμφανίσεις DESC";
-        String print = "SELECT * FROM VIEWS";
-        try {
-            PreparedStatement statement = connection.prepareStatement(orderDesc);
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                System.out.println(resultSet.getString("ID") + "\t" + resultSet.getString("Εμφανίσεις"));
-            }
-            resultSet.close();
-            statement.close();
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println(e.getLocalizedMessage());
-        }
-    }//end orderBy
 }//end databaseNew
-
-

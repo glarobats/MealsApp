@@ -3,36 +3,34 @@ package GUI;
 import org.database.Database;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class SaveButtonListener implements ActionListener {
-    private Meal meal;
-    private JButton editButton, deleteButton, saveButton;
-    private Database db;
+public class SaveButtonListener extends MouseAdapter {
+    private final JLabel SaveButton, EditButton, DeleteButton;
+    private final DataButton dataButton;
 
-    public SaveButtonListener(Meal meal,JButton saveButton, JButton editButton, JButton deleteButton, Database db) {
-        this.meal = meal;
-        this.editButton = editButton;
-        this.deleteButton = deleteButton;
-        this.saveButton = saveButton;
-        this.db = db;
+    public SaveButtonListener(JLabel SaveButton, JLabel EditButton, JLabel DeleteButton, DataButton dataButton) {
+        this.SaveButton = SaveButton;
+        this.EditButton = EditButton;
+        this.DeleteButton = DeleteButton;
+        this.dataButton = dataButton;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-            if (!db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-                int save = JOptionPane.showConfirmDialog(null,
-                        "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-                if (save == JOptionPane.YES_NO_OPTION) {
-                    db.saveToNewTable(Integer.valueOf(meal.getId()));
-                    editButton.setEnabled(true);
-                    deleteButton.setEnabled(true);
-                    saveButton.setEnabled(false);
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Το γεύμα είναι ήδη αποθηκευμένο", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-                editButton.setEnabled(true);
+    public void mouseClicked(MouseEvent e) {
+        //Εάν πατηθεί το κουμπί τότε έλεγχος εάν υπάρχει ήδη στη ΒΔ και μετά χρήση της μεθόδου για σώσιμο στον
+        //πίνακα SAVED
+        super.mouseClicked(e);
+        if (!Database.idSearchInSAVED(dataButton.getMealId())) {
+            int save = JOptionPane.showConfirmDialog(null,
+                    "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+            if (save == JOptionPane.YES_NO_OPTION) {
+                Database.saveToNewTable(dataButton.getMealId());
+                EditButton.setEnabled(true);
+                DeleteButton.setEnabled(true);
+                SaveButton.setEnabled(false);
             }
+        }
     }
 }

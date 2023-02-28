@@ -3,36 +3,29 @@ package GUI;
 import okhttp3.Call;
 import okhttp3.Response;
 import com.google.gson.Gson;
-
 import java.util.List;
 import okhttp3.OkHttpClient;
 
 
 public class mealApi {
-
-
     private static final Gson gson = new Gson();
     private static final OkHttpClient client = new OkHttpClient();
 
     public static Meal searchByName(String name) {
         try {
-            // Create a request object
+            // Φτιάξε ένα ανικείμενο request
             Call call = mealClient.getSearch(name);
 
-            // Execute the request using the OkHttp
+            // Εκτέλεσε το request χρησιμοποιώντας OkHttp
             Response response = call.execute();
 
-            // Get the response body as a string
+            // Αποθήκευσε σε String
             String responseString = response.body().string();
-
-            // Use Gson to deserialize
             MealSearchResult result = gson.fromJson(responseString, MealSearchResult.class);
 
-            // Check if the result contains any meals
+            // Έλεγχος εάν είναι κενό
             if (result.getMeals() != null && result.getMeals().size() > 0) {
-                // Get the first meal from the result
                 MealData mealData = result.getMeals().get(0);
-                // Return a new Meal object created using the data from the first meal
                 return new Meal(mealData.getIdMeal(),mealData.getStrMeal(), mealData.getStrCategory(), mealData.getStrArea(), mealData.getStrInstructions());
             }
         } catch (Exception e) {
@@ -44,12 +37,7 @@ public class mealApi {
 
 
 class Meal {
-
-    private String id;
-    private String name;
-    private String category;
-    private String area;
-    private String instructions;
+    private final String id, name, category, area, instructions;
 
     public Meal(String id,String name, String category, String area, String instructions) {
         this.id = id;
@@ -88,18 +76,9 @@ class Meal {
 
 
 class MealData {
-    private String idMeal;
-    private String strMeal;
-    private String strCategory;
-    private String strArea;
-    private String strInstructions;
-
+    private String idMeal, strMeal, strCategory, strArea, strInstructions;
 
     public String getIdMeal() { return idMeal; }
-
-   // public void setStrId(String idMeal) {
-    //    this.idMeal = idMeal;
-   // }
 
     public String getStrId() {
         return idMeal;

@@ -3,32 +3,29 @@ package GUI;
 import org.database.Database;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class DeleteButtonListener implements ActionListener {
-    private Meal meal;
-    private JButton editButton, deleteButton, saveButton;
-    private Database db;
+public class DeleteButtonListener extends MouseAdapter {
+    private final JLabel DeleteButton, EditButton, SaveButton;
+    private final DataButton dataButton;
 
-    public DeleteButtonListener(Meal meal, JButton editButton, JButton deleteButton, JButton saveButton, Database db) {
-        this.meal = meal;
-        this.editButton = editButton;
-        this.deleteButton = deleteButton;
-        this.saveButton = saveButton;
-        this.db = db;
+    public DeleteButtonListener(JLabel DeleteButton, JLabel EditButton, JLabel SaveButton, DataButton dataButton) {
+        this.DeleteButton = DeleteButton;
+        this.EditButton = EditButton;
+        this.SaveButton = SaveButton;
+        this.dataButton = dataButton;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if (db.idSearchInSAVED(Integer.valueOf(meal.getId()))) {
-            db.deleteSavedTable(Integer.valueOf(meal.getId()));
-            deleteButton.setEnabled(false);
-            editButton.setEnabled(false);
-            saveButton.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(null, "Το γεύμα δεν είναι αποθηκευμένο!!!", "SAVED", JOptionPane.INFORMATION_MESSAGE);
-            deleteButton.setEnabled(false);
+    public void mouseClicked(MouseEvent e) {
+        //Εάν πατηθεί το κουμπί τότε διαγράφεται απο τον πίνακα SAVED
+        super.mouseClicked(e);
+        if (Database.idSearchInSAVED(dataButton.getMealId())) {
+            Database.deleteSavedTable(dataButton.getMealId());
+            DeleteButton.setEnabled(false);
+            EditButton.setEnabled(false);
+            SaveButton.setEnabled(true);
         }
     }
 }

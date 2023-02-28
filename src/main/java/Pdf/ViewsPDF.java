@@ -5,15 +5,11 @@ import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Phrase;
+import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import org.database.Database;
-
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -41,28 +37,48 @@ public class ViewsPDF {
                 }
                 PdfWriter.getInstance(document, new FileOutputStream(fileSave));
                 document.open();
+
+                //Επικεφαλίδα στο PDF
+                PdfPTable heading = new PdfPTable(1);
+                PdfPCell headingCell = new PdfPCell(new Phrase ("Meal Appearances",new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD, BaseColor.BLACK)));
+                headingCell.setBorder(Rectangle.NO_BORDER);
+                headingCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                heading.addCell(headingCell);
+
                 // Φτιάξε τον πίνακα
                 PdfPTable table = new PdfPTable(2);
+                table.setHorizontalAlignment(Element.ALIGN_CENTER);
                 table.setWidthPercentage(100);
                 table.setSpacingBefore(10f);
                 table.setSpacingAfter(10f);
 
-                // Φτιάξε επικεφαλίδα
-                PdfPCell headerCell1 = new PdfPCell(new Phrase("Meal"));
+                // Φτιάξε επικεφαλίδες στην πρώτη γραμμή του πίνακα
+                PdfPCell headerCell1 = new PdfPCell(new Phrase("Meal",new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)));
                 headerCell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                headerCell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                headerCell1.setBackgroundColor(new BaseColor(159, 100, 69));
                 table.addCell(headerCell1);
-                PdfPCell headerCell2 = new PdfPCell(new Phrase("Views"));
+
+                PdfPCell headerCell2 = new PdfPCell(new Phrase("Views",new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)));
                 headerCell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                headerCell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                headerCell2.setBackgroundColor(new BaseColor(159, 100, 69));
                 table.addCell(headerCell2);
 
-                // Φτιάξε τις σειρές με τα δεδομένα
                 while (resultSet.next()) {
-                    table.addCell(resultSet.getString("Όνομα"));
-                    table.setHorizontalAlignment(Element.ALIGN_CENTER);
-                    table.addCell(Integer.toString(resultSet.getInt("Εμφανίσεις")));
-                    table.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    PdfPCell cell1 = new PdfPCell(new Phrase(resultSet.getString("Όνομα"), new Font(Font.FontFamily.HELVETICA, 10)));
+                    cell1.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell1.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    table.addCell(cell1);
+
+                    PdfPCell cell2 = new PdfPCell(new Phrase(Integer.toString(resultSet.getInt("Εμφανίσεις")), new Font(Font.FontFamily.HELVETICA, 10)));
+                    cell2.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell2.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    table.addCell(cell2);
                 }
+
                 //Βάλε τον πίνακα στο PDF
+                document.add(heading);
                 document.add(table);
                 document.close();
                 connection.close();

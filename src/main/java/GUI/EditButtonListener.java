@@ -1,42 +1,39 @@
 package GUI;
 
-import org.database.Database;
-
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-public class EditButtonListener implements ActionListener {
-    private Meal meal;
-    private JButton editButton, deleteButton, saveButton, saveEdited;
-    private JTextArea mealsArea, category, Area, Instructions;
-    private Database db;
+public class EditButtonListener extends MouseAdapter {
+    private final JLabel EditButton, SaveButton, DeleteButton, SaveEdited;
+    private final JTextArea mealsName, categories, Area, Instructions;
 
-    public EditButtonListener(Meal meal, JButton saveButton, JButton saveEdited, JButton editButton, JButton deleteButton, Database db,JTextArea mealsArea, JTextArea category, JTextArea Area, JTextArea Instuctions) {
-        this.meal = meal;
-        this.editButton = editButton;
-        this.deleteButton = deleteButton;
-        this.saveButton = saveButton;
-        this.saveEdited = saveEdited;
-        this.db = db;
-        this.mealsArea = mealsArea;
-        this.category = category;
+
+    public EditButtonListener(JLabel EditButton, JLabel SaveButton, JLabel DeleteButton, JLabel SaveEdited,
+                              JTextArea mealsName, JTextArea categories, JTextArea Area, JTextArea Instructions) {
+        this.EditButton = EditButton;
+        this.SaveButton = SaveButton;
+        this.DeleteButton = DeleteButton;
+        this.SaveEdited = SaveEdited;
+        this.mealsName = mealsName;
+        this.categories = categories;
         this.Area = Area;
-        this.Instructions = Instuctions;
+        this.Instructions = Instructions;
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public void mouseClicked(MouseEvent e) {
+        super.mouseClicked(e);
         int edit = JOptionPane.showConfirmDialog(null,
                 "Είσαι σίγουρος οτι θέλεις να τροποποιήσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
         if (edit == JOptionPane.YES_NO_OPTION) {
             //απενεργοποίηση κουμπιών και ενεργοποίηση των πεδίων προς τροποποίηση
-            saveEdited.setEnabled(true);
-            saveButton.setEnabled(false);
-            editButton.setEnabled(false);
-            deleteButton.setEnabled(false);
-            mealsArea.setEditable(true);
-            category.setEditable(true);
+            SaveEdited.setEnabled(true);
+            SaveButton.setEnabled(false);
+            EditButton.setEnabled(false);
+            DeleteButton.setEnabled(false);
+            mealsName.setEditable(true);
+            categories.setEditable(true);
             Area.setEditable(true);
             Instructions.setEditable(true);
         }
