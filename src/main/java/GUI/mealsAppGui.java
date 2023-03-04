@@ -59,6 +59,9 @@ public class mealsAppGui extends JFrame {
         areaJLabel.setVisible(false);
         instructionsJLabel.setVisible(false);
         jScrollInsrt.setVisible(false);
+        EditButton.setEnabled(false);
+        DeleteButton.setEnabled(false);
+        SaveEdited.setEnabled(false);
         Buttons();
 
         //Κλήση κουμπιών (τα οποία είναι JLabel) που είναι bound με το .form

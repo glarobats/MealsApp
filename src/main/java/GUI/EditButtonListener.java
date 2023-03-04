@@ -23,6 +23,8 @@ public class EditButtonListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        mealsAppGui gui = mealsAppGui.getInstance();
+        if(gui.getEditButton().isEnabled()){
         super.mouseClicked(e);
         int edit = JOptionPane.showConfirmDialog(null,
                 "Είσαι σίγουρος οτι θέλεις να τροποποιήσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
@@ -37,5 +39,6 @@ public class EditButtonListener extends MouseAdapter {
             Area.setEditable(true);
             Instructions.setEditable(true);
         }
+    }
     }
 }

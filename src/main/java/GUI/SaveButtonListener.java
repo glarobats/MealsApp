@@ -19,17 +19,20 @@ public class SaveButtonListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        mealsAppGui gui = mealsAppGui.getInstance();
         //Εάν πατηθεί το κουμπί τότε έλεγχος εάν υπάρχει ήδη στη ΒΔ και μετά χρήση της μεθόδου για σώσιμο στον
         //πίνακα SAVED
-        super.mouseClicked(e);
-        if (!Database.idSearchInSAVED(dataButton.getMealId())) {
-            int save = JOptionPane.showConfirmDialog(null,
-                    "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
-            if (save == JOptionPane.YES_NO_OPTION) {
-                Database.saveToNewTable(dataButton.getMealId());
-                EditButton.setEnabled(true);
-                DeleteButton.setEnabled(true);
-                SaveButton.setEnabled(false);
+        if (gui.getSaveButton().isEnabled()) {
+            super.mouseClicked(e);
+            if (!Database.idSearchInSAVED(dataButton.getMealId())) {
+                int save = JOptionPane.showConfirmDialog(null,
+                        "Είσαι σίγουρος οτι θέλεις να αποθηκεύσεις το γεύμα?", "Επίλεξε", JOptionPane.YES_NO_OPTION);
+                if (save == JOptionPane.YES_NO_OPTION) {
+                    Database.saveToNewTable(dataButton.getMealId());
+                    EditButton.setEnabled(true);
+                    DeleteButton.setEnabled(true);
+                    SaveButton.setEnabled(false);
+                }
             }
         }
     }

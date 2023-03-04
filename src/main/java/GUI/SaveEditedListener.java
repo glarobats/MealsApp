@@ -30,6 +30,8 @@ public class SaveEditedListener extends MouseAdapter {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        mealsAppGui gui = mealsAppGui.getInstance();
+        if(gui.getSaveEdited().isEnabled()){
         super.mouseClicked(e);
         int ID = dataButton.getMealId();
         try {
@@ -59,5 +61,6 @@ public class SaveEditedListener extends MouseAdapter {
         } catch (SQLException exception) {
             System.out.println(exception.getLocalizedMessage());
         }
+    }
     }
 }

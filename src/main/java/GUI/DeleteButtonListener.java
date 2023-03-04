@@ -20,6 +20,8 @@ public class DeleteButtonListener extends MouseAdapter {
     @Override
     public void mouseClicked(MouseEvent e) {
         //Εάν πατηθεί το κουμπί τότε διαγράφεται απο τον πίνακα SAVED
+        mealsAppGui gui = mealsAppGui.getInstance();
+        if(gui.getDeleteButton().isEnabled()){
         super.mouseClicked(e);
         if (Database.idSearchInSAVED(dataButton.getMealId())) {
             Database.deleteSavedTable(dataButton.getMealId());
@@ -27,5 +29,6 @@ public class DeleteButtonListener extends MouseAdapter {
             EditButton.setEnabled(false);
             SaveButton.setEnabled(true);
         }
+    }
     }
 }
