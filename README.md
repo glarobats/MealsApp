@@ -18,3 +18,5 @@ The main goal of the project is to design a user-friendly Graphical User Interfa
 
 The graphical environment includes appropriate icons for proper navigation within the application, as well as informational and confirmation messages regarding the execution of critical actions.
 
+To download and run this app go to releases:
+https://github.com/glarobats/MealsApp/releases/tag/mealsApp

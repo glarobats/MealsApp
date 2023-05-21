@@ -4,29 +4,18 @@ import Pdf.Chart;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class BarListener extends MouseAdapter {
-    private final JPanel rightSidePanel, statsPanel, JPanelForButChar,JPanelForCharts,mainPanel;
-    private final JLabel Pie, Bar;
+public class BarListener extends Listener {
 
-
-    public BarListener(JPanel rightSidePanel, JPanel statsPanel, JPanel JPanelForButChar,
-                       JPanel JPanelForCharts, JLabel Pie, JLabel Bar, JPanel mainPanel) {
-        this.rightSidePanel = rightSidePanel;
-        this.statsPanel = statsPanel;
-        this.JPanelForButChar = JPanelForButChar;
-        this.JPanelForCharts = JPanelForCharts;
-        this.Pie = Pie;
-        this.Bar = Bar;
-        this.mainPanel = mainPanel;
+    public BarListener(JPanel rightSidePanel, JPanel statsPanel, JPanel jPanelForButChar, JPanel jPanelForCharts,
+                       JPanel mainPanel, JLabel pie, JLabel bar) {
+        super(rightSidePanel, statsPanel, jPanelForButChar, jPanelForCharts, mainPanel, pie, bar);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
         //Εφόσον πατηθεί το κουμπί "κλείνουν" τα πάνελ και ανοίγουν μόνο αυτά που χρειάζονται
-        super.mouseClicked(e);
         Chart statistika = new Chart();
         rightSidePanel.removeAll();
         JPanelForCharts.removeAll();

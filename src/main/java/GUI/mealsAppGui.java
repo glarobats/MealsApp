@@ -67,13 +67,14 @@ public class mealsAppGui extends JFrame {
         //Κλήση κουμπιών (τα οποία είναι JLabel) που είναι bound με το .form
         Print.addMouseListener(new PrintListener());
 
-        PieListener pieListener = new PieListener(rightSidePanel, statsPanel, JPanelForButChar,
-                JPanelForCharts, Pie, Bar, mainPanel);
+        Listener pieListener = new PieListener(rightSidePanel, statsPanel, JPanelForButChar,
+                JPanelForCharts, mainPanel, Pie, Bar);
         Pie.addMouseListener(pieListener);
 
-        BarListener barListener = new BarListener(rightSidePanel, statsPanel, JPanelForButChar,
-                JPanelForCharts, Pie, Bar, mainPanel);
+        Listener barListener = new BarListener(rightSidePanel, statsPanel, JPanelForButChar,
+                JPanelForCharts, mainPanel, Pie, Bar);
         Bar.addMouseListener(barListener);
+
 
         SaveButtonListener saveButtonListener = new SaveButtonListener(SaveButton, EditButton, DeleteButton, dataButton);
         SaveButton.addMouseListener(saveButtonListener);
